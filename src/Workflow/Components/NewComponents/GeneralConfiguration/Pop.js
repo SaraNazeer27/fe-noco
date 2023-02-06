@@ -26,7 +26,7 @@ export default function Pop() {
     <>
       <div className="token-flex">
         <div className="token-box" onClick={toggleModal}>
-          click to add event..
+          click to add event...
         </div>{" "}
         &nbsp;&nbsp;&nbsp;
         <div className="token" onClick={toggleModal}>
