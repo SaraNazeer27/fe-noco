@@ -1,0 +1,168 @@
+body.active-modal {
+  overflow-y: hidden;
+}
+/* 
+.btn-modal {
+  padding: 10px 20px;
+  display: block;
+  margin: 100px auto 0;
+  font-size: 18px;
+} */
+
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+.modal-content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #f1f1f1;
+  padding: 14px 28px;
+  border-radius: 3px;
+  max-width: 300px;
+  min-width: 250px;
+  min-height: 250px;
+  max-height: 200px;
+  background-color: rgb(220, 165, 202);
+  border: 2px solid rgb(220, 165, 202);
+  box-shadow: 0 2px 8px rgb(232, 153, 218);
+  /* height: 250px; */
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 7px;
+}
+
+.ele1,
+.ele2,
+.ele3 {
+  line-height: 38px;
+  /* background-color: rgb(45, 44, 44); */
+}
+
+.ele1:hover {
+  display: flexbox;
+  background-color: rgb(167, 166, 166);
+  width: 250px;
+}
+
+.ele2:hover {
+  display: flexbox;
+  background-color: rgb(167, 166, 166);
+  width: 250px;
+}
+
+.ele3:hover {
+  display: flexbox;
+  background-color: rgb(167, 166, 166);
+  width: 250px;
+}
+.token-box:hover {
+  border: 1px solid rgb(15, 14, 14);
+}
+
+.token-flex {
+  display: flex;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  align-items: center;
+  border-radius: 12px;
+  background-color: rgb(199, 170, 196);
+
+  box-shadow: 0 2px 8px rgb(214, 158, 197);
+}
+
+.token-box {
+  color: rgb(13, 1, 1);
+  border: 1px dashed rgb(4, 0, 0);
+  display: table-cell;
+  vertical-align: middle;
+  line-height: 20px;
+  width: 140px;
+  height: 140px;
+  font-size: 15px;
+  text-align: center;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  cursor: pointer;
+
+  background-color: white;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 15px 16px;
+  text-decoration: none;
+  display: block;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  overflow: hidden;
+  cursor: pointer;
+  width: 200px;
+  scroll-behavior: smooth;
+}
+
+.dropdown-content a:hover {
+  background-color: rgb(235, 195, 227);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: rgb(217, 215, 215);
+  min-width: 60px;
+  box-shadow: 0px 2px 8px rgba(5, 4, 4, 0.2);
+  z-index: 1;
+  border: 2px solid rgb(215, 214, 215);
+}
+
+.dropdown-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* .dropdown:hover .dropbtn {background-color: #3e8e41;} */
+
+.trash {
+  position: relative;
+  bottom: -110px;
+}
+
+.token {
+  color: rgb(13, 1, 1);
+  border: 1px solid rgb(4, 0, 0);
+  display: table-cell;
+  vertical-align: middle;
+  line-height: 20px;
+  width: 140px;
+  width: 140px;
+  height: 140px;
+  font-size: 15px;
+  text-align: center;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  cursor: pointer;
+
+  background-color: rgb(190, 244, 236);
+}
