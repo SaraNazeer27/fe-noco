@@ -10,7 +10,7 @@ import MyComponent from "./components/MyComponent";
 import AlignmentExample from "./components/AlignmentExample";
 import Table from "./components/Table";
 function App() {
-  
+
   const user = localStorage.getItem("token");
 
   return (
@@ -24,7 +24,8 @@ function App() {
 			<Route path="/" element={<Navigate replace to="/ForgotPassword" />} />
 			<Route path="/ResetPassword" exact element={<ResetPassword />} />
 			<Route path="/" element={<Navigate replace to="/ResetPassword" />} />
-			<Route path="/Popup" exact element={<Popup />} />
+			<Route path="/Popup" exact element={<Popup />} />	
+      <Route path="/Popup" exact element={<Popup />} />
 			<Route path="/TextBox" exact element={<TextBox />} />
 			<Route path="/MyComponent" exact element={<MyComponent />} />
 			<Route path="/AlignmentExample" exact element={<AlignmentExample />} />
