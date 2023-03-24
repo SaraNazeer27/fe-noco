@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
+import Main from "./components/Main";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
+import Popup from "./components/Popups";
+import TextBox from "./components/TextBox";
+import MyComponent from "./components/MyComponent";
+import AlignmentExample from "./components/AlignmentExample";
+import Table from "./components/Table";
 function App() {
+  
+  const user = localStorage.getItem("token");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+		<Routes>
+			{user && <Route path="/" exact element={<Main />} />}
+			<Route path="/signup" exact element={<Signup />} />
+			<Route path="/login" exact element={<Login />} />
+			<Route path="/" element={<Navigate replace to="/login" />} />
+			<Route path="/ForgotPassword" exact element={<ForgotPassword />} />
+			<Route path="/" element={<Navigate replace to="/ForgotPassword" />} />
+			<Route path="/ResetPassword" exact element={<ResetPassword />} />
+			<Route path="/" element={<Navigate replace to="/ResetPassword" />} />
+			<Route path="/Popup" exact element={<Popup />} />
+			<Route path="/TextBox" exact element={<TextBox />} />
+			<Route path="/MyComponent" exact element={<MyComponent />} />
+			<Route path="/AlignmentExample" exact element={<AlignmentExample />} />
+			<Route path="/Table" exact element={<Table />} />
+		</Routes>
+		</BrowserRouter>
   );
 }
 
