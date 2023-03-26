@@ -5,10 +5,10 @@ import styles from "./styles.module.css";
 
 const Signup = () => {
   const [data, setData] = useState({
-    Name: "",
+    name: "",
     email: "",
     password: "",
-	confirmPassword: "",
+	  confirmPassword: "",
   });
 
   const [error, setError] = useState("");
@@ -22,9 +22,9 @@ const Signup = () => {
     e.preventDefault();
     try {
       const url = "http://localhost:3001/api/signup";
-      const response = await axios.post(url, data);
+      const { data: res } = await axios.post(url, data);
       navigate("/login");
-      console.log(response.data.message);
+      console.log(res.data.message);
     } catch (error) {
       if (
         error.response &&
@@ -46,9 +46,9 @@ const Signup = () => {
             <input
               type="text"
               placeholder="Name"
-              name="Name"
+              name="name"
               onChange={handleChange}
-              value={data.UserName}
+              value={data.name}
               required
               className={styles.input}
             />

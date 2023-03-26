@@ -9,6 +9,8 @@ import TextBox from "./components/TextBox";
 import MyComponent from "./components/MyComponent";
 import AlignmentExample from "./components/AlignmentExample";
 import Table from "./components/Table";
+import Dashboard from "./components/Dashboard";
+
 function App() {
 
   const user = localStorage.getItem("token");
@@ -30,6 +32,8 @@ function App() {
 			<Route path="/MyComponent" exact element={<MyComponent />} />
 			<Route path="/AlignmentExample" exact element={<AlignmentExample />} />
 			<Route path="/Table" exact element={<Table />} />
+			<Route path="/dashboard" exact element={<Dashboard />} />
+			
 		</Routes>
 		</BrowserRouter>
   );
