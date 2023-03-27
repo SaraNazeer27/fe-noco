@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../Navbar/Nav";
 import "./Dashboard.css";
 
+
 const Dashboard = () => {
   return (
     <>
@@ -13,7 +14,7 @@ const Dashboard = () => {
         <div className="template">
           <div className="content">
             <div className="content-card">
-            <i class="bi bi-plus-circle"><Link to="/login"> + </Link></i>
+            <i class="bi bi-plus-circle"><Link to="/TextBox"> + </Link></i>
                 
             </div>
             <div className="content-card">templ</div>

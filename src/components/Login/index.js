@@ -3,31 +3,19 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 
-//Signup component
-const Signup = () => {
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
+//Login component
+const Login = () => {
+  const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleChange = ({ currentTarget: input }) => {
-    setData({ ...data, [input.name]: input.value });
-  };
-
-
-  //Api call to signup
+//Api call to login
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:3001/api/signup";
-      const { data: res } = await axios.post(url, data);
-      navigate("/login");
-      console.log(res.data.message);
+      const url = "http://localhost:3001/api/auth";
+      const { data:res } = await axios.post(url, data);
+	  navigate("/Dashboard");
     } catch (error) {
       if (
         error.response &&
@@ -39,24 +27,17 @@ const Signup = () => {
     }
   };
 
+  const handleChange = ({ currentTarget: input }) => {
+    setData({ ...data, [input.name]: input.value });
+  };
 
-  //Form to signup
+  //Form to login
   return (
-    <div className={styles.signup_container}>
-      <div className={styles.signup_form_container}>
-        <div className={styles.right}>
+    <div className={styles.login_container}>
+      <div className={styles.login_form_container}>
+        <div className={styles.left}>
           <form className={styles.form_container} onSubmit={handleSubmit}>
-            <h1>Create Account</h1>
-            <input
-              type="text"
-              placeholder="Name"
-              name="name"
-              onChange={handleChange}
-              value={data.name}
-              required
-              className={styles.input}
-            />
-
+            <h1>Login </h1>
             <input
               type="email"
               placeholder="Email"
@@ -75,22 +56,13 @@ const Signup = () => {
               required
               className={styles.input}
             />
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              name="confirmPassword"
-              onChange={handleChange}
-              value={data.confirmPassword}
-              required
-              className={styles.input}
-            />
-            <p>
-              Already have account? <Link to="/login">Login</Link>
-            </p>
 
+            <div className={styles.right}>
+              <Link to="/ForgotPassword">ForgotPassword?</Link>
+            </div>
             {error && <div className={styles.error_msg}>{error}</div>}
             <button type="submit" className={styles.green_btn}>
-              Sign Up
+              Login
             </button>
           </form>
         </div>
@@ -99,4 +71,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
