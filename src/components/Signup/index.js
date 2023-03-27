@@ -5,12 +5,41 @@ import styles from "./styles.module.css";
 
 //Signup component
 const Signup = () => {
+
+  const [errors, setErrors] = useState({});
+
+
+  const validate = () => {
+    const errors = {};
+    if (!data.name.trim()) {
+      errors.name = "Name is required";
+    }
+    if (!data.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+      errors.email = "Email is invalid";
+    }
+    if (!data.password.trim()) {
+      errors.password = "Password is required";
+    } else if (data.password.trim().length < 8) {
+      errors.password = "Password must be at least 8 characters long";
+    }
+    if (!data.confirmPassword.trim()) {
+      errors.confirmPassword = "Confirm Password is required";
+    } else if (data.confirmPassword !== data.password) {
+      errors.confirmPassword = "Passwords do not match";
+    }
+    return errors;
+  };
+
+
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -23,19 +52,24 @@ const Signup = () => {
   //Api call to signup
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const url = "http://localhost:3001/api/signup";
-      const { data: res } = await axios.post(url, data);
-      navigate("/login");
-      console.log(res.data.message);
-    } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
-        setError(error.response.data.message);
+    const errors = validate();
+    if (Object.keys(errors).length === 0) {
+      try {
+        const url = "http://localhost:3001/api/signup";
+        const { data: res } = await axios.post(url, data);
+        navigate("/login");
+        console.log(res.data.message);
+      } catch (error) {
+        if (
+          error.response &&
+          error.response.status >= 400 &&
+          error.response.status <= 500
+        ) {
+          setErrors({ message: error.response.data.message });
+        }
       }
+    } else {
+      setErrors(errors);
     }
   };
 
@@ -56,6 +90,9 @@ const Signup = () => {
               required
               className={styles.input}
             />
+             {errors.name && (
+                <div className={styles.error_msg}>{errors.name}</div>
+              )}
 
             <input
               type="email"
@@ -66,6 +103,10 @@ const Signup = () => {
               required
               className={styles.input}
             />
+             {errors.email && (
+                <div className={styles.error_msg}>{errors.email}</div>
+              )}
+
             <input
               type="password"
               placeholder="Password"
@@ -75,6 +116,9 @@ const Signup = () => {
               required
               className={styles.input}
             />
+             {errors.password && (
+                <div className={styles.error_msg}>{errors.password}</div>
+              )}
             <input
               type="password"
               placeholder="Confirm Password"
@@ -84,6 +128,9 @@ const Signup = () => {
               required
               className={styles.input}
             />
+             {errors.confirmPassword && (
+                <div className={styles.error_msg}>{errors.confirmPassword}</div>
+              )}
             <p>
               Already have account? <Link to="/login">Login</Link>
             </p>
