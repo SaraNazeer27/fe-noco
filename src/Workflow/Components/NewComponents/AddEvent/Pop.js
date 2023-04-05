@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { FaUserCircle, FaElementor } from "react-icons/fa";
+// import { GrAppsRounded } from "react-icons/gr";
 import { MdOutlineSettingsSuggest } from "react-icons/md";
 import ElementClicked from "./GeneralConfiguration/ElementClicked";
 import Modal from "./GeneralConfiguration/Modal";
-import UserLoggedIn from "./GeneralConfiguration/UserLoggedIn";
-import UserLoggedOut from "./GeneralConfiguration/UserLoggedOut";
+// import UserLoggedIn from "./GeneralConfiguration/UserLoggedIn";
+// import UserLoggedOut from "./GeneralConfiguration/UserLoggedOut";
 import "./Pop.css";
 
 export default function Pop() {
@@ -15,9 +16,9 @@ export default function Pop() {
     setModal(!modal);
   };
 
-  const handleOptionClick = () => {
-    setShowModal(true);
-  };
+  // const handleOptionClick = () => {
+  //   setShowModal(true);
+  // };
 
   const openModal = () => {
     setShowModal(true);
