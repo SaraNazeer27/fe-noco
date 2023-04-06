@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./LogIn.css";
+import MultipleClick from './MultipleClick';
 
 export default function LogIn() {
   const [selectedOption, setSelectedOption] = useState("");
@@ -30,7 +31,7 @@ export default function LogIn() {
         </select>
       </div>
       <div>
-        <label htmlFor="options">Only when:</label> &nbsp;&nbsp;&nbsp;
+        <label htmlFor="options">Only when: <MultipleClick/></label> &nbsp;&nbsp;&nbsp;
       </div>
     </div>
   );

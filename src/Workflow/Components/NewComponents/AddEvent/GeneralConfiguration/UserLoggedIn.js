@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./UserLoggedIn.css";
+import MultipleClick from "./MultipleClick";
 
 export default function UserLoggedIn() {
   const [selectedOption, setSelectedOption] = useState("");
@@ -25,7 +26,9 @@ export default function UserLoggedIn() {
         </select>
       </div>
       <div>
-        <lable>Only when:</lable> &nbsp;&nbsp;&nbsp;
+        <lable>Only when:
+          <MultipleClick/>
+          </lable> &nbsp;&nbsp;&nbsp;
       </div>
       <div>
         <label>Disable workflow:</label> &nbsp;&nbsp;&nbsp;

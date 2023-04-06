@@ -10,7 +10,7 @@ export default function UserLoggedOut() {
 
   return (
     <div className="newFolder">
-      <h3>User is Logged in </h3>
+      <h3>User is Logged out </h3>
       <div>
         <label htmlFor="options">Event color:</label> &nbsp;&nbsp;&nbsp;
         <select

@@ -1,26 +1,69 @@
 import React, { useState } from "react";
-import { FaUserCircle, FaElementor } from "react-icons/fa";
-// import { GrAppsRounded } from "react-icons/gr";
-import { MdOutlineSettingsSuggest } from "react-icons/md";
-import ElementClicked from "./GeneralConfiguration/ElementClicked";
-import Modal from "./GeneralConfiguration/Modal";
+// import { FaUserCircle, FaElementor } from "react-icons/fa";
+// import { MdOutlineSettingsSuggest } from "react-icons/md";
+// import ElementClicked from "./GeneralConfiguration/ElementClicked";
+
 // import UserLoggedIn from "./GeneralConfiguration/UserLoggedIn";
 // import UserLoggedOut from "./GeneralConfiguration/UserLoggedOut";
+// import ConditionTrue from "./GeneralConfiguration/ConditionTrue";
+// import ErrorOccurs from "./GeneralConfiguration/ErrorOccurs";
+
 import "./Pop.css";
+import EventConfiguration from "../../EventConfiguration/EventConfiguration";
+
+const EVENT_TYPES = [
+  {
+    id: 1,
+    type: "General",
+    subTypes: [
+      {
+        id: 11,
+        name: "User is logged in",
+        configurationFields:[
+          {
+            key:1,
+            label:"Event color",
+            fieldType:"dropdown", //input number text
+            options:[
+              {
+                displayValue:"Blue",
+                value:"Blue"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 21,
+        name: "User is logged out"
+      }
+    ]
+  },
+  {
+    id: 2,
+    type: "Element"
+  },
+  {
+    id: 3,
+    type: "Custom"
+  }
+];
+
 
 export default function Pop() {
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
+  const [eventTypes, setEventTypes] = useState(EVENT_TYPES);
+  const [selectedType, setSelectedType] = useState({});
   const toggleModal = () => {
     setModal(!modal);
   };
 
-  // const handleOptionClick = () => {
-  //   setShowModal(true);
-  // };
 
-  const openModal = () => {
+  
+  const openModal = (selectedType) =>()=> {
+    console.log(selectedType)
+    setSelectedType({...selectedType})
     setShowModal(true);
   };
 
@@ -51,63 +94,26 @@ export default function Pop() {
 
       {modal && (
         <div className="modal">
-          <div onClick={toggleModal} className="overlay"></div>
+          {/* <div onClick={toggleModal} className="overlay"></div> */}
           <div className="modal-content">
             <ul>
-              <div className="dropdown">
-                <div className="ele1">
-                  <FaUserCircle /> &nbsp;&nbsp;&nbsp; General
-                  <ul className="dropdown-content">
-                    <li>
-                      <Modal></Modal>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <br></br>
-              <hr></hr>
+              {eventTypes.map(eventType => (
 
-              <div className="dropdown">
-                <div className="ele1">
-                  <FaElementor /> &nbsp;&nbsp;&nbsp; Element
-                  <ul className="dropdown-content">
-                    <li>
-                      <div>
-                        <li onClick={openModal}>An Element is clicked</li>{" "}
-                        {showModal ? (
-                          <div className="modal">
-                            <div className="modal-content">
-                              <span className="close" onClick={closeModal}>
-                                &times;
-                              </span>
-
-                              <ElementClicked></ElementClicked>
-                            </div>
-                          </div>
-                        ) : null}
-                      </div>
-                    </li>
-                    <li>A popup is closed</li>
-                    <li>A popup is opened</li>
-                  </ul>
+                <div className="dropdown" key={eventType.id}>
+                  <div className="ele1">
+                    {eventType.type}
+                    {eventType.subTypes && <ul className="dropdown-content">
+                      {eventType.subTypes.map(subType => (
+                        <li key={subType.id} onClick={openModal(subType)}>{subType.name}</li>))}
+                    </ul>}
+                  </div>
                 </div>
-              </div>
-              <br></br>
-
-              <hr></hr>
-              <div className="dropdown">
-                <div className="ele3">
-                  <MdOutlineSettingsSuggest /> &nbsp;&nbsp;&nbsp; Custom
-                  <ul className="dropdown-content">
-                    <li>Create a custom event..</li>
-                  </ul>
-                  <br></br>
-                </div>
-              </div>
+              ))}
             </ul>
           </div>
         </div>
       )}
+      {showModal && <EventConfiguration selectedType={selectedType} />}
     </>
   );
 }

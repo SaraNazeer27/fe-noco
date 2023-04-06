@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./ElementClicked.css";
+import MultipleClick from "./MultipleClick";
 
 export default function ElementClicked() {
   const [selectedOption, setSelectedOption] = useState("");
@@ -38,7 +39,11 @@ export default function ElementClicked() {
         </select>
       </div>
       <div>
-        <lable>Only when:</lable> &nbsp;&nbsp;&nbsp;
+        <lable>Only when:
+          <div className="mul">
+          <MultipleClick/>
+          </div>
+         </lable> &nbsp;&nbsp;&nbsp;
       </div>
       <div>
         <label>Disable workflow:</label> &nbsp;&nbsp;&nbsp;
