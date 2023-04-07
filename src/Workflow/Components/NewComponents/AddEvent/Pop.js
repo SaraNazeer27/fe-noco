@@ -1,15 +1,7 @@
-import React, { useState } from "react";
-// import { FaUserCircle, FaElementor } from "react-icons/fa";
-// import { MdOutlineSettingsSuggest } from "react-icons/md";
-// import ElementClicked from "./GeneralConfiguration/ElementClicked";
-
-// import UserLoggedIn from "./GeneralConfiguration/UserLoggedIn";
-// import UserLoggedOut from "./GeneralConfiguration/UserLoggedOut";
-// import ConditionTrue from "./GeneralConfiguration/ConditionTrue";
-// import ErrorOccurs from "./GeneralConfiguration/ErrorOccurs";
-
+import React, { useState,useEffect,useRef } from "react";
 import "./Pop.css";
 import EventConfiguration from "../../EventConfiguration/EventConfiguration";
+import EventList from "../../EventList/EventList";
 
 const EVENT_TYPES = [
   {
@@ -176,12 +168,19 @@ const EVENT_TYPES = [
   },
 ];
 
+const ADDED_EVENTS = [];
+
 export default function Pop() {
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [eventTypes, setEventTypes] = useState(EVENT_TYPES);
   const [selectedType, setSelectedType] = useState({});
   const [isClosed, setIsClosed] = useState(false);
+  const [addedEvents,setAddedEvents] = useState(ADDED_EVENTS);
+
+  const closeModalContent = () => {
+    setModal(false);
+  };
 
   const toggleModal = () => {
     setModal(!modal);
@@ -190,6 +189,9 @@ export default function Pop() {
   const openModal = (selectedType) => () => {
     console.log(selectedType);
     setSelectedType({ ...selectedType });
+    setAddedEvents(prevAddedEvents =>{
+      return [selectedType,...prevAddedEvents]
+    })
     setShowModal(true);
   };
 
@@ -203,8 +205,14 @@ export default function Pop() {
     document.body.classList.remove("active-modal");
   }
 
+
+  // const addEventHandler = (tobeAddedEvent) = {
+
+  // }
+
   return (
     <>
+      {addedEvents && <EventList addedEvents={addedEvents} />}
       <div className="token-flex">
         <div className="token-box" onClick={toggleModal}>
           click to add event..
@@ -212,7 +220,7 @@ export default function Pop() {
         &nbsp;&nbsp;&nbsp;
         {modal && (
           <div className="modal">
-            <div onClick={toggleModal} className="overlay"></div>
+            <div onClick={toggleModal} ></div>
             <div className="modal-content"></div>
           </div>
         )}
@@ -220,7 +228,7 @@ export default function Pop() {
       {modal && (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
-          <div className="modal-content">
+          <div className="modal-content" onClick={closeModalContent}>
             <ul>
               {eventTypes.map((eventType) => (
                 <div className="dropdown" key={eventType.id}>
@@ -239,6 +247,9 @@ export default function Pop() {
                 </div>
               ))}
             </ul>
+            <>
+
+    </>
           </div>
         </div>
       )}
@@ -247,3 +258,5 @@ export default function Pop() {
     </>
   );
 }
+
+

@@ -1,4 +1,4 @@
-// import { React, useState } from "react";
+ //import { React, useState } from "react";
 // import { FaTrash } from "react-icons/fa";
 // import "./SavedPop.css";
 // import ActionConfiguration from "../../../ActionConfiguration/ActionConfiguration";
@@ -199,7 +199,7 @@
 //   );
 // }
 
-import { React, useState, useRef, useEffect } from "react";
+import React,{useState, useRef, useEffect } from "react";
 import { FaTrash } from "react-icons/fa";
 import "./SavedPop.css";
 import ActionConfiguration from "../../../ActionConfiguration/ActionConfiguration";
@@ -352,23 +352,25 @@ export default function SavedPop() {
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
+    return () => {  
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [tokenRef]);
 
+
+
+
+
+
+
   const toggleModal = () => {
     setModal(!modal);
-    showActionTypes(true);
+  
   };
 
-  // const openModal = (selectedType) => () => {
-  //   setSelectedType({ ...selectedType });
-  //   setShowModal(true);
-  // };
+ 
   const openModal = (selectedType) => () => {
-    // console.log(selectedType);
-    // console.log(JSON.stringify(ACTION_TYPES, null, 2)); // added line
+   
     setSelectedType({ ...selectedType });
     setShowModal(true);
   };
@@ -434,3 +436,4 @@ export default function SavedPop() {
     </>
   );
 }
+

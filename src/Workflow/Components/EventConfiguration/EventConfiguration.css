@@ -4,6 +4,12 @@
   height: 200px;
   width: 230px;
   background-color: rgb(208, 215, 219);
+  right: 50%;
+
+  position: absolute;
+  top: 60%;
+  left: 80%;
+  transform: translate(-50%, -50%);
 }
 
 .closeButton {

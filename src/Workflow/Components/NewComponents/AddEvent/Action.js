@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Dropdown, Menu, Icon } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
-import SignIn from "./GeneralConfiguration/SignIn";
+ import "semantic-ui-css/semantic.min.css";
+import "./Action.css";
+import SignIn from '../AddEvent/GeneralConfiguration/SignIn'
 
 const Action = () => {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
-    <SignIn></SignIn>;
+    // <SignIn></SignIn>;
   };
 
   const closeModal = () => {

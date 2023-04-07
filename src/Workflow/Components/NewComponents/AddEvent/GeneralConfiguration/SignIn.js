@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./SignIn.css";
 
-export default function SignIn() {
+const SignIn = () =>{
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleSelectOption = (event) => {
@@ -24,3 +24,5 @@ export default function SignIn() {
     </div>
   );
 }
+
+export default SignIn;
