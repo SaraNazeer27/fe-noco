@@ -22,14 +22,14 @@ body.active-modal {
   left: 50%;
   transform: translate(-50%, -50%);
   line-height: 1.4;
-  background: #f1f1f1;
+  background: #200133;
   padding: 14px 28px;
   border-radius: 3px;
   max-width: 300px;
   min-width: 250px;
   min-height: 250px;
   max-height: 200px;
-  background-color: rgb(220, 165, 202);
+  background-color: rgb(23, 7, 81);
   border: 2px solid rgb(220, 165, 202);
   box-shadow: 0 2px 8px rgb(232, 153, 218);
   /* height: 250px; */
@@ -167,4 +167,8 @@ body.active-modal {
   font-weight: bold;
   color: #aaaaaa;
   cursor: pointer;
+}
+
+.event {
+  border: #740505 solid 20px;
 }

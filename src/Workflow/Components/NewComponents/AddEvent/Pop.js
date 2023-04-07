@@ -19,51 +19,177 @@ const EVENT_TYPES = [
       {
         id: 11,
         name: "User is logged in",
-        configurationFields:[
+        configurationFields: [
           {
-            key:1,
-            label:"Event color",
-            fieldType:"dropdown", //input number text
-            options:[
+            key: 1,
+            label: "Event color",
+            fieldType: "dropdown", //input number text
+            options: [
               {
-                displayValue:"Blue",
-                value:"Blue"
-              }
-            ]
-          }
-        ]
+                displayValue: "Blue",
+                value: "Blue",
+              },
+            ],
+          },
+        ],
       },
       {
         id: 21,
-        name: "User is logged out"
-      }
-    ]
+        name: "User is logged out",
+        configurationFields: [
+          {
+            key: 2,
+            label: "Event color",
+            fieldType: "dropdown",
+            options: [
+              {
+                displayValue: "Blue",
+                value: "Blue",
+              },
+              {
+                displayValue: "Green",
+                value: "Green",
+              },
+              {
+                displayValue: "Yellow",
+                value: "Yellow",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 31,
+        name: "Do when condition is True",
+        configurationFields: [
+          {
+            key: 3,
+            label: "Run this",
+            fieldType: "dropdown",
+            options: [
+              {
+                displayValue: "Just once",
+                value: "Just once",
+              },
+              {
+                displayValue: "Every time",
+                value: "Every time",
+              },
+            ],
+          },
+          {
+            key: 4,
+            label: "Event color",
+            fieldType: "dropdown",
+            options: [
+              {
+                displayValue: "Blue",
+                value: "Blue",
+              },
+              {
+                displayValue: "Green",
+                value: "Green",
+              },
+              {
+                displayValue: "Yellow",
+                value: "Yellow",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 1,
+        name: "An unhandled error occurs",
+        configurationFields: [
+          {
+            key: 1,
+            label: "Event color",
+            fieldType: "dropdown", //input number text
+            options: [
+              {
+                displayValue: "Blue",
+                value: "Blue",
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 2,
-    type: "Element"
+    type: "Element",
+    subTypes: [
+      {
+        id: 12,
+        name: "An Element is clicked",
+        configurationFields: [
+          {
+            key: 1,
+            label: "Element",
+            fieldType: "dropdown", //input number text
+            options: [
+              {
+                displayValue: "",
+                value: "",
+              },
+            ],
+          },
+          {
+            key: 2,
+            label: "Event color",
+            fieldType: "dropdown", //input number text
+            options: [
+              {
+                displayValue: "Blue",
+                value: "Blue",
+              },
+            ],
+          },
+        ],
+      },
+
+      {
+        id: 22,
+        name: "Pop up is closed",
+      },
+      {
+        id: 32,
+        name: "Pop up is opened",
+      },
+      {
+        id: 42,
+        name: "Error occured",
+      },
+    ],
   },
   {
     id: 3,
-    type: "Custom"
-  }
+    type: "Custom",
+    subTypes: [
+      {
+        id: 13,
+        name: "Create a custom event",
+      },
+    ],
+  },
 ];
-
 
 export default function Pop() {
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [eventTypes, setEventTypes] = useState(EVENT_TYPES);
   const [selectedType, setSelectedType] = useState({});
+  const [isClosed, setIsClosed] = useState(false);
+
   const toggleModal = () => {
     setModal(!modal);
   };
 
-
-  
-  const openModal = (selectedType) =>()=> {
-    console.log(selectedType)
-    setSelectedType({...selectedType})
+  const openModal = (selectedType) => () => {
+    console.log(selectedType);
+    setSelectedType({ ...selectedType });
     setShowModal(true);
   };
 
@@ -91,21 +217,24 @@ export default function Pop() {
           </div>
         )}
       </div>
-
       {modal && (
         <div className="modal">
-          {/* <div onClick={toggleModal} className="overlay"></div> */}
+          <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
             <ul>
-              {eventTypes.map(eventType => (
-
+              {eventTypes.map((eventType) => (
                 <div className="dropdown" key={eventType.id}>
                   <div className="ele1">
                     {eventType.type}
-                    {eventType.subTypes && <ul className="dropdown-content">
-                      {eventType.subTypes.map(subType => (
-                        <li key={subType.id} onClick={openModal(subType)}>{subType.name}</li>))}
-                    </ul>}
+                    {eventType.subTypes && (
+                      <ul className="dropdown-content">
+                        {eventType.subTypes.map((subType) => (
+                          <li key={subType.id} onClick={openModal(subType)}>
+                            {subType.name}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 </div>
               ))}
@@ -113,6 +242,7 @@ export default function Pop() {
           </div>
         </div>
       )}
+
       {showModal && <EventConfiguration selectedType={selectedType} />}
     </>
   );

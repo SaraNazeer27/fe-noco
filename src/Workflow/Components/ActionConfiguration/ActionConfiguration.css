@@ -1,0 +1,11 @@
+.actionConfigurationContainer {
+  border: 1px solid rgb(145, 141, 141);
+  padding: 10px;
+  height: 200px;
+  width: 230px;
+  background-color: rgb(208, 215, 219);
+}
+
+.closeButton {
+  float: right;
+}
