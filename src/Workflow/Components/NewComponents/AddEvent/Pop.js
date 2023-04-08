@@ -205,9 +205,16 @@ export default function Pop() {
 
   // }
 
+  const onEventClick = (selectedType) => {
+    console.log(selectedType);
+    setSelectedType({ ...selectedType });
+  };
+
   return (
     <>
-      {addedEvents && <EventList addedEvents={addedEvents} />}
+      {addedEvents && (
+        <EventList onEventClick={onEventClick} addedEvents={addedEvents} />
+      )}
       <div className="token-flex">
         <div className="token-box" onClick={toggleModal}>
           click to add event..

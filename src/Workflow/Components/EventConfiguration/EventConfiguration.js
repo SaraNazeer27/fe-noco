@@ -53,6 +53,7 @@
 
 // export default EventConfiguration;
 
+// Correct Code
 import React, { useState, useEffect } from "react";
 import "./EventConfiguration.css";
 

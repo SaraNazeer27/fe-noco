@@ -29,3 +29,13 @@
 
   background-color: white;
 }
+
+.position-relative {
+  position: relative;
+}
+
+.faReg {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
