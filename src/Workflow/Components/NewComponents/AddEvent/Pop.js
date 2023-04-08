@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useRef } from "react";
+import React, { useState } from "react";
 import "./Pop.css";
 import EventConfiguration from "../../EventConfiguration/EventConfiguration";
 import EventList from "../../EventList/EventList";
@@ -175,8 +175,8 @@ export default function Pop() {
   const [showModal, setShowModal] = useState(false);
   const [eventTypes, setEventTypes] = useState(EVENT_TYPES);
   const [selectedType, setSelectedType] = useState({});
-  const [isClosed, setIsClosed] = useState(false);
-  const [addedEvents,setAddedEvents] = useState(ADDED_EVENTS);
+
+  const [addedEvents, setAddedEvents] = useState(ADDED_EVENTS);
 
   const closeModalContent = () => {
     setModal(false);
@@ -189,14 +189,10 @@ export default function Pop() {
   const openModal = (selectedType) => () => {
     console.log(selectedType);
     setSelectedType({ ...selectedType });
-    setAddedEvents(prevAddedEvents =>{
-      return [selectedType,...prevAddedEvents]
-    })
+    setAddedEvents((prevAddedEvents) => {
+      return [selectedType, ...prevAddedEvents];
+    });
     setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
   };
 
   if (modal) {
@@ -204,7 +200,6 @@ export default function Pop() {
   } else {
     document.body.classList.remove("active-modal");
   }
-
 
   // const addEventHandler = (tobeAddedEvent) = {
 
@@ -220,7 +215,7 @@ export default function Pop() {
         &nbsp;&nbsp;&nbsp;
         {modal && (
           <div className="modal">
-            <div onClick={toggleModal} ></div>
+            <div onClick={toggleModal}></div>
             <div className="modal-content"></div>
           </div>
         )}
@@ -247,9 +242,7 @@ export default function Pop() {
                 </div>
               ))}
             </ul>
-            <>
-
-    </>
+            <></>
           </div>
         </div>
       )}
@@ -258,5 +251,3 @@ export default function Pop() {
     </>
   );
 }
-
-
