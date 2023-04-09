@@ -1,60 +1,98 @@
-import { useState } from "react";
-import "./styles.css";
+import React from 'react';
+import { FaUndo, FaRedo, FaSave, FaEye, FaCog } from 'react-icons/fa';
+import styled from 'styled-components';
 
-export default function Navbar() {
-  const [isNavExpanded, setIsNavExpanded] = useState(false);
 
+
+const Navbar = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #efbefe;
+  height: 40px;
+  padding: 0 20px;
+`;
+
+const Logo = styled.div`
+  font-size: 25px;
+  font-weight: bold;
+  
+  
+  
+`;
+
+const Tabs = styled.ul`
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+
+  
+`;
+
+const Tab = styled.li`
+  margin: 0 10px;
+  font-size: 18px;
+`;
+
+const Icon = styled.span`
+  display: inline-block;
+  margin-right: 5px;
+`;
+
+const Navigation = (props) => {
   return (
-    <nav className="navigation">
-      <a href="/" className="brand-name">
-       noco
-      </a>
+    <Navbar>
+      <Logo>noco</Logo>
+      <Tabs>
       <button
-        className="hamburger"
-        onClick={() => {
-          setIsNavExpanded(!isNavExpanded);
-        }}
-      >
-        {/* icon from Heroicons.com */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="white"
-        >
-          <path
-            fillRule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
-            clipRule="evenodd"
-          />
-        </svg>
+        type="button"
+        className={`btn ${props.activeTab === 0 ? "active-button" : ""}`}
+        onClick={() => props.onChangeActiveTab(0)}>
+        <Tab>PAGES</Tab>
       </button>
-      <div
-        className={
-          isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
-        }
-      >
-        <ul>
-          <li>
-            <a href="/page">Page</a>
-          </li>
-          <li>
-            <a href="/saved">Saved</a>
-          </li>
-          <li>
-            <a href="/undo">Undo</a>
-          </li>
-          <li>
-            <a href="/redo">Redo</a>
-          </li>
-          <li>
-            <a href="/deploy">Deploy</a>
-          </li>
-          <li>
-            <a href="/preview">Preview</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+      <button
+        type="button"
+        className={`btn ${props.activeTab === 1 ? "active-button" : ""}`}
+        onClick={() => props.onChangeActiveTab(1)}>
+        <Icon><FaSave /></Icon>
+        
+      </button>
+      <button
+        type="button"
+        className={`btn ${props.activeTab === 2 ? "active-button" : ""}`}
+        onClick={() => props.onChangeActiveTab(2)}>
+         <Icon><FaUndo /></Icon> 
+        
+      </button>
+      
+      <button
+        type="button"
+        className={`btn ${props.activeTab === 3 ? "active-button" : ""}`}
+        onClick={() => props.onChangeActiveTab(3)}>
+        <Icon><FaRedo /></Icon> 
+        
+      </button> 
+     
+      <button
+        type="button"
+        className={`btn ${props.activeTab === 4 ? "active-button" : ""}`}
+        onClick={() => props.onChangeActiveTab(4)}>
+        <Icon><FaEye /></Icon><Tab>Preview</Tab>
+         
+      </button> 
+      <button
+        type="button"
+        className={`btn ${props.activeTab === 5 ? "active-button" : ""}`}
+        onClick={() => props.onChangeActiveTab(5)}>
+         <Icon><FaCog /></Icon> 
+      </button>  
+         
+      </Tabs>
+    </Navbar>
   );
-}
+};
+
+export default Navigation;
