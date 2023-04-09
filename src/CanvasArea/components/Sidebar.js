@@ -6,20 +6,6 @@ import * as AiIcons from 'react-icons/ai';
 import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
-//import Navbar from './Navbar/Nav';
-//import { NavLink, Bars, NavMenu, NavBtn,NavBtnLink } from './Navbar/NavbarElements';
-
- /*const nav_header = styled.nav`
-  background: #e097f7;
-  height: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items:baseline;
-  z-index: 12;
-  justify-content: space-between;
-  pading:4rem; 
-  font-size: 19px;
-`;*/
 
 const NavIcon = styled(Link)`
   margin-left: 1rem;
@@ -33,15 +19,15 @@ const NavIcon = styled(Link)`
 //about sidebar
 const SidebarNav = styled.nav`
   background: #efbefe;
-  width: 180px;
+  width: 150px;
   height: 100vh;
   display: flex;
   justify-content: center;
   position: fixed;
-  top: 0;
+  top: 0 ;
   left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
   transition: 350ms;
-  z-index: 10;
+  z-index: 0;
 `;
 //about sidebar
 const SidebarWrap = styled.div`
