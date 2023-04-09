@@ -9,7 +9,7 @@ import Table from "./components/Table";
 import Dashboard from "./components/Dashboard";
 // import logo from "./logo.svg";
 import "./App.css";
-// import canvas from "./component/canvas";
+// import Canvas from "./component/canvas";
 function App() {
   <BrowserRouter>
     <Routes>
@@ -27,7 +27,7 @@ function App() {
     </Routes>
   </BrowserRouter>;
 
-  //return <canvas />;
+  //return <Canvas />;
 }
 
 // import './App.css';
