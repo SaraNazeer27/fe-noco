@@ -1,7 +1,11 @@
+//
+
 import React, { useState } from "react";
 import "./Pop.css";
 import EventConfiguration from "../../EventConfiguration/EventConfiguration";
 import EventList from "../../EventList/EventList";
+import EventDetailBar from "../../EventDetailBar/EventDetailBar";
+import EventDetailConfiguration from "../../EventDetailConfiguration/EventDetailConfiguration";
 
 const EVENT_TYPES = [
   {
@@ -175,8 +179,8 @@ export default function Pop() {
   const [showModal, setShowModal] = useState(false);
   const [eventTypes, setEventTypes] = useState(EVENT_TYPES);
   const [selectedType, setSelectedType] = useState({});
-
   const [addedEvents, setAddedEvents] = useState(ADDED_EVENTS);
+  const [eventdetail, setEventDetail] = useState(false);
 
   const closeModalContent = () => {
     setModal(false);
@@ -208,6 +212,7 @@ export default function Pop() {
   const onEventClick = (selectedType) => {
     console.log(selectedType);
     setSelectedType({ ...selectedType });
+    setEventDetail(true);
   };
 
   return (
@@ -215,6 +220,7 @@ export default function Pop() {
       {addedEvents && (
         <EventList onEventClick={onEventClick} addedEvents={addedEvents} />
       )}
+      {eventdetail && <EventDetailBar />}
       <div className="token-flex">
         <div className="token-box" onClick={toggleModal}>
           click to add event..

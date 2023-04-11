@@ -1,4 +1,4 @@
-.actionConfigurationContainer {
+.action {
   border: 1px solid rgb(145, 141, 141);
   padding: 10px;
   height: 200px;
@@ -9,3 +9,9 @@
 .closeButton {
   float: right;
 }
+
+/* .action {
+  background-color: blue;
+  height: 200px;
+  width: 230px;
+} */

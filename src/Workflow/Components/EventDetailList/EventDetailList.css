@@ -1,0 +1,41 @@
+.actionContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.action-flex {
+  display: flex;
+  /* margin-right: 10px; */
+}
+
+.actionSaved {
+  padding: 5px 10px;
+  background-color: #9e0808;
+  border-radius: 4px;
+
+  color: rgb(13, 1, 1);
+  border: 1px solid rgb(4, 0, 0);
+  display: table-cell;
+  vertical-align: middle;
+  line-height: 20px;
+  width: 140px;
+  height: 140px;
+  font-size: 15px;
+  text-align: center;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  cursor: pointer;
+
+  background-color: white;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.faReg {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
