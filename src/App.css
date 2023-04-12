@@ -1,38 +1,96 @@
-.App {
-  text-align: center;
+.distance-indication {
+    display: none;
+    position: fixed;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.horizontal {
+    border-top: 1px solid red;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.vertical {
+    border-left: 1px solid red;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.resizer {
+    width: 7px;
+    height: 7px;
+    background: white;
+    border: 1px solid #0861fa;
+    position: absolute;
 }
 
-.App-link {
-  color: #61dafb;
+#property :hover {
+    color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Code Editor start */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100vh;
+    margin: 3px;
+
+}
+
+.container textarea {
+    background-color: #20232a;
+    /* border: 1px solid #0dddf0; */
+    resize: none;
+    width: 100%;
+    height: 50%;
+    font-size: 1rem;
+    padding: 10px;
+    resize: vertical;
+    overflow-y: scroll;
+    color: white;
+}
+
+.container textarea:focus {
+    outline: none;
+    color: white;
+}
+
+
+#viewer {
+    width: 100%;
+    height: 100%;
+}
+
+.split {
+    width: 100%;
+    height: 100%;
+}
+
+.gutter {
+    cursor: e-resize;
+    height: 100%;
+    background: grey;
+}
+
+.gutter.gutter-horizontal {
+    cursor: ew-resize;
+}
+
+/* Code Editor end */
+.code-editor {
+    display: block !important;
+    position: fixed;
+    width: 400px;
+    height: 100vh;
+    right: 0;
 }
