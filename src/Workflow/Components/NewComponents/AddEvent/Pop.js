@@ -17,7 +17,7 @@ const EVENT_TYPES = [
         name: "User is logged in",
         configurationFields: [
           {
-            key: 1,
+            key: 111,
             label: "Event color",
             fieldType: "dropdown", //input number text
             options: [
@@ -30,11 +30,11 @@ const EVENT_TYPES = [
         ],
       },
       {
-        id: 21,
+        id: 12,
         name: "User is logged out",
         configurationFields: [
           {
-            key: 2,
+            key: 112,
             label: "Event color",
             fieldType: "dropdown",
             options: [
@@ -55,11 +55,11 @@ const EVENT_TYPES = [
         ],
       },
       {
-        id: 31,
+        id: 13,
         name: "Do when condition is True",
         configurationFields: [
           {
-            key: 3,
+            key: 113,
             label: "Run this",
             fieldType: "dropdown",
             options: [
@@ -74,7 +74,7 @@ const EVENT_TYPES = [
             ],
           },
           {
-            key: 4,
+            key: 114,
             label: "Event color",
             fieldType: "dropdown",
             options: [
@@ -95,11 +95,11 @@ const EVENT_TYPES = [
         ],
       },
       {
-        id: 1,
+        id: 14,
         name: "An unhandled error occurs",
         configurationFields: [
           {
-            key: 1,
+            key: 115,
             label: "Event color",
             fieldType: "dropdown", //input number text
             options: [
@@ -118,11 +118,11 @@ const EVENT_TYPES = [
     type: "Element",
     subTypes: [
       {
-        id: 12,
+        id: 21,
         name: "An Element is clicked",
         configurationFields: [
           {
-            key: 1,
+            key: 211,
             label: "Element",
             fieldType: "dropdown", //input number text
             options: [
@@ -133,7 +133,7 @@ const EVENT_TYPES = [
             ],
           },
           {
-            key: 2,
+            key: 212,
             label: "Event color",
             fieldType: "dropdown", //input number text
             options: [
@@ -151,11 +151,11 @@ const EVENT_TYPES = [
         name: "Pop up is closed",
       },
       {
-        id: 32,
+        id: 23,
         name: "Pop up is opened",
       },
       {
-        id: 42,
+        id: 24,
         name: "Error occured",
       },
     ],
@@ -165,7 +165,7 @@ const EVENT_TYPES = [
     type: "Custom",
     subTypes: [
       {
-        id: 13,
+        id: 31,
         name: "Create a custom event",
       },
     ],
@@ -217,11 +217,11 @@ export default function Pop() {
 
   return (
     <>
-      {addedEvents && (
-        <EventList onEventClick={onEventClick} addedEvents={addedEvents} />
-      )}
-      {eventdetail && <EventDetailBar />}
+      {/* {eventdetail && <EventDetailBar />} */}
       <div className="token-flex">
+        {addedEvents && (
+          <EventList onEventClick={onEventClick} addedEvents={addedEvents} />
+        )}
         <div className="token-box" onClick={toggleModal}>
           click to add event..
         </div>{" "}
@@ -233,6 +233,7 @@ export default function Pop() {
           </div>
         )}
       </div>
+      {eventdetail && <EventDetailBar />}
       {modal && (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>

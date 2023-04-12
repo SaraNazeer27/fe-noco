@@ -33,9 +33,6 @@
 .position-relative {
   position: relative;
 }
-
-.faReg {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
+.action-box {
+  background-color: aqua;
 }

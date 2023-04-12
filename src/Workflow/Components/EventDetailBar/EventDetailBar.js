@@ -13,20 +13,68 @@ const ACTION_TYPES = [
         name: "Sign the User up",
         configurationFields: [
           {
-            key: 311,
-            label: "Type",
+            key: 111,
+            label: "Email",
             fieldType: "text", //input number text
+          },
+          {
+            key: 112,
+            label: "Password",
+            fieldType: "text", //input number text
+          },
+          {
+            key: 113,
+            label: "Require a Password confirmation",
+            fieldType: "checkbox", //input number text
           },
         ],
       },
 
       {
-        id: 21,
+        id: 12,
         name: "Log the User in",
+        configurationFields: [
+          {
+            key: 121,
+            label: "Email",
+            fieldType: "text", //input number text
+          },
+          {
+            key: 122,
+            label: "Password",
+            fieldType: "text", //input number text
+          },
+          {
+            key: 123,
+            label: "Stay logged in",
+            fieldType: "dropdown", //input number text
+            options: [
+              {
+                displayValue: "Yes",
+                value: "Yes",
+              },
+              {
+                displayValue: "No",
+                value: "No",
+              },
+            ],
+          },
+        ],
       },
       {
-        id: 31,
+        id: 13,
         name: "Log the User Out",
+      },
+      {
+        id: 14,
+        name: "Check Password for the Current User",
+        configurationFields: [
+          {
+            key: 141,
+            label: "Password to check",
+            fieldType: "text", //input number text
+          },
+        ],
       },
     ],
   },
@@ -75,13 +123,20 @@ const ACTION_TYPES = [
       {
         id: 32,
         name: "Delete thing...",
+        configurationFields: [
+          {
+            key: 321,
+            label: "To delete",
+            fieldType: "", //input number text
+          },
+        ],
       },
       {
-        id: 23,
+        id: 33,
         name: "Upload data as CSV",
         configurationFields: [
           {
-            key: 411,
+            key: 331,
             label: "Type of Data",
             fieldType: "dropdown", //input number text
             options: [
@@ -91,11 +146,46 @@ const ACTION_TYPES = [
               },
             ],
           },
+          {
+            key: 332,
+            label: "CSV file",
+            fieldType: "dropdown", //input number text
+          },
+          {
+            key: 333,
+            label: "Separator",
+            fieldType: "dropdown", //input number text
+            options: [
+              {
+                displayValue: ",",
+                value: ",",
+              },
+              {
+                displayValue: ";",
+                value: ";",
+              },
+              {
+                displayValue: "tab",
+                value: "tab",
+              },
+              {
+                displayValue: "|",
+                value: "|",
+              },
+            ],
+          },
         ],
       },
       {
         id: 34,
         name: "Delete an uploaded file",
+        configurationFields: [
+          {
+            key: 341,
+            label: "File URL",
+            fieldType: "", //input number text
+          },
+        ],
       },
     ],
   },
@@ -118,11 +208,23 @@ const ACTION_TYPES = [
               },
             ],
           },
+          {
+            key: 412,
+            label: "Scheduled data",
+            fieldType: "", //input number text
+          },
         ],
       },
       {
         id: 42,
         name: "Cancel a scheduled API Workflow",
+        configurationFields: [
+          {
+            key: 421,
+            label: "Scheduled API id",
+            fieldType: "", //input number text
+          },
+        ],
       },
     ],
   },
@@ -165,20 +267,27 @@ const EventDetailBar = (props) => {
   };
 
   const onActionClick = (selectedActionType) => {
-    // console.log(selectedActionType);
-    setSelectedActionType({ ...selectedActionType });
+    console.log(selectedActionType);
+
+    // setSelectedActionType({ ...selectedActionType });
   };
 
   return (
     <>
-      {addedActions && (
+      {/* {addedActions && (
         <EventDetailList
           onEventClick={onActionClick}
           addedEvents={addedActions}
         />
-      )}
+      )} */}
 
       <div className="action-flex">
+        {/* {addedActions && (
+          <EventDetailList
+            onEventClick={onActionClick}
+            addedEvents={addedActions}
+          />
+        )} */}
         <div className="action-box" onClick={toggleActionModal}>
           click to add action..
         </div>{" "}

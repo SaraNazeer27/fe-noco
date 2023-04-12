@@ -43,7 +43,7 @@ body.active-modal {
   align-items: center;
   border-radius: 12px;
   background-color: rgb(243, 243, 246);
-
+  top: 500px;
   box-shadow: 0 2px 8px rgb(214, 158, 197);
 }
 

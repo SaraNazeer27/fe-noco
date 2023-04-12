@@ -17,13 +17,19 @@
 // export default EventList;
 
 // Correct Code
-import React from "react";
+import React, { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import "./EventList.css";
+import Pop from "../NewComponents/AddEvent/Pop";
 
 const EventList = (props) => {
+  const [modal, setModal] = useState(false);
   const handleEventClick = (addedEvent) => {
     props.onEventClick(addedEvent);
+  };
+
+  const toggleModal = () => {
+    setModal(!modal);
   };
 
   return (

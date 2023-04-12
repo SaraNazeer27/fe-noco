@@ -64,10 +64,6 @@ const EventDetailConfiguration = (props) => {
         <div>
           <label>Only when:</label> &nbsp;&nbsp;&nbsp;
         </div>
-        <div>
-          <label>Disable workflow:</label> &nbsp;&nbsp;&nbsp;
-          <input type="checkbox" className="breakB" />
-        </div>
       </div>
     </>
   );

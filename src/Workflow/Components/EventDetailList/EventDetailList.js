@@ -1,30 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import "./EventDetailList.css";
 
 const EventDetailList = (props) => {
-  const handleEventClick = (addedAction) => {
-    props.onActionClick(addedAction);
+  const handleActionClick = (addedActions) => {
+    props.onEventClick(addedActions);
   };
 
-  return (
-    <div className="actionContainer">
-      {props.addedActions &&
-        props.addedActions.map((addedAction) => (
-          <div
-            className="action-flex"
-            key={addedAction.id}
-            onClick={() => handleEventClick(addedAction)}
-          >
-            <div className="actionSaved position-relative">
-              <h3>When</h3>
-              {addedAction.name.toString()}
-              <FaRegTrashAlt className="faReg" />
-            </div>
-          </div>
-        ))}
-    </div>
-  );
+  // const handleActionClick = (addedAction) => {
+  //   // add clicked action to the array
+  //   setClickedActions([...clickedActions, addedAction]);
+  //   props.ACTION_TYPES[addedAction.name] = true;
+
+  //   // pass clicked action to the parent component
+  //   props.onActionClick(addedAction);
+  //   console.log(handleActionClick);
+  // };
+
+  return <div>dfsdfsfsddf</div>;
 };
 
 export default EventDetailList;

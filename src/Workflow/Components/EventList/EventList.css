@@ -12,13 +12,14 @@
   padding: 5px 10px;
   background-color: #e6e6e6;
   border-radius: 4px;
-
+  flex-grow: 1;
   color: rgb(13, 1, 1);
   border: 1px solid rgb(4, 0, 0);
   display: table-cell;
   vertical-align: middle;
   line-height: 20px;
   width: 140px;
+  /* width: unset; */
   height: 140px;
   font-size: 15px;
   text-align: center;
