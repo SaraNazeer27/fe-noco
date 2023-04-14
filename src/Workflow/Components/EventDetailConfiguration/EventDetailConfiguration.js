@@ -1,42 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./EventDetailConfiguration.css";
+import Select from "react-select";
+
+const optionList = [
+  { value: "red", label: "Red" },
+  { value: "green", label: "Green" },
+  { value: "yellow", label: "Yellow" },
+  { value: "blue", label: "Blue" },
+  { value: "white", label: "White" },
+];
 
 const EventDetailConfiguration = (props) => {
-  const [selectedActionType, setSelectedActionType] = useState(
-    props.selectedActionType
-  );
+  const selectedActionType = props.selectedActionType;
+
+  const [selectedOptions, setSelectedOptions] = useState();
   const [isClosed, setIsClosed] = useState(false);
   const [isDropdownSelected, setIsDropdownSelected] = useState(false);
-
-  useEffect(() => {
-    setSelectedActionType(props.selectedActionType);
-  }, [props.selectedActionType]);
 
   console.log(selectedActionType);
 
   const handleClose = () => {
-    setIsClosed(true);
+    props.onChangeConfigurationPopup(false);
   };
 
   const handleSelectOption = (event) => {
     setIsDropdownSelected(true);
   };
 
-  if (isClosed) {
-    setIsClosed(false);
-    return null;
+  function handleSelect(data) {
+    setSelectedOptions(data);
   }
 
   return (
     <>
       <div className="action">
-        {/* <h3>ffffffff</h3>
-    <div className="actionConfigurationContainer"> */}
         <button className="closeButton" onClick={handleClose}>
-          Y
+          X
         </button>
 
-        <h3>{selectedActionType.name}</h3>
+        <h3>Action : {selectedActionType.name}</h3>
 
         {selectedActionType.configurationFields &&
           selectedActionType.configurationFields.map((configurationField) => (
@@ -58,11 +60,30 @@ const EventDetailConfiguration = (props) => {
                     ))}
                 </select>
               )}
+              {(configurationField.fieldType === "password" ||
+                configurationField.fieldType === "text" ||
+                configurationField.fieldType === "email" ||
+                configurationField.fieldType === "checkbox" ||
+                configurationField.fieldType === "multiselect") && (
+                <input
+                  key={configurationField.id}
+                  type={configurationField.fieldType}
+                />
+              )}
             </div>
           ))}
 
         <div>
-          <label>Only when:</label> &nbsp;&nbsp;&nbsp;
+          Only when:
+          <Select
+            options={optionList}
+            placeholder="Select color"
+            value={selectedOptions}
+            onChange={handleSelect}
+            isSearchable={true}
+            isMulti
+          />
+          &nbsp;&nbsp;&nbsp;
         </div>
       </div>
     </>

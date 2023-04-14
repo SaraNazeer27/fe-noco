@@ -15,12 +15,12 @@ const ACTION_TYPES = [
           {
             key: 111,
             label: "Email",
-            fieldType: "text", //input number text
+            fieldType: "email", //input number text
           },
           {
             key: 112,
             label: "Password",
-            fieldType: "text", //input number text
+            fieldType: "password", //input number text
           },
           {
             key: 113,
@@ -72,7 +72,7 @@ const ACTION_TYPES = [
           {
             key: 141,
             label: "Password to check",
-            fieldType: "text", //input number text
+            fieldType: "password", //input number text
           },
         ],
       },
@@ -240,7 +240,7 @@ const EventDetailBar = (props) => {
   const [actionModal, setActionModal] = useState(false);
 
   const closeActionModalContent = () => {
-    setActionModal(false);
+    setActionModal(() => false);
   };
 
   const toggleActionModal = () => {
@@ -253,13 +253,9 @@ const EventDetailBar = (props) => {
     document.body.classList.remove("active-modal");
   }
 
-  // const addEventHandler = (tobeAddedEvent) = {
-
-  // }
-
   const openActionModal = (selectedActionType) => () => {
     console.log(selectedActionType);
-    setSelectedActionType({ ...selectedActionType });
+    setSelectedActionType(() => selectedActionType);
     setAddedActions((prevAddedActions) => {
       return [selectedActionType, ...prevAddedActions];
     });
@@ -267,28 +263,21 @@ const EventDetailBar = (props) => {
   };
 
   const onActionClick = (selectedActionType) => {
-    console.log(selectedActionType);
-
-    // setSelectedActionType({ ...selectedActionType });
+    setSelectedActionType(() => selectedActionType);
+    onChangeConfigurationPopup(true);
+  };
+  const onChangeConfigurationPopup = (show) => {
+    setShowActionModal(() => show);
+    console.log(showActionModal);
   };
 
   return (
     <>
-      {/* {addedActions && (
-        <EventDetailList
-          onEventClick={onActionClick}
-          addedEvents={addedActions}
-        />
-      )} */}
-
       <div className="action-flex">
-        {/* {addedActions && (
-          <EventDetailList
-            onEventClick={onActionClick}
-            addedEvents={addedActions}
-          />
-        )} */}
-        <div className="actionBoxSaved">hi</div>
+        <EventDetailList
+          onActionClick={onActionClick}
+          addedActions={addedActions}
+        />
         <div className="action-box" onClick={toggleActionModal}>
           click to add action..
         </div>{" "}
@@ -332,7 +321,10 @@ const EventDetailBar = (props) => {
         </div>
       )}
       {showActionModal && (
-        <EventDetailConfiguration selectedActionType={selectedActionType} />
+        <EventDetailConfiguration
+          onChangeConfigurationPopup={onChangeConfigurationPopup}
+          selectedActionType={selectedActionType}
+        />
       )}
     </>
   );

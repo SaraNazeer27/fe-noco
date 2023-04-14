@@ -1,5 +1,3 @@
-//
-
 import React, { useState } from "react";
 import "./Pop.css";
 import EventConfiguration from "../../EventConfiguration/EventConfiguration";
@@ -183,20 +181,21 @@ export default function Pop() {
   const [eventdetail, setEventDetail] = useState(false);
 
   const closeModalContent = () => {
-    setModal(false);
+    setModal(() => false);
   };
 
   const toggleModal = () => {
-    setModal(!modal);
+    setShowModal(() => false);
+    setModal(() => !modal);
   };
 
   const openModal = (selectedType) => () => {
     console.log(selectedType);
-    setSelectedType({ ...selectedType });
+    setSelectedType(() => selectedType);
     setAddedEvents((prevAddedEvents) => {
       return [selectedType, ...prevAddedEvents];
     });
-    setShowModal(true);
+    setShowModal(() => true);
   };
 
   if (modal) {
@@ -205,19 +204,18 @@ export default function Pop() {
     document.body.classList.remove("active-modal");
   }
 
-  // const addEventHandler = (tobeAddedEvent) = {
-
-  // }
-
   const onEventClick = (selectedType) => {
-    console.log(selectedType);
-    setSelectedType({ ...selectedType });
-    setEventDetail(true);
+    setSelectedType(() => selectedType);
+    setEventDetail(() => true);
+    onChangeConfigurationPopup(true);
+  };
+  const onChangeConfigurationPopup = (show) => {
+    setShowModal(() => show);
+    console.log(showModal);
   };
 
   return (
     <>
-      {/* {eventdetail && <EventDetailBar />} */}
       <div className="token-flex">
         {addedEvents && (
           <EventList onEventClick={onEventClick} addedEvents={addedEvents} />
@@ -261,7 +259,12 @@ export default function Pop() {
         </div>
       )}
 
-      {showModal && <EventConfiguration selectedType={selectedType} />}
+      {showModal && (
+        <EventConfiguration
+          onChangeConfigurationPopup={onChangeConfigurationPopup}
+          selectedType={selectedType}
+        />
+      )}
     </>
   );
 }

@@ -1,214 +1,25 @@
-// // import React, { useState, useEffect } from "react";
-// // import "./EventConfiguration.css";
-
-// // const EventConfiguration = (props) => {
-// //   const [selectedType, setSelectedType] = useState(props.selectedType);
-
-// //   useEffect(() => {
-// //     setSelectedType(props.selectedType);
-// //   }, [props.selectedType]);
-
-// //   console.log(selectedType);
-
-// //   return (
-// //     <div className="eventConfigurationContainer">
-// //       <h3>{selectedType.name}</h3>
-
-// //       {selectedType.configurationFields &&
-// //         selectedType.configurationFields.map((configurationField) => (
-// //           <div key={configurationField.key}>
-// //             <label htmlFor="options">{configurationField.label}:</label>{" "}
-// //             &nbsp;&nbsp;&nbsp;
-// //             {configurationField.fieldType === "dropdown" && (
-// //               <select
-// //                 id="options"
-// //                 // value={selectedOption}
-// //                 // onChange={handleSelectOption}
-// //               >
-// //                 <option value=""></option>
-// //                 {configurationField.options &&
-// //                   configurationField.options.map((option) => (
-// //                     <option key={option.value} value={option.value}>
-// //                       {option.displayValue}
-// //                     </option>
-// //                   ))}
-// //               </select>
-// //             )}
-// //           </div>
-// //         ))}
-// //       <div>
-// //         <label>
-// //           Only when:
-// //           {/* <MultipleClick /> */}
-// //         </label>{" "}
-// //         &nbsp;&nbsp;&nbsp;
-// //       </div>
-// //       <div>
-// //         <label>Disable workflow:</label> &nbsp;&nbsp;&nbsp;
-// //         <input type="checkbox" className="breakB" />
-// //       </div>
-// //     </div>
-// //   );
-// // };
-
-// // export default EventConfiguration;
-
-// // Correct Code
-// // import React, { useState, useEffect } from "react";
-// // import "./EventConfiguration.css";
-
-// // const EventConfiguration = (props) => {
-// //   const [selectedType, setSelectedType] = useState(props.selectedType);
-// //   const [isClosed, setIsClosed] = useState(false);
-// //   const [isDropdownSelected, setIsDropdownSelected] = useState(false);
-
-// //   useEffect(() => {
-// //     setSelectedType(props.selectedType);
-// //   }, [props.selectedType]);
-
-// //   console.log(selectedType);
-
-// //   const handleClose = () => {
-// //     setIsClosed(true);
-// //   };
-
-// //   const handleSelectOption = (event) => {
-// //     setIsDropdownSelected(true);
-// //   };
-
-// //   if (isClosed) {
-// //     setIsClosed(false);
-// //     return null;
-// //   }
-
-// //   return (
-// //     <div className="eventConfigurationContainer">
-// //       <button className="closeButton" onClick={handleClose}>
-// //         X
-// //       </button>
-// //       <h3>{selectedType.name}</h3>
-
-// //       {selectedType.configurationFields &&
-// //         selectedType.configurationFields.map((configurationField) => (
-// //           <div key={configurationField.key}>
-// //             <label htmlFor="options">{configurationField.label}:</label>{" "}
-// //             &nbsp;&nbsp;&nbsp;
-// //             {configurationField.fieldType === "dropdown" && (
-// //               <select
-// //                 id="options"
-// //                 value={isDropdownSelected ? "" : undefined}
-// //                 onChange={handleSelectOption}
-// //               >
-// //                 <option value=""></option>
-// //                 {configurationField.options &&
-// //                   configurationField.options.map((option) => (
-// //                     <option key={option.value} value={option.value}>
-// //                       {option.displayValue}
-// //                     </option>
-// //                   ))}
-// //               </select>
-// //             )}
-// //           </div>
-// //         ))}
-// //       <div>
-// //         <label>Only when:</label> &nbsp;&nbsp;&nbsp;
-// //       </div>
-// //       <div>
-// //         <label>Disable workflow:</label> &nbsp;&nbsp;&nbsp;
-// //         <input type="checkbox" className="breakB" />
-// //       </div>
-// //     </div>
-// //   );
-// // };
-
-// // export default EventConfiguration;
-
-// import React, { useState, useEffect } from "react";
-// import "./EventConfiguration.css";
-
-// const EventConfiguration = (props) => {
-//   const [selectedType, setSelectedType] = useState(props.selectedType);
-//   const [isClosed, setIsClosed] = useState(false);
-//   const [isDropdownSelected, setIsDropdownSelected] = useState(false);
-
-//   useEffect(() => {
-//     setSelectedType(props.selectedType);
-//   }, [props.selectedType]);
-
-//   console.log(selectedType);
-
-//   const handleClose = () => {
-//     setIsClosed(true);
-//   };
-
-//   const handleSelectOption = (event) => {
-//     setIsDropdownSelected(true);
-//   };
-
-//   if (isClosed) {
-//     setIsClosed(false);
-//     return null;
-//   }
-
-//   return (
-//     <div className="eventConfigurationContainer">
-//       <button className="closeButton" onClick={handleClose}>
-//         X
-//       </button>
-//       <h3>{selectedType.name}</h3>
-
-//       {selectedType.configurationFields &&
-//         selectedType.configurationFields.map((configurationField) => (
-//           <div key={configurationField.key}>
-//             <label htmlFor="options">{configurationField.label}:</label>{" "}
-//             &nbsp;&nbsp;&nbsp;
-//             {configurationField.fieldType === "dropdown" && (
-//               <select
-//                 id="options"
-//                 value={isDropdownSelected ? "" : undefined}
-//                 onChange={handleSelectOption}
-//               >
-//                 <option value=""></option>
-//                 {configurationField.options &&
-//                   configurationField.options.map((option) => (
-//                     <option key={option.value} value={option.value}>
-//                       {option.displayValue}
-//                     </option>
-//                   ))}
-//               </select>
-//             )}
-//           </div>
-//         ))}
-//       <div>
-//         <label>Only when:</label> &nbsp;&nbsp;&nbsp;
-//       </div>
-//       <div>
-//         <label>Disable workflow:</label> &nbsp;&nbsp;&nbsp;
-//         <input type="checkbox" className="breakB" />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default EventConfiguration;
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./EventConfiguration.css";
+import Select from "react-select";
+
+const optionList = [
+  { value: "red", label: "Red" },
+  { value: "green", label: "Green" },
+  { value: "yellow", label: "Yellow" },
+  { value: "blue", label: "Blue" },
+  { value: "white", label: "White" },
+];
 
 const EventConfiguration = (props) => {
-  const [selectedType, setSelectedType] = useState(props.selectedType);
-  const [isClosed, setIsClosed] = useState(false);
+  const selectedType = props.selectedType;
+  const [selectedOptions, setSelectedOptions] = useState();
   const [isDropdownSelected, setIsDropdownSelected] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
-
-  useEffect(() => {
-    setSelectedType(props.selectedType);
-  }, [props.selectedType]);
 
   console.log(selectedType);
 
   const handleClose = () => {
-    setIsModalOpen(false);
+    props.onChangeConfigurationPopup(false);
   };
 
   const handleSelectOption = (event) => {
@@ -216,19 +27,16 @@ const EventConfiguration = (props) => {
     setIsModalOpen(true);
   };
 
-  if (!isModalOpen) {
-    return null;
+  function handleSelect(data) {
+    setSelectedOptions(data);
   }
-  // if (isModalOpen) {
-  //   return true;
-  // }
 
   return (
     <div className="eventConfigurationContainer">
       <button className="closeButton" onClick={handleClose}>
         X
       </button>
-      <h3>{selectedType.name}</h3>
+      <h3>Event : {selectedType.name}</h3>
 
       {selectedType.configurationFields &&
         selectedType.configurationFields.map((configurationField) => (
@@ -253,7 +61,16 @@ const EventConfiguration = (props) => {
           </div>
         ))}
       <div>
-        <label>Only when:</label> &nbsp;&nbsp;&nbsp;
+        <label>Only when:</label>
+        <Select
+          options={optionList}
+          placeholder="Select color"
+          value={selectedOptions}
+          onChange={handleSelect}
+          isSearchable={true}
+          isMulti
+        />
+        &nbsp;&nbsp;&nbsp;
       </div>
       <div>
         <label>Disable workflow:</label> &nbsp;&nbsp;&nbsp;

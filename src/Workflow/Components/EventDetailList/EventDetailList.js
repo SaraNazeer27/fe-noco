@@ -1,23 +1,20 @@
-import React, { useState } from "react";
-import { FaRegTrashAlt } from "react-icons/fa";
+import React from "react";
 import "./EventDetailList.css";
 
 const EventDetailList = (props) => {
+  console.log(props.addedActions);
   const handleActionClick = (addedActions) => {
     props.onEventClick(addedActions);
   };
 
-  // const handleActionClick = (addedAction) => {
-  //   // add clicked action to the array
-  //   setClickedActions([...clickedActions, addedAction]);
-  //   props.ACTION_TYPES[addedAction.name] = true;
-
-  //   // pass clicked action to the parent component
-  //   props.onActionClick(addedAction);
-  //   console.log(handleActionClick);
-  // };
-
-  return <div>dfsdfsfsddf</div>;
+  return (
+    <>
+      {props.addedActions &&
+        props.addedActions.map((addedAction) => (
+          <div className="actionBoxSaved">{addedAction.name}</div>
+        ))}
+    </>
+  );
 };
 
 export default EventDetailList;

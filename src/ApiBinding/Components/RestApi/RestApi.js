@@ -1,63 +1,116 @@
-import React, { useState } from "react";
+// import React from 'react';
+// import ChildComponent from '../RestApi/ChildComponent';
+
+// const DATA ={
+
+ 
+//   names: 'John Doe',
+//   age: 30,
+//   email: 'johndoe@example.com'
+// };
+
+// function RestApi()
+// {
+//   return (
+//     <div>
+     
+//    <form>
+//     <label>Name</label>
+//     <label>Age</label>
+//    </form>
+//     </div>
+//   );
+// }
+
+// export default RestApi;
+import React, { useState } from 'react';
 import "./RestApi.css";
 
 function RestApi() {
+  const [formData, setFormData] = useState({});
+  const [type, setType] = useState('REST');
+
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(formData);
+  };
+
   return (
-    <>
-      <div className="buttonGroup">
-        <div button className="save">
-          Save
-        </div>
-        <div button className="cancel">
-          Cancel
-        </div>
-      </div>
-      <div className="firstContainer">
-        <label>
-          Name: <input name="myInput" />
-        </label>
+<>
 
-        <label className="weburl">
-          Web URL: <input name="myInput" />
-        </label>
-        <br></br>
-        <br></br>
 
-        <label>
-          Code: <input name="myInput" />
-        </label>
+    <form onSubmit={handleSubmit} className='container'>
+      
+     <button className='save'>Save</button>
+     <button className='cancel'>Cancel</button>
+<br/>
+      <label>
+        Name:
+        <input type="text" name="text"  />
+      </label>
+<br/>
+<br/>
 
-        <label className="retries">
-          Retries on call failure: <input name="myInput" />
-        </label>
-        <br></br>
-        <br></br>
+      <label>
+        Web service URL:
+        <input type="email" name="email" onChange={handleChange} />
+      </label>
+      
+    <br/>
+    <br/>
 
-        <label>
-          Description: <input name="myInput" />
-        </label>
 
-        <label className="type">
-          Type: <input name="myInput" />
-        </label>
-        <br></br>
-        <br></br>
 
-        <label className="package">
-          Package: <input name="myInput" />
-        </label>
-      </div>
-      <div className="secondContainer">
-        <nav>
-          <ul className="navbar">
-            <div className="method">Methods</div>
+      <label>
+        Code:
+        <input type="text" name="text" onChange={handleChange} />
+      </label>
+      <br/>
+      <br/>
 
-            <div className="authentication">Authentication</div>
-          </ul>
-          <hr></hr>
-        </nav>
-      </div>
-      <div className="thirdContainer"></div>
+      <label>
+        Retries on call failure:
+        <input type="integer" name="integer" onChange={handleChange} />
+      </label>
+      <br/>
+      <br/>
+
+      <label>
+        Description:
+        <input type="text" name="text" onChange={handleChange} />
+      </label>
+      <br/>
+      <br/>
+
+
+      <label>
+       Type:
+       <input type="text" name="text" value={type} onChange={(e) => setType(e.target.value)} />
+      </label>
+      <br/>
+      <br/>
+
+
+      <label>
+       Package:
+        <input type="text" name="text" onChange={handleChange} />
+      </label>
+      <br/>
+      <br/>
+
+    </form>
+<br/>
+    <div className='containerTwo'>
+
+    </div>
     </>
   );
 }
