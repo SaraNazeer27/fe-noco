@@ -1,0 +1,94 @@
+.buttonGroup {
+  display: flex;
+}
+
+.save {
+  display: inline-block;
+  background-color: rgb(63, 179, 63);
+  width: 80px;
+  height: 30px;
+  color: white;
+  text-align: center;
+  font-family: Arial;
+  font-display: initial;
+  margin-right: 10px;
+}
+
+.cancel {
+  display: inline-block;
+  background-color: rgb(250, 250, 250);
+  width: 80px;
+  height: 30px;
+  color: rgb(24, 50, 213);
+  text-align: center;
+  font-family: Arial;
+  font-display: initial;
+}
+.save:hover {
+  background-color: rgb(46, 165, 46);
+}
+
+.cancel:hover {
+  background-color: rgb(202, 203, 202);
+}
+
+.firstContainer {
+  width: 1260px;
+  border: 3px solid rgb(137, 25, 116);
+  padding: 50px;
+  margin: 20px;
+}
+
+.weburl {
+  margin: 400px;
+}
+
+.retries {
+  margin: 300px;
+}
+
+.type {
+  margin: 400px;
+}
+
+.package {
+  margin: 520px;
+}
+
+.myInput {
+  width: 350px;
+  padding: 40px;
+}
+.package {
+  /* padding: 10px; */
+}
+.secondContainer {
+  width: 1260px;
+  border: 3px solid rgb(137, 25, 116);
+  padding: 50px;
+  margin: 20px;
+}
+
+.thirdContainer {
+}
+
+.navbar {
+  display: flex;
+}
+
+.method {
+  display: inline-block;
+  /* padding-top: 0%; */
+  position: absolute;
+  height: 300px;
+  top: 350px;
+  /* margin: 20px; */
+}
+
+.authentication {
+  display: inline-block;
+  position: absolute;
+  top: 350px;
+  /* margin: 10px; */
+  margin-left: 80px;
+}

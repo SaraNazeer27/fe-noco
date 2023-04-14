@@ -1,0 +1,11 @@
+.integration {
+  background-color: plum;
+  border-radius: 15px;
+  height: 30px;
+  width: 150px;
+  font-size: 15px;
+  color: rgb(66, 3, 49);
+  font-weight: bold;
+  text-align: center;
+  border-color: rgb(46, 5, 46);
+}

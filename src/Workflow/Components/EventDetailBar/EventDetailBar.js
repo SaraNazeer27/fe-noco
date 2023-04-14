@@ -288,6 +288,7 @@ const EventDetailBar = (props) => {
             addedEvents={addedActions}
           />
         )} */}
+        <div className="actionBoxSaved">hi</div>
         <div className="action-box" onClick={toggleActionModal}>
           click to add action..
         </div>{" "}
