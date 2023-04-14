@@ -2,7 +2,6 @@ import React from 'react'
 import Navbar from '../../Components/Navbar';
 import './Field.css'
 
-
 function Field() {
   return (
     <div>
