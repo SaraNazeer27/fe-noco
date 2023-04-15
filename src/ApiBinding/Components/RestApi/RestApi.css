@@ -1,4 +1,4 @@
-.container {
+/* .container {
   display: flex;
   background-color:rgb(230, 193, 228);
   border:2px rgb(238, 160, 228) solid;
@@ -26,11 +26,9 @@ padding: 20px;;
 
 .containerTwo{
   /* display: flex-box; */
-  background-color:rgb(230, 193, 228);
+/* background-color:rgb(230, 193, 228);
   border:2px rgb(238, 160, 228) solid;
   width: 100%;
 
   
-  
- 
-}
+  */

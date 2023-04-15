@@ -1,104 +1,166 @@
 // import React, { useState } from "react";
-// import { render } from "react-dom";
-// import "./ApiHome.css";
-// import Select from "react-select";
+// import ApiConfiguration from "./ApiConfiguration";
+// const ACTION_TYPES = [
+//   {
+//     id: 1,
+//     type: "Rest",
+//     subTypes: [
+//       {
+//         id: 11,
+//         name: "Sign the User up",
+//         configurationFields: [
+//           {
+//             key: 111,
+//             label: "Email",
+//             fieldType: "email", //input number text
+//           },
+//           {
+//             key: 112,
+//             label: "Password",
+//             fieldType: "password", //input number text
+//           },
+//           {
+//             key: 113,
+//             label: "Require a Password confirmation",
+//             fieldType: "checkbox", //input number text
+//           },
+//         ],
+//       },
+//     ],
+//   },
 
-// const options = [
-//   { value: "choc", label: "choc" },
-//   { value: "cand", label: "cand" },
+//   {
+//     id: 2,
+//     type: "Soap",
+//     subTypes: [
+//       {
+//         id: 21,
+//         name: "Go to Next Page",
+//       },
+
+//       {
+//         id: 22,
+//         name: "Go to Previous Page",
+//       },
+//       {
+//         id: 23,
+//         name: "Terminate the Workflow",
+//       },
+//     ],
+//   },
 // ];
 
-// function ApiHome() {
-//   const [selectValue, setSelectValue] = useState("");
-//   const selectRef = React.useRef();
-//   const handleChange = (selectValue) => {
-//     setSelectValue(selectValue);
+// const ADDED_ACTIONS = [];
+
+// const ApiHome = (props) => {
+//   const [actionTypes, setActionTypes] = useState(ACTION_TYPES);
+//   const [selectedActionType, setSelectedActionType] = useState({});
+//   const [addedActions, setAddedActions] = useState(ADDED_ACTIONS);
+//   const [showActionModal, setShowActionModal] = useState(false);
+//   const [actionModal, setActionModal] = useState(false);
+
+//   const closeActionModalContent = () => {
+//     setActionModal(() => false);
 //   };
-//   const onClick = () => {
-//     if (selectRef.current) {
-//       selectRef.current.focus();
-//     }
+
+//   const toggleActionModal = () => {
+//     setActionModal(!actionModal);
 //   };
+
+//   if (actionModal) {
+//     document.body.classList.add("active-modal");
+//   } else {
+//     document.body.classList.remove("active-modal");
+//   }
+
+//   const openActionModal = (selectedActionType) => () => {
+//     console.log(selectedActionType);
+//     setSelectedActionType(() => selectedActionType);
+//     setAddedActions((prevAddedActions) => {
+//       return [selectedActionType, ...prevAddedActions];
+//     });
+//     setShowActionModal(true);
+//   };
+
+//   const onActionClick = (selectedActionType) => {
+//     setSelectedActionType(() => selectedActionType);
+//     onChangeConfigurationPopup(true);
+//   };
+//   const onChangeConfigurationPopup = (show) => {
+//     setShowActionModal(() => show);
+//     console.log(showActionModal);
+//   };
+
 //   return (
 //     <>
-//       <button className="integration" onClick={onClick}>
-//         + New integration
-//       </button>
-//       <Select
-//         openMenuOnFocus={true}
-//         ref={selectRef}
-//         options={options}
-//         value={selectValue}
-//         onChange={handleChange}
-//       >
-//         {" "}
-//       </Select>
+//       <div className="action-flex">
+//         <button onClick={toggleActionModal}>+ New integration</button>{" "}
+//         &nbsp;&nbsp;&nbsp;
+//         {actionModal && (
+//           <div className="action-modal">
+//             <div onClick={toggleActionModal}></div>
+//             <div className="action-modal-content"></div>
+//           </div>
+//         )}
+//       </div>
+//       {actionModal && (
+//         <div className="action-modal">
+//           <div onClick={toggleActionModal} className="overlay"></div>
+//           <div
+//             className="action-modal-content"
+//             onClick={closeActionModalContent}
+//           >
+//             <ul className="action-menu">
+//               {actionTypes.map((actionType) => (
+//                 <div className="dropdown" key={actionType.id}>
+//                   <div className="ele1">
+//                     {actionType.type}
+//                     {actionType.subTypes && (
+//                           <ul className="dropdown-content">
+//                         {actionType.subTypes.map((subType) => (
+//                           <li
+//                             key={subType.id}
+//                             onClick={openActionModal(subType)}
+//                           >
+//                             {subType.name}
+//                           </li>
+//                         ))}
+//                       </ul>
+//                     )}
+//                   </div>
+//                 </div>
+//               ))}
+//             </ul>
+//           </div>
+//         </div>
+//       )}
+//       {showActionModal && (
+//         <ApiConfiguration
+//           onChangeConfigurationPopup={onChangeConfigurationPopup}
+//           selectedActionType={selectedActionType}
+//         />
+//       )}
 //     </>
 //   );
-// }
+// };
 
 // export default ApiHome;
-import React, { Component } from "react";
-import RestApi from "../RestApi/RestApi";
 
-class ApiHome extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-    };
-    this.container = React.createRef();
-  }
+import React, { useState } from "react";
 
-  componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
-  }
+function ApiHome() {
+  const [showModal, setShowModal] = useState(false);
 
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
-  }
-
-  handleClickOutside = (event) => {
-    if (
-      this.container.current &&
-      !this.container.current.contains(event.target)
-    ) {
-      this.setState({
-        open: false,
-      });
-    }
+  const handleClick = () => {
+    setShowModal(true);
   };
 
-  handleButtonClick = () => {
-    this.setState({
-      open: !this.state.open,
-    });
-  };
-
-  render() {
-    return (
-      // <div className="App">
-      //   <div className="container" ref={this.container}>
-      //     <button
-      //       type="button"
-      //       className="button"
-      //       onClick={this.handleButtonClick}
-      //     >
-      //       + New integration
-      //     </button>
-      //     {this.state.open && (
-      //       <div className="dropdown">
-      //         <ul>
-      //           <ul>Rest Service</ul>
-      //           <ul>Soap Service</ul>
-      //         </ul>
-      //       </div>
-      //     )}
-      //   </div>
-      // </div>
-      <RestApi />
-    );
-  }
+  return (
+    <>
+      {/* <button onClick={handleClick}>Open Modal</button>
+      {showModal && <Modal />} */}
+    </>
+  );
 }
 
 export default ApiHome;

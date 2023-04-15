@@ -244,7 +244,7 @@ const EventDetailBar = (props) => {
   };
 
   const toggleActionModal = () => {
-    setActionModal(!actionModal);
+    setActionModal(() => !actionModal);
   };
 
   if (actionModal) {
@@ -274,10 +274,12 @@ const EventDetailBar = (props) => {
   return (
     <>
       <div className="action-flex">
-        <EventDetailList
-          onActionClick={onActionClick}
-          addedActions={addedActions}
-        />
+        {addedActions && (
+          <EventDetailList
+            onActionClick={onActionClick}
+            addedActions={addedActions}
+          />
+        )}
         <div className="action-box" onClick={toggleActionModal}>
           click to add action..
         </div>{" "}
