@@ -1,0 +1,51 @@
+
+.navigation ,.btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 35px;
+  width: 100%;
+  right: 0;
+  left:0;
+  padding: 0.5rem 0.2rem;
+  background-color: #efbefe;
+  color: black;
+  box-shadow: 0 0.5px 0.5px 0.5px rgba(9, 9, 9, 0.23);
+  text-decoration: none;
+  padding: 0 1rem;
+  cursor: pointer;
+  border: 0 ;
+
+}
+btn
+
+.ni {
+  text-decoration: none;
+  color: black;
+  font-size: 1rem;
+  margin-left: 0rem;
+}
+
+  .btn:hover{
+    background-color: #e1e2f5;
+  }
+
+
+@media screen and (max-width: 650px) {
+  .navigation {
+    display: block;
+  }
+
+  
+
+}
+.ni{ 
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+
+  
+}
