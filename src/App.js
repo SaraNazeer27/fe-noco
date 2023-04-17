@@ -23,6 +23,7 @@ function App() {
         <Route path="/TextBox" exact element={<TextBox />} />
         <Route path="/Table" exact element={<Table />} />
         <Route path="/dashboard" exact element={<Dashboard />} />
+        {/* Testing merge */}
       </Routes>
     </BrowserRouter>
   );
