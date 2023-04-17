@@ -9,26 +9,27 @@ import Table from "./components/Table";
 import Dashboard from "./components/Dashboard";
 import logo from "./logo.svg";
 import "./App.css";
-import canvas from "./component/canvas";
-
-// <BrowserRouter> ulfath need to check on
-//   <Routes>
-//     <Route path="/signup" exact element={<Signup />} />
-//     <Route path="/login" exact element={<Login />} />
-//     <Route path="/" element={<Navigate replace to="/login" />} />
-//     <Route path="/ForgotPassword" exact element={<ForgotPassword />} />
-//     <Route path="/" element={<Navigate replace to="/ForgotPassword" />} />
-//     <Route path="/ResetPassword" exact element={<ResetPassword />} />
-//     <Route path="/" element={<Navigate replace to="/ResetPassword" />} />
-//     <Route path="/Popup" exact element={<Popup />} />
-//     <Route path="/TextBox" exact element={<TextBox />} />
-//     <Route path="/Table" exact element={<Table />} />
-//     <Route path="/dashboard" exact element={<Dashboard />} />
-//   </Routes>
-// </BrowserRouter>
+// import Canvas from "./CanvasArea/components/canvas.";
 
 function App() {
-  return <canvas />;
+  // return <Canvas />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/signup" exact element={<Signup />} />
+        <Route path="/login" exact element={<Login />} />
+        <Route path="/" element={<Navigate replace to="/login" />} />
+        <Route path="/ForgotPassword" exact element={<ForgotPassword />} />
+        <Route path="/" element={<Navigate replace to="/ForgotPassword" />} />
+        <Route path="/ResetPassword" exact element={<ResetPassword />} />
+        <Route path="/" element={<Navigate replace to="/ResetPassword" />} />
+        <Route path="/Popup" exact element={<Popup />} />
+        <Route path="/TextBox" exact element={<TextBox />} />
+        <Route path="/Table" exact element={<Table />} />
+        <Route path="/dashboard" exact element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
