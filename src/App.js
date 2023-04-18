@@ -9,7 +9,7 @@ import Table from "./components/Table";
 import Dashboard from "./components/Dashboard";
 import logo from "./logo.svg";
 import "./App.css";
-// import Canvas from "./CanvasArea/components/canvas.";
+// import Canvas from "./CanvasArea/components/canvas";
 // import logo from "./logo.svg";
 import "./App.css";
 // import Canvas from "./component/canvas";
