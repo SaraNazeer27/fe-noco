@@ -4,6 +4,7 @@ import Appdata from "./Pages/App Data/Appdata";
 import Privacy from "./Pages/Privacy/Privacy";
 import Data from "./Pages/Data Type/Data";
 
+
 function App() {
   return (
     <div className='App'>
