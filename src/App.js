@@ -1,7 +1,7 @@
 import React from 'react';
-import MainTabBar from './Components/Header/Sidebar';
-import MenuBar from './Components/Header/MenuBar';
-import TabCanvas from './Components/Header/tabcanvas';
+import MainTabBar from './Components/Edit_area/Sidebar';
+import MenuBar from './Components/Edit_area/MenuBar';
+//import TabCanvas from './Components/Edit_area/tabcanvas';
 
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     <div>
       <MenuBar />
       <MainTabBar />
-      <TabCanvas />
+      
 
     </div>
   );
