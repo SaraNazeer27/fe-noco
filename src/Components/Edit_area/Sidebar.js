@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './Sidebar.css';
+//import Components from '../components/Components';
+import { dragStart, drag, dragEnd } from "../../scripts/drag-and-drop";
+
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState('noco');
@@ -32,6 +35,9 @@ const Sidebar = () => {
     setActiveTool(null);
     setToolDropdownOpen(false);
   };
+  function btnClick(e) {
+    e.stopPropagation()
+}
 
   return (
     <div className="sidebar">
@@ -61,7 +67,7 @@ const Sidebar = () => {
             Selection Elements
             <div className={`toolbox-dropdown ${activeTool === 'Input' && toolDropdownOpen ? 'open' : ''}`}>
               <div className="toolbox-option" onClick={() => console.log('Check_Box clicked')}>Check Box</div>
-              <div className="toolbox-option" onClick={() => console.log('Button clicked')}>Button</div>
+              <div className="toolbox-option" onClick={() => console.log('Button clicked')}><button className="btn" style={{ backgroundColor: '#1d1dc1', color: 'white', width: "150px", height: '50px' }} id="button-1" onClick={btnClick} draggable="true" onDragStart={(e) => dragStart(e)} onDrag={drag} onDragEnd={dragEnd}>button</button></div>
               <div className="toolbox-option" onClick={() => console.log('Radio Button clicked')}>Radio Button</div>
               <div className="toolbox-option" onClick={() => console.log('List_Box clicked')}>List Box</div>
               <div className="toolbox-option" onClick={() => console.log('Drop_Down clicked')}>Drop Down</div>

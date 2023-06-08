@@ -7,7 +7,7 @@ export default function CanvasArea() {
       width: '1000px',
       height: '1000px',
       margin: '1rem',
-      border: '5px dashed blue',
+      border: '0px dashed blue',
       textAlign: 'center',
       position: 'relative'
     },
@@ -15,15 +15,15 @@ export default function CanvasArea() {
 
 
   return (
-      <div>
-       <div id="DropArea" style={styles.designArea}
+    <div>
+      <div id="DropArea" style={styles.designArea}
         onDragEnter={(e) => dragEnter(e)}
         onDragLeave={(e) => dragLeave(e)}
         onDragOver={(e) => dragover(e)}
         onDrop={(e) => drop(e)}
         onMouseDown={disableActiveElement}
-      > 
-     
+      >
+
         <Editor />
       </div>
     </div>

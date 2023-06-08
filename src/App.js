@@ -1,17 +1,26 @@
 import React from 'react';
-import MainTabBar from './Components/Edit_area/Sidebar';
-import MenuBar from './Components/Edit_area/MenuBar';
+import './App.css';
+import Layout from './Layouts/Layout';
+//import DraggableCanvas from './Components/Edit_area/DraggableCanvas';
+//import UndoableInput from './Components/properties nabutton-1vbar/undo';
+
 //import TabCanvas from './Components/Edit_area/tabcanvas';
+//import './styles/sidebar.css'
 
 
 function App() {
   return (
-    <div>
-      <MenuBar />
-      <MainTabBar />
-      
+    <div className="App">
 
-    </div>
+     {/* <MenuBar /> */}
+
+       {/* <MainTabBar />  */}
+      {/* 
+      <DraggableCanvas/>
+  <UndoableInput/> */}
+      <Layout />   
+      
+  </div>
   );
 }
 
