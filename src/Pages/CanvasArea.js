@@ -7,7 +7,7 @@ export default function CanvasArea() {
       width: '1000px',
       height: '1000px',
       margin: '1rem',
-      border: '0px dashed blue',
+      border: '2px dashed blue',
       textAlign: 'center',
       position: 'relative'
     },

@@ -1,7 +1,7 @@
 import CanvasArea from "../Pages/CanvasArea";
 export default function MainWindow() {
     return(
-        <div style={{position:'fixed',top: '15px'}}>
+        <div style={{position:'fixed',top: '35px'}}>
             <CanvasArea />
             <div id="horizontal1" className="horizontal distance-indication">
                 <div className="line"></div>
