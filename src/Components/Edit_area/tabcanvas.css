@@ -1,0 +1,58 @@
+.tabcanvas {
+    display: flex;
+    flex-wrap: wrap;
+    height: 400px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-y: auto;
+  }
+  
+  .tabcanvas-item {
+    flex-basis: calc(33.33% - 10px);
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  /* Media queries for responsive layout */
+  
+  /* Small devices (portrait phones, less than 576px) */
+  @media (max-width: 575.98px) {
+    .tabcanvas {
+      height: auto;
+    }
+    .tabcanvas-item {
+      flex-basis: calc(50% - 10px);
+    }
+  }
+  
+  /* Medium devices (landscape phones, 576px - 767px) */
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .tabcanvas-item {
+      flex-basis: calc(33.33% - 10px);
+    }
+  }
+  
+  /* Large devices (tablets, 768px and up) */
+  @media (min-width: 768px) {
+    .tabcanvas {
+      height: 600px;
+    }
+    .tabcanvas-item {
+      flex-basis: calc(25% - 10px);
+    }
+  }
+  
+  /* Extra large devices (desktops, 992px and up) */
+  @media (min-width: 992px) {
+    .tabcanvas {
+      height: 800px;
+    }
+    .tabcanvas-item {
+      flex-basis: calc(20% - 10px);
+    }
+  }
+  

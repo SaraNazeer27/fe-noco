@@ -1,0 +1,155 @@
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 110px;
+  background-color: #facefc;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  /* overflow-y: auto; */
+}
+
+.sidebar-header {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9d9f9;
+  border-bottom: 1px solid #f152ec;
+  padding: 10px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.sidebar-logo {
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
+}
+
+.sidebar-tabs {
+  margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+}
+
+.sidebar-tab {
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-tab:hover {
+  background-color: #f5f5f5;
+}
+
+.sidebar-tab.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Toolbox pane styles */
+.toolbox-pane {
+  padding: 10px;
+  border-left: 1px solid #f152ec;
+  position: absolute;
+  top: 40px;
+  right:0;
+  height: calc(100% - 70px);
+  width: 200px;
+  background-color: #fbe4fd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 998;
+  overflow: auto;
+  transition: all 0.2s ease;
+  transform: translateX(100%);
+}
+
+.sidebar-tab.active + .toolbox-pane {
+  transform: translateX(0);
+}
+
+.toolbox-tab {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease
+}
+
+.toolbox-tab:hover {
+  background-color: #f5f5f5;
+}
+
+.toolbox-tab.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Sub-element styles */
+.toolbox-sub-element {
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toolbox-sub-element:hover {
+  background-color: #f5f5f5;
+}
+
+.toolbox-sub-element.active {
+  background-color: #f5f5f5;
+}
+
+.toolbox-dropdown.open {
+  display: block;
+}
+.toolbox-option {
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.toolbox-option:hover {
+  background-color: #f5f5f5;
+}
+.toolbox-dropdown-arrow {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 0;
+  height: 0;
+  margin-top: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #ccc;
+  cursor: pointer;
+}
+
+.toolbox-dropdown-arrow.open {
+  border-left-color: #007bff;
+}
+.toolbox-dropdown {
+  display: none;
+  position: flex;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  padding: 0px;
+  background-color: #007bff;
+  border: 1px solid #f5f5f5;
+  border: none;
+  color: #000;
+}
+.toolbox-tab.active .toolbox-dropdown,
+.toolbox-tab.active .toolbox-dropdown-arrow {
+  display: block; /* change from display: none to display: block to show the dropdown on click */
+}
