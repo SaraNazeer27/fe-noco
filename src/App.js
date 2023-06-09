@@ -7,7 +7,7 @@ import Popup from "./components/Popups/index.js";
 import TextBox from "./components/TextBox";
 import Table from "./components/Table";
 import Dashboard from "./components/Dashboard";
-
+import ImageUpload from "./components/Imageupload";
 function App() {
   return (
     <BrowserRouter>
@@ -17,12 +17,12 @@ function App() {
         <Route path="/" element={<Navigate replace to="/login" />} />
         <Route path="/ForgotPassword" exact element={<ForgotPassword />} />
         <Route path="/" element={<Navigate replace to="/ForgotPassword" />} />
-        <Route path="/ResetPassword" exact element={<ResetPassword />} />
-        <Route path="/" element={<Navigate replace to="/ResetPassword" />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/Popup" exact element={<Popup />} />
         <Route path="/TextBox" exact element={<TextBox />} />
         <Route path="/Table" exact element={<Table />} />
         <Route path="/dashboard" exact element={<Dashboard />} />
+        <Route path="/ImageUpload" exact element={<ImageUpload />} />
       </Routes>
     </BrowserRouter>
   );

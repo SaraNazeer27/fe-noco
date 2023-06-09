@@ -5,9 +5,7 @@ import styles from "./styles.module.css";
 
 //Signup component
 const Signup = () => {
-
   const [errors, setErrors] = useState({});
-
 
   const validate = () => {
     const errors = {};
@@ -32,7 +30,6 @@ const Signup = () => {
     return errors;
   };
 
-
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -40,14 +37,12 @@ const Signup = () => {
     confirmPassword: "",
   });
 
-
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
-
 
   //Api call to signup
   const handleSubmit = async (e) => {
@@ -73,7 +68,6 @@ const Signup = () => {
     }
   };
 
-
   //Form to signup
   return (
     <div className={styles.signup_container}>
@@ -90,9 +84,9 @@ const Signup = () => {
               required
               className={styles.input}
             />
-             {errors.name && (
-                <div className={styles.error_msg}>{errors.name}</div>
-              )}
+            {errors.name && (
+              <div className={styles.error_msg}>{errors.name}</div>
+            )}
 
             <input
               type="email"
@@ -103,9 +97,9 @@ const Signup = () => {
               required
               className={styles.input}
             />
-             {errors.email && (
-                <div className={styles.error_msg}>{errors.email}</div>
-              )}
+            {errors.email && (
+              <div className={styles.error_msg}>{errors.email}</div>
+            )}
 
             <input
               type="password"
@@ -116,9 +110,9 @@ const Signup = () => {
               required
               className={styles.input}
             />
-             {errors.password && (
-                <div className={styles.error_msg}>{errors.password}</div>
-              )}
+            {errors.password && (
+              <div className={styles.error_msg}>{errors.password}</div>
+            )}
             <input
               type="password"
               placeholder="Confirm Password"
@@ -128,9 +122,9 @@ const Signup = () => {
               required
               className={styles.input}
             />
-             {errors.confirmPassword && (
-                <div className={styles.error_msg}>{errors.confirmPassword}</div>
-              )}
+            {errors.confirmPassword && (
+              <div className={styles.error_msg}>{errors.confirmPassword}</div>
+            )}
             <p>
               Already have account? <Link to="/login">Login</Link>
             </p>

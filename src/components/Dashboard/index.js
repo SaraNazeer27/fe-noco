@@ -17,10 +17,10 @@ const Dashboard = () => {
             <i class="bi bi-plus-circle"><Link to="/TextBox"> + </Link></i>
                 
             </div>
-            <div className="content-card">templ</div>
-            <div className="content-card">template 1</div>
-            <div className="content-card">template 1</div>
-            <div className="content-card">template 1</div>
+            <div className="content-card">template1</div>
+            <div className="content-card">template 2</div>
+            <div className="content-card">template 3</div>
+            <div className="content-card">template 4</div>
           </div>
         </div>
         <div className="recent">
@@ -28,10 +28,10 @@ const Dashboard = () => {
 
         <div className="content">
             <div className="content-card"></div>
-            <div className="content-card">template 1</div>
-            <div className="content-card">template 1</div>
-            <div className="content-card">template 1</div>
-            <div className="content-card">template 1</div>
+            <div className="content-card">project 1</div>
+            <div className="content-card">project 2</div>
+            <div className="content-card">project 3</div>
+            <div className="content-card">project 4</div>
           </div>
         </div>
         </div>
