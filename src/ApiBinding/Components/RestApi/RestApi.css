@@ -1,34 +1,105 @@
-/* .container {
+.container1 {
+  border: 2px solid #eec7e4;
+  background-color: #ecd7eb;
+  border-radius: 5px;
+  padding: 16px;
+  margin-top: 40px;
   display: flex;
-  background-color:rgb(230, 193, 228);
-  border:2px rgb(238, 160, 228) solid;
-  width: 100%;
-  margin-right: 10%;
-  height: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.container label {
+.container2 {
+  border: 2px solid #ccc;
+  background-color: #ecd7eb;
+  border-radius: 5px;
+  padding: 16px;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container2 .container1 span {
+  font-size: 20px;
+  margin-right: 15px;
+}
+
+.form1,
+.form2,
+.form4,
+.form5 {
+  width: calc(50% - 10px);
   display: inline-block;
-padding: 20px;;
- 
-  vertical-align: top;
+  margin-bottom: 10px;
+}
+
+.form3 {
+  clear: both;
+}
+
+.form6,
+.form7 {
+  width: calc(50% - 10px);
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.form7 {
+  float: right;
 }
 
 .save {
-  background-color: rgb(122, 212, 122);
-  height: 40px;
+  background-color: rgb(82, 205, 57);
+  height: 5vh;
+  border: none;
+  border-radius: 2px;
+  width: 10vh;
+  color: white;
+  margin: 10px;
 }
 
-.cancel{
-  background-color: rgb(226, 226, 228);
-  height: 40px;
+.save:hover {
+  background-color: rgb(79, 183, 34);
 }
 
-.containerTwo{
-  /* display: flex-box; */
-/* background-color:rgb(230, 193, 228);
-  border:2px rgb(238, 160, 228) solid;
-  width: 100%;
+.cancel {
+  background-color: rgb(255, 255, 255);
+  height: 5vh;
+  border: none;
+  border-radius: 2px;
+  width: 10vh;
+  color: rgb(9, 11, 167);
+  margin: 10px;
+}
 
-  
-  */
+.cancel:hover {
+  background-color: rgb(210, 210, 216);
+  border: 5px solid rgb(210, 210, 216);
+}
+
+.line {
+  background: "#6F38C5";
+  height: "5px";
+  border: "none";
+}
+
+.method {
+  background-color: #ecd7eb;
+  font-size: medium;
+  margin-left: 100px;
+  border: none;
+}
+
+.authentication {
+  background-color: #ecd7eb;
+  font: 100px;
+  margin-right: 1020px;
+  border: none;
+}

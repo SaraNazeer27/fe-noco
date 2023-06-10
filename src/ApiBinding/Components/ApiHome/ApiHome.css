@@ -1,178 +1,48 @@
-.container {
+/* .container { */
+/* position: relative;
   display: flex;
-  background-color: rgb(230, 193, 228);
-  border: 2px rgb(238, 160, 228) solid;
-  width: 100%;
-  margin-right: 10%;
-  height: 100%;
-}
-
-.container label {
-  display: inline-block;
-  padding: 20px;
-
-  vertical-align: top;
-}
-
-.save {
-  background-color: rgb(122, 212, 122);
-  height: 40px;
-}
-
-.cancel {
-  background-color: rgb(226, 226, 228);
-  height: 40px;
-}
-
-.containerTwo {
-  /* display: flex-box; */
-  background-color: rgb(230, 193, 228);
-  border: 2px rgb(238, 160, 228) solid;
-  width: 100%;
-}
-
-body.active-modal {
-  overflow-y: hidden;
-}
-
-.close-modal {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px 7px;
-}
-
-.ele1,
-.ele2,
-.ele3 {
-  line-height: 38px;
-}
-
-.ele1:hover {
-  display: block;
-  background-color: rgb(167, 166, 166);
-  width: 250px;
-}
-
-.ele2:hover {
-  display: block;
-  background-color: rgb(167, 166, 166);
-  width: 250px;
-}
-
-.ele3:hover {
-  display: block;
-  background-color: rgb(167, 166, 166);
-  width: 250px;
-}
-.action-box:hover {
-  border: 1px solid rgb(15, 14, 14);
-}
-
-.action-flex {
-  display: inline-block;
-  padding: 0.5rem;
-  margin: 1rem 0;
   align-items: center;
-  border-radius: 12px;
-  background-color: rgb(243, 243, 246);
-  top: 500px;
-  box-shadow: 0 2px 8px rgb(214, 158, 197);
+  justify-content: left;
+  height: 100vh;
+  top: 50px; */
+/* position: absolute;
+  top: 10px;
+  left: 10px;
+} */
+
+/* select {
+  background-color: rgb(228, 191, 226);
+  height: 5vh;
+  border-color: rgb(134, 82, 117);
+  border-radius: 10px;
+  width: 20vh;
+} */
+
+.dropdown-toggle {
+  background-color: rgb(228, 191, 226);
+  height: 5vh;
+  border-color: rgb(134, 82, 117);
+  border-radius: 10px;
+  width: 20vh;
 }
 
-.button {
-  color: rgb(13, 1, 1);
-  border: 1px dashed rgb(4, 0, 0);
-  display: table-cell;
-  vertical-align: middle;
-  line-height: 20px;
-  width: 120px;
-  height: 40px;
-  font-size: 15px;
-  text-align: center;
-  overflow: hidden;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  cursor: pointer;
-
-  background-color: rgb(184, 120, 175);
+.dropdown-menu :hover {
+  background-color: rgb(214, 214, 221);
+  border: 5px solid rgb(214, 214, 221);
 }
 
-.dropdown-content li {
-  color: black;
-  padding: 1px 1px;
-  text-decoration: none;
-  display: block;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  overflow: hidden;
-  cursor: pointer;
-  width: 200px;
-  scroll-behavior: smooth;
-}
-
-.dropdown-content li:hover {
-  width: 200px;
-  background-color: rgb(235, 195, 227);
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: rgb(217, 215, 215);
+li {
+  list-style-type: none;
+  height: 8vh;
+  background-color: rgb(252, 252, 252);
   width: 250px;
-  box-shadow: 0px 2px 8px rgba(5, 4, 4, 0.2);
-  z-index: 1;
-  border: 2px solid rgb(215, 214, 214);
-}
-
-.dropdown-content::-webkit-scrollbar {
-  width: 5px;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.action-menu {
-  background-color: rgb(246, 243, 243);
-  width: 120px;
-  border: 2px solid rgb(220, 165, 202);
-  box-shadow: 0 2px 8px rgb(232, 153, 218);
-}
-
-.actionBoxSaved {
-  color: rgb(13, 1, 1);
-  border: 1px dashed rgb(4, 0, 0);
-  display: table-cell;
-  vertical-align: middle;
-  line-height: 20px;
-  width: 120px;
-  height: 40px;
-  font-size: 15px;
+  box-shadow: 0px 2px 8px rgba(128, 14, 110, 0.2);
+  border: 0.2px solid rgb(255, 254, 255);
   text-align: center;
-  overflow: hidden;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  cursor: pointer;
-  margin: 5px;
-  background-color: rgb(244, 245, 243);
+  text-justify: distribute;
 }
 
-.action-modal-content {
-  display: block;
-  background-color: white;
-  margin: 10% auto;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 320px;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  line-height: 1.4;
-  padding: 14px 28px;
-  border-radius: 3px;
-  border: 2px solid rgb(220, 165, 202);
-  box-shadow: 0 2px 8px rgb(232, 153, 218);
+.link {
+  text-decoration: none;
+  color: #000;
 }
