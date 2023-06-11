@@ -133,25 +133,22 @@ const ApiHome = () => {
     setIsOpen(false);
   };
 
-  let apiComponent;
-  if (selectedItem) {
-    if (selectedItem.value === "item1") {
-      apiComponent = <RestApi />;
-    } else if (selectedItem.value === "item2") {
-      apiComponent = <SoapApi />;
-    }
-  }
-
+  const cancelHandler = () => {
+    setSelectedItem(() => null);
+  };
   return (
     <div className="container">
-      {apiComponent ? (
-        apiComponent
-      ) : (
+      {selectedItem == null && (
         <button className="dropdown-toggle" onClick={toggleDropdown}>
           + New Integration
         </button>
       )}
-
+      {selectedItem && selectedItem.value == "item1" && (
+        <RestApi toCancel={cancelHandler} />
+      )}
+      {selectedItem && selectedItem.value == "item2" && (
+        <SoapApi toCancel={cancelHandler} />
+      )}
       <div className="dropdown">
         {isOpen && (
           <ul className="dropdown-menu">

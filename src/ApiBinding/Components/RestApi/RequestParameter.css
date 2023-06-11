@@ -18,3 +18,24 @@
   position: relative;
   max-width: 400px;
 }
+
+.ok-button {
+  margin: 10px;
+  border: none;
+  background-color: rgb(188, 147, 179);
+  font-size: 16px;
+}
+
+.ok-button:hover {
+  background-color: rgb(175, 145, 172);
+}
+
+.close-button {
+  border: none;
+  background-color: rgb(228, 227, 228);
+  font-size: 16px;
+}
+
+.close-button:hover {
+  background-color: rgb(183, 181, 182);
+}

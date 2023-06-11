@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import ApiHome from "../ApiHome/ApiHome";
 import "./RestApi.css";
-import RestConfiguration from "../RestApi/RestConfiguration";
+import WebServices from "./WebServices";
+import Authentication from "../RestApi/Authentication";
 
-const RestApi = () => {
+const RestApi = (props) => {
   const [selectedOption, setSelectedOption] = useState("option1");
   const [fname, setFname] = useState("");
   const [webURI, setWebURI] = useState("");
@@ -14,10 +14,15 @@ const RestApi = () => {
   const [pack, setPack] = useState("");
   const [showContent, setShowContent] = useState(false);
   const [modal, setModal] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
+  const [showWebServiceConfiguration, setShowWebServiceConfiguration] =
+    useState(false);
+  const [showAuthentication, setShowAuthentication] = useState(false);
+  const [showWebServices, setShowWebServices] = useState(false); // Updated state
 
   const handleMethodButtonClick = () => {
     setShowContent(true);
+    setShowWebServices(true); // Show Web Services button
   };
 
   const handleChange = (event) => {
@@ -41,8 +46,20 @@ const RestApi = () => {
   };
 
   const toggleModal = () => {
-    setShowModal(() => false);
-    setModal(() => !modal);
+    setShowWebServices(true);
+  };
+
+  const handleOpenClick = () => {
+    setShowAuthentication(() => true);
+    setShowWebServices(false); // Hide Web Services button
+  };
+
+  const handleWebServicesClick = () => {
+    setShowWebServiceConfiguration((prevState) => !prevState);
+  };
+
+  const handleAuthenticationClick = (newChange) => {
+    setShowAuthentication(() => newChange);
   };
 
   if (modal) {
@@ -51,16 +68,25 @@ const RestApi = () => {
     document.body.classList.remove("active-modal");
   }
 
+  const handleCloseClick = () => {
+    props.toCancel();
+  };
+
   return (
     <>
-      <button className="save" type="submit" onClick={handleSubmit}>
-        Save
-      </button>
-      <button className="cancel" type="submit">
-        Cancel
-      </button>
-
-      <div className="container1">
+      <div className="container_0">
+        {showModal && (
+          <>
+            <button className="save" type="submit" onClick={handleSubmit}>
+              Save
+            </button>
+            <button className="cancel" onClick={handleCloseClick} type="button">
+              Cancel
+            </button>
+          </>
+        )}
+      </div>
+      <div className="container_1">
         <form className="form1">
           <label htmlFor="fname">Name:</label>
           <input
@@ -75,7 +101,6 @@ const RestApi = () => {
 
         <form className="form2">
           <label htmlFor="webURL">Web service URI:</label>
-
           <input
             type="url"
             id="webURI"
@@ -88,7 +113,6 @@ const RestApi = () => {
 
         <form className="form3">
           <label htmlFor="code">Code:</label>
-
           <input
             type="text"
             id="code"
@@ -134,6 +158,7 @@ const RestApi = () => {
           />
           <br />
         </form>
+
         <div>
           <label htmlFor="dropdown">Package:</label>
           <select id="dropdown" value={selectedOption} onChange={handleChange}>
@@ -144,23 +169,32 @@ const RestApi = () => {
         </div>
       </div>
 
-      <div className="container2">
+      <div className="container_2">
         <div>
           <button onClick={toggleModal} className="method">
             Methods
           </button>
-          <RestConfiguration />
         </div>
-        <div className="" onClick={toggleModal}>
-          Web Services +
-        </div>{" "}
-        &nbsp;&nbsp;&nbsp;
-        {modal && (
-          <div>
-            <RestConfiguration />
-          </div>
-        )}
+        <br />
+        <div>
+          <button onClick={handleOpenClick} className="authentication">
+            Authentication
+          </button>
+          {showAuthentication && (
+            <Authentication
+              isModalOpen={showAuthentication}
+              toClose={handleAuthenticationClick}
+            />
+          )}
+        </div>
       </div>
+
+      {showWebServices && (
+        <button className="web_service" onClick={handleWebServicesClick}>
+          Web Services +
+        </button>
+      )}
+      {showWebServiceConfiguration && <WebServices />}
     </>
   );
 };

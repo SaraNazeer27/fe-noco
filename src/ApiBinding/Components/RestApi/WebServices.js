@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import "./RestConfiguration.css";
-import RequestParameter from "../RestApi/RequestParameter";
+import "./WebServices.css";
+import RequestParameter from "./RequestParameter";
+import ResponseParameter from "./ResponseParameter";
 
 const RestConfiguration = () => {
   const [selectedOption, setSelectedOption] = useState("option1");
@@ -218,23 +219,14 @@ const RestConfiguration = () => {
                   <hr></hr>
                 </div>
               </div>
-              {showResponseContent && (
-                <div>
-                  <button
-                    className="resAdd"
-                    onClick={handleAddResponseParameters}
-                  >
-                    Add Parameters
-                  </button>
-                </div>
-              )}
+
               {showRequestContent && (
                 <>
                   <button
-                    className="resAdd"
+                    className="reqAdd"
                     onClick={handleAddRequestParameters}
                   >
-                    Add Parameters
+                    Add Request Parameters
                   </button>
                   {showRequestAddParameter && (
                     <div className="request-modal">
@@ -245,6 +237,24 @@ const RestConfiguration = () => {
                     </div>
                   )}
                 </>
+              )}
+              {showResponseContent && (
+                <div>
+                  <button
+                    className="resAdd"
+                    onClick={handleAddResponseParameters}
+                  >
+                    Add Response Parameters
+                  </button>
+                  {showResponseAddParameter && (
+                    <div className="request-modal">
+                      <div className="request-modal-content">
+                        <ResponseParameter />
+                        {/* <button onClick={handleCloseRequestModal}>Close</button> */}
+                      </div>
+                    </div>
+                  )}
+                </div>
               )}
               {showPopup && (
                 <div className="popup">
