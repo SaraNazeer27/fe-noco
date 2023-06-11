@@ -1,61 +1,70 @@
-.container1 {
+.container0Soap {
+  border: 2px solid #ffffff;
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.container1Soap {
   border: 2px solid #eec7e4;
   background-color: #ecd7eb;
   border-radius: 5px;
-  padding: 16px;
+  padding: 26px;
   margin-top: 40px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.container2 {
+.container2Soap {
   border: 2px solid #ccc;
   background-color: #ecd7eb;
   border-radius: 5px;
-  padding: 16px;
+  padding: 100px;
   margin: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.container::after {
+.containerSoap::after {
   content: "";
   clear: both;
   display: table;
 }
 
-.container2 .container1 span {
+.container2Soap .container1Soap span {
   font-size: 20px;
   margin-right: 15px;
 }
 
-.form1,
-.form2,
-.form4,
-.form5 {
-  width: calc(50% - 10px); /* subtract 10px for the gap between forms */
+.form1Soap,
+.form2Soap,
+.form4Soap,
+.form5Soap {
+  width: calc(50% - 10px);
   display: inline-block;
   margin-bottom: 10px;
 }
 
-.form3 {
+.form3Soap {
   clear: both;
 }
 
-.form6,
-.form7 {
-  width: calc(50% - 10px); /* subtract 10px for the gap between forms */
+.form6Soap,
+.form7Soap {
+  width: calc(50% - 10px);
   display: inline-block;
   margin-bottom: 10px;
 }
 
-.form7 {
+.form7Soap {
   float: right;
 }
 
-.save {
+.saveSoap {
   background-color: rgb(82, 205, 57);
   height: 5vh;
   border: none;
@@ -65,11 +74,11 @@
   margin: 10px;
 }
 
-.save:hover {
+.saveSoap:hover {
   background-color: rgb(79, 183, 34);
 }
 
-.cancel {
+.cancelSoap {
   background-color: rgb(255, 255, 255);
   height: 5vh;
   border: none;
@@ -79,14 +88,46 @@
   margin: 10px;
 }
 
-.cancel:hover {
+.cancelSoap:hover {
   background-color: rgb(210, 210, 216);
   border: 5px solid rgb(210, 210, 216);
 }
 
-.authentication {
+.lineSoap {
+  background: "#6F38C5";
+  height: "5px";
+  border: "none";
+}
+
+.methodSoap {
+  background-color: #ecd7eb;
+  font-size: medium;
+  position: fixed;
+  top: 330px;
+  left: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.authenticationSoap {
   background-color: #ecd7eb;
   font: 100px;
   margin-right: 1020px;
   border: none;
+  position: fixed;
+  top: 330px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.web_serviceSoap {
+  background-color: #ecd7eb;
+  font-size: 15px;
+  margin-right: 1020px;
+  border: none;
+  position: fixed;
+  top: 370px;
+  left: 20px;
+  cursor: pointer;
 }

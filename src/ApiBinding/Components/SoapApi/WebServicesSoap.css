@@ -1,4 +1,4 @@
-.web {
+.webSoap {
   height: 80vh;
   display: block;
   background-color: white;
@@ -20,7 +20,7 @@
   overflow: auto;
 }
 
-.OK-web {
+.OK-webSoap {
   border: none;
   background-color: rgb(232, 153, 218);
   color: rgb(255, 255, 255);
@@ -29,7 +29,7 @@
   border-radius: 5px;
 }
 
-.testRequest {
+.testRequestSoap {
   border: none;
   background-color: rgb(255, 255, 255);
   height: 5vh;
@@ -37,12 +37,12 @@
   color: rgb(9, 11, 167);
   margin-left: 10px;
 }
-.testRequest:hover {
+.testRequestSoap:hover {
   background-color: rgb(210, 210, 216);
   border: 5px solid rgb(210, 210, 216);
 }
 
-.reqAdd {
+.reqAddSoap {
   border: none;
   background-color: #e3b4e1;
   height: 5vh;
@@ -50,7 +50,7 @@
   border-radius: 4px;
 }
 
-.resAdd {
+.resAddSoap {
   border: none;
   background-color: #e3b4e1;
   height: 5vh;
@@ -58,7 +58,7 @@
   border-radius: 4px;
 }
 
-.popup {
+.popupSoap {
   display: flex;
   position: relative;
   padding: 1rem;
@@ -72,7 +72,7 @@
   box-shadow: 0 2px 8px rgb(214, 158, 197);
 }
 
-.close {
+.closeSoap {
   display: flex;
   justify-content: flex-end;
   padding: 40px;
@@ -83,21 +83,21 @@
   size: 50px;
 }
 
-.button-container {
+.button-containerSoap {
   display: flex;
 }
 
-.yes {
+.yesSoap {
   margin-right: 10px;
   color: rgb(255, 255, 255);
   background-color: rgb(161, 112, 159);
   border: none;
 }
 
-.yes:hover {
+.yesSoap:hover {
   background-color: #896087;
 }
-.no {
+.noSoap {
   position: relative;
   color: rgb(250, 250, 250);
   background: transparent;
@@ -105,11 +105,11 @@
   size: 20px;
 }
 
-.no:hover {
+.noSoap:hover {
   background-color: rgb(230, 201, 229);
 }
 
-.container0 {
+.container0Soap {
   border: 2px solid #ffffff;
   background-color: #ffffff;
   border-radius: 5px;
@@ -118,7 +118,7 @@
   display: flex;
   flex-wrap: wrap;
 }
-.container1 {
+.container1Soap {
   border: 2px solid #eec7e4;
   background-color: #ecd7eb;
   border-radius: 5px;
@@ -129,7 +129,7 @@
   justify-content: space-between;
 }
 
-.container2 {
+.container2Soap {
   border: 2px solid #ccc;
   background-color: #ecd7eb;
   border-radius: 5px;
@@ -141,7 +141,7 @@
   width: 100%;
 }
 
-.container2 .container1 span {
+.container2Soap .container1Soap span {
   font-size: 20px;
   margin-right: 15px;
 }
@@ -154,12 +154,12 @@
   margin-right: 20px;
 } */
 
-.parameter-container {
+.parameter-containerSoap {
   display: flex;
   flex-direction: row;
 }
 
-.request-parameters {
+.request-parametersSoap {
   flex: 1;
   border: none;
   background-color: #ecd7eb;
@@ -168,7 +168,7 @@
   top: 200px;
 }
 
-.response-parameters {
+.response-parametersSoap {
   flex: 1;
   margin-left: 500px;
   border: none;
@@ -176,17 +176,17 @@
   font-size: medium;
 }
 
-.response {
+.responseSoap {
   background: transparent;
   border: none;
   font-size: small;
   position: fixed;
   top: 300px;
-  left: 420px;
+  left: 620px;
   font-size: 16px;
 }
 
-.request {
+.requestSoap {
   background: transparent;
   border: none;
   position: fixed;
@@ -194,7 +194,7 @@
   font-size: 16px;
 }
 
-.request-modal {
+.request-modalSoap {
   position: fixed;
   top: 10rem;
   left: 12rem;
@@ -209,7 +209,7 @@
   box-shadow: 5px 5px 5px 3px rgb(214, 158, 197);
 }
 
-.request-modal-content {
+.request-modal-contentSoap {
   position: relative;
   max-width: 500px;
   width: 100%;
@@ -218,7 +218,7 @@
   border-radius: 5px;
 }
 
-.cancel-web {
+.cancel-webSoap {
   border: none;
   margin-left: 10px;
 }
@@ -226,4 +226,28 @@
 hr {
   position: fixed;
   top: 100px;
+}
+
+.response-modalSoap {
+  position: fixed;
+  top: 10rem;
+  left: 12rem;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(214, 158, 197);
+  box-shadow: 5px 5px 5px 3px rgb(214, 158, 197);
+}
+
+.response-modal-contentSoap {
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
 }

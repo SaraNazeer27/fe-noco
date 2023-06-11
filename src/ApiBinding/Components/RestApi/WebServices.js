@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./WebServices.css";
-import RequestParameter from "./RequestParameter";
-import ResponseParameter from "./ResponseParameter";
+import RequestParameter from "../RestApi/RequestParameter";
+import ResponseParameter from "../RestApi/ResponseParameter";
 
-const RestConfiguration = () => {
+const WebServices = () => {
   const [selectedOption, setSelectedOption] = useState("option1");
   const [fname, setFname] = useState("");
   const [webURI, setWebURI] = useState("");
@@ -70,7 +70,8 @@ const RestConfiguration = () => {
   };
 
   const handleTestRequestClick = () => {
-    setShowPopup(true);
+    debugger;
+    setShowPopup(() => true);
   };
 
   const handlePopupClose = () => {
@@ -81,19 +82,19 @@ const RestConfiguration = () => {
     setShowRequestModal(true);
   };
 
-  // const handleCloseRequestModal = () => {
-  //   setShowRequestModal(false);
-  // };
-
   return (
     <>
       {showModal && (
         <div className="web">
           <div className="container0">
-            <button className="OK" type="submit">
+            <button className="OK-web" type="submit">
               OK
             </button>
-            <button className="cancel" onClick={handleCloseClick} type="button">
+            <button
+              className="cancel-web"
+              onClick={handleCloseClick}
+              type="button"
+            >
               Cancel
             </button>
             <button
@@ -232,7 +233,6 @@ const RestConfiguration = () => {
                     <div className="request-modal">
                       <div className="request-modal-content">
                         <RequestParameter />
-                        {/* <button onClick={handleCloseRequestModal}>Close</button> */}
                       </div>
                     </div>
                   )}
@@ -250,7 +250,6 @@ const RestConfiguration = () => {
                     <div className="request-modal">
                       <div className="request-modal-content">
                         <ResponseParameter />
-                        {/* <button onClick={handleCloseRequestModal}>Close</button> */}
                       </div>
                     </div>
                   )}
@@ -279,4 +278,4 @@ const RestConfiguration = () => {
   );
 };
 
-export default RestConfiguration;
+export default WebServices;

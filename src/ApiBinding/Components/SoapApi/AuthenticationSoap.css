@@ -1,0 +1,10 @@
+.authenticationSoap {
+  background-color: #ecd7eb;
+  font: 100px;
+  margin-right: 1020px;
+  border: none;
+  position: fixed;
+  top: 300px;
+  right: 20px;
+  cursor: pointer;
+}
