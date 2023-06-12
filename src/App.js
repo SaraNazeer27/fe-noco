@@ -8,6 +8,7 @@ import TextBox from "./components/TextBox";
 import Table from "./components/Table";
 import Dashboard from "./components/Dashboard";
 import ImageUpload from "./components/Imageupload";
+import DragAndDropExample from "./components/DragAndDropExample";
 function App() {
   return (
     <BrowserRouter>
@@ -23,6 +24,7 @@ function App() {
         <Route path="/Table" exact element={<Table />} />
         <Route path="/dashboard" exact element={<Dashboard />} />
         <Route path="/ImageUpload" exact element={<ImageUpload />} />
+        <Route path="/DragAndDropExample" exact element={<DragAndDropExample />} />
       </Routes>
     </BrowserRouter>
   );

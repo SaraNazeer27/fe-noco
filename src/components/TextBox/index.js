@@ -56,10 +56,10 @@ function TextBox() {
     <div className="container">
       <div className="row">
         <Sidebar/>
-        <div className="col-sm">canvas</div>
+        <div className="col-sm"></div>
         <div className="col-sm">
-          properties
-          {/* <div
+          
+          {/* <di
       style={{ position: "absolute", left: style.left, top: style.top }}
       draggable="true"
       onDragStart={handleDragStart}

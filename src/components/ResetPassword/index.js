@@ -25,9 +25,16 @@ const ResetPassword = () => {
 
     try {
       const url = "http://localhost:3001/reset-password";
-      const token = localStorage.getItem("resetToken");
+      const path = window.location.pathname;
+      const token = path.match(/\/reset-password\/(.+)/)[1];
+      console.log(token);
+     
+
+      // const token = localStorage.getItem("resetToken");
+
 
       const response = await axios.post(url, {
+  
         password,
         token,
       });

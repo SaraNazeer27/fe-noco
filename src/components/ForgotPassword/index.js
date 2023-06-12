@@ -16,6 +16,7 @@ const ForgotPassword = () => {
     try {
       const url = "http://localhost:3001/forgot-password";
       const response = await axios.post(url, { email });
+      localStorage.setItem("email", email);
       setSuccessMessage(response.data.message);
     } catch (error) {
       if (error.response && error.response.status >= 400 && error.response.status <= 500) {

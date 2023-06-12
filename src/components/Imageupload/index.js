@@ -9,7 +9,27 @@ const ImageUpload = () => {
     setSelectedImage(event.target.files[0]);
   };
 
+  const handleDragStart = (event) => {
+    // Set some data to identify the drag source if needed
+    event.dataTransfer.setData('text/plain', 'imageUpload');
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const droppedFile = event.dataTransfer.files[0];
+    setSelectedImage(droppedFile);
+  };
+
   const handleSubmit = () => {
+    if (!selectedImage) {
+      setMessage('Please select an image.');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('image', selectedImage);
 
@@ -25,9 +45,31 @@ const ImageUpload = () => {
   };
 
   return (
-    <div>
+    <div
+      draggable
+      onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+    >
       <h2>Image Upload</h2>
-      <input type="file" onChange={handleImageChange} />
+      <div
+        style={{ border: '2px dashed gray', padding: '1rem', margin: '1rem 0' }}
+      >
+        <p>Drag and drop an image here</p>
+        <input
+          type="file"
+          id="fileInput"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
+        {selectedImage && (
+          <img
+            src={URL.createObjectURL(selectedImage)}
+            alt="Selected"
+            style={{ width: '100%' }}
+          />
+        )}
+      </div>
       <button onClick={handleSubmit} disabled={!selectedImage}>
         Submit
       </button>
