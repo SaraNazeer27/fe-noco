@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ResponseParameterSoap.css";
 
-function ResponseParameterSoap() {
+function ResponseParameterSoap(props) {
   const [nameSoap, setNameSoap] = useState("");
   const [parameterTypeSoap, setParameterTypeSoap] = useState("option1");
   const [elementPathSoap, setElementPathSoap] = useState("");
@@ -30,13 +30,14 @@ function ResponseParameterSoap() {
   };
 
   const handleCloseResponseModalSoap = () => {
-    setShowResponseModalSoap(false);
+    // setShowResponseModalSoap(false);
+    props.toClose();
   };
 
   return (
     <form>
       {showResponseModalSoap || (
-        <form onSubmit={handleSubmitSoap}>
+        <div onSubmit={handleSubmitSoap}>
           <label>
             Name:
             <input
@@ -95,7 +96,7 @@ function ResponseParameterSoap() {
             </select>
           </div>
 
-          <form className="form8Soap" onSubmit={handleSubmitSoap}>
+          <div className="form8Soap" onSubmit={handleSubmitSoap}>
             <label htmlFor="authenticationSoap">Is array</label>
             <input
               type="checkbox"
@@ -104,7 +105,7 @@ function ResponseParameterSoap() {
               value="requiredSoap"
             />
             <br />
-          </form>
+          </div>
 
           <label htmlFor="quantitySoap">Default value (Constant):</label>
           <input
@@ -117,16 +118,14 @@ function ResponseParameterSoap() {
           <br />
           <br />
 
-          <button className="ok-buttonSoap" onClick={""}>
-            OK
-          </button>
+          <button className="ok-buttonSoap">OK</button>
           <button
             className="close-buttonSoap"
             onClick={handleCloseResponseModalSoap}
           >
             Close
           </button>
-        </form>
+        </div>
       )}
     </form>
   );

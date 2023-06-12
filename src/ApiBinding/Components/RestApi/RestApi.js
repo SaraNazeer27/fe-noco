@@ -87,7 +87,7 @@ const RestApi = (props) => {
         )}
       </div>
       <div className="container_1">
-        <form className="form1">
+        <div className="form1">
           <label htmlFor="fname">Name:</label>
           <input
             type="text"
@@ -97,9 +97,9 @@ const RestApi = (props) => {
             onChange={(event) => setFname(event.target.value)}
           />
           <br />
-        </form>
+        </div>
 
-        <form className="form2">
+        <div className="form2">
           <label htmlFor="webURL">Web service URI:</label>
           <input
             type="url"
@@ -109,9 +109,9 @@ const RestApi = (props) => {
             onChange={(event) => setWebURI(event.target.value)}
           />
           <br />
-        </form>
+        </div>
 
-        <form className="form3">
+        <div className="form3">
           <label htmlFor="code">Code:</label>
           <input
             type="text"
@@ -121,9 +121,9 @@ const RestApi = (props) => {
             onChange={(event) => setCode(event.target.value)}
           />
           <br />
-        </form>
+        </div>
 
-        <form className="form4">
+        <div className="form4">
           <label htmlFor="quantity">Retries on call failure:</label>
           <input
             type="number"
@@ -133,9 +133,9 @@ const RestApi = (props) => {
             onChange={(event) => setQuantity(event.target.value)}
           />
           <br />
-        </form>
+        </div>
 
-        <form className="form5">
+        <div className="form5">
           <label htmlFor="description">Description:</label>
           <input
             type="text"
@@ -145,9 +145,9 @@ const RestApi = (props) => {
             onChange={(event) => setDescription(event.target.value)}
           />
           <br />
-        </form>
+        </div>
 
-        <form className="form6">
+        <div className="form6">
           <label htmlFor="type">Type:</label>
           <input
             type="text"
@@ -157,7 +157,7 @@ const RestApi = (props) => {
             onChange={(event) => setType(event.target.value)}
           />
           <br />
-        </form>
+        </div>
 
         <div>
           <label htmlFor="dropdown">Package:</label>

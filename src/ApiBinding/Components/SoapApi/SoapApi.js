@@ -95,96 +95,102 @@ const SoapApi = (props) => {
       </div>
       <div className="container1Soap">
         <form className="form1">
-          <label htmlFor="fname">Name:</label>
-          <input
-            type="text"
-            id="fname"
-            name="fname"
-            value={fname}
-            onChange={(event) => setFname(event.target.value)}
-          />
-          <br />
-        </form>
+          <div className="form1">
+            <label htmlFor="fname">Name:</label>
+            <input
+              type="text"
+              id="fname"
+              name="fname"
+              value={fname}
+              onChange={(event) => setFname(event.target.value)}
+            />
+            <br />
+          </div>
 
-        <form className="form2Soap">
-          <label htmlFor="webURL">Web service URI:</label>
-          <input
-            type="url"
-            id="webURI"
-            name="webURI"
-            value={webURI}
-            onChange={(event) => setWebURI(event.target.value)}
-          />
-          <br />
-        </form>
+          <div className="form2Soap">
+            <label htmlFor="webURL">Web service URI:</label>
+            <input
+              type="url"
+              id="webURI"
+              name="webURI"
+              value={webURI}
+              onChange={(event) => setWebURI(event.target.value)}
+            />
+            <br />
+          </div>
 
-        <form className="form3Soap">
-          <label htmlFor="code">Code:</label>
-          <input
-            type="text"
-            id="code"
-            name="code"
-            value={code}
-            onChange={(event) => setCode(event.target.value)}
-          />
-          <br />
-        </form>
+          <div className="form3Soap">
+            <label htmlFor="code">Code:</label>
+            <input
+              type="text"
+              id="code"
+              name="code"
+              value={code}
+              onChange={(event) => setCode(event.target.value)}
+            />
+            <br />
+          </div>
 
-        <form className="form4Soap">
-          <label htmlFor="quantity">Retries on call failure:</label>
-          <input
-            type="number"
-            id="quantity"
-            name="quantity"
-            value={quantity}
-            onChange={(event) => setQuantity(event.target.value)}
-          />
-          <br />
-        </form>
+          <div className="form4Soap">
+            <label htmlFor="quantity">Retries on call failure:</label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              value={quantity}
+              onChange={(event) => setQuantity(event.target.value)}
+            />
+            <br />
+          </div>
 
-        <form className="form5Soap">
-          <label htmlFor="description">Description:</label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-          />
-          <br />
-        </form>
+          <div className="form5Soap">
+            <label htmlFor="description">Description:</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+            />
+            <br />
+          </div>
 
-        <form className="form6Soap">
-          <label htmlFor="type">Type:</label>
-          <input
-            type="text"
-            id="type"
-            name="type"
-            value="SOAP"
-            onChange={(event) => setType(event.target.value)}
-          />
-          <br />
-        </form>
+          <div className="form6Soap">
+            <label htmlFor="type">Type:</label>
+            <input
+              type="text"
+              id="type"
+              name="type"
+              value="SOAP"
+              onChange={(event) => setType(event.target.value)}
+            />
+            <br />
+          </div>
 
-        <div>
-          <label htmlFor="dropdown">Package:</label>
-          <select id="dropdown" value={selectedOption} onChange={handleChange}>
-            <option value="option1"></option>
-            <option value="option2">Custom</option>
-            <option value="option3">UsrTrial</option>
-          </select>
-        </div>
+          <div>
+            <label htmlFor="dropdown">Package:</label>
+            <select
+              id="dropdown"
+              value={selectedOption}
+              onChange={handleChange}
+            >
+              <option value="option1"></option>
+              <option value="option2">Custom</option>
+              <option value="option3">UsrTrial</option>
+            </select>
+          </div>
 
-        <form className="form6Soap">
-          <label htmlFor="namespace">NameSpaces:</label>
-          <input
-            type="text"
-            id="namespace"
-            name="namespace"
-            value={nameSpaces}
-            onChange={(event) => setNameSpaces(event.target.value)}
-          />
-          <br />
+          <div className="form6Soap">
+            <label htmlFor="namespace">NameSpaces:</label>
+            <input
+              type="text"
+              id="namespace"
+              name="namespace"
+              value={nameSpaces}
+              onChange={(event) => setNameSpaces(event.target.value)}
+            />
+            <br />
+          </div>
         </form>
       </div>
 

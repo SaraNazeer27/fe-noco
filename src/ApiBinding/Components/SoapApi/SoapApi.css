@@ -103,7 +103,7 @@
   background-color: #ecd7eb;
   font-size: medium;
   position: fixed;
-  top: 330px;
+  top: 380px;
   left: 20px;
   border: none;
   cursor: pointer;
@@ -115,7 +115,7 @@
   margin-right: 1020px;
   border: none;
   position: fixed;
-  top: 330px;
+  top: 380px;
   right: 20px;
   cursor: pointer;
   font-size: 16px;
@@ -127,7 +127,7 @@
   margin-right: 1020px;
   border: none;
   position: fixed;
-  top: 370px;
+  top: 420px;
   left: 20px;
   cursor: pointer;
 }

@@ -12,26 +12,19 @@ const WebServicesSoap = () => {
 
   const [showRequestSoapContent, setShowRequestSoapContent] = useState(false);
   const [showResponseSoapContent, setShowResponseSoapContent] = useState(false);
-  const [showResponseSoapParameter, setShowResponseSoapParameter] =
-    useState(false);
-  const [showRequestSoapParameter, setShowRequestSoapParameter] =
-    useState(false);
-  const [showRequestSoapAddParameter, setShowRequestSoapAddParameter] =
-    useState(false);
-  const [showResponseSoapAddParameter, setShowResponseSoapAddParameter] =
-    useState(false);
+  const [showAddParameter, setShowAddParameter] = useState(false);
+  const [parameterType, setParameterType] = useState(""); // New state variable for parameter type
   const [showModalSoap, setShowModalSoap] = useState(true);
   const [showPopupSoap, setShowPopupSoap] = useState(false);
-  const [showRequestSoapModal, setShowRequestSoapModal] = useState(false); // New state variable for request modal
 
   const handleRequestSoapClick = () => {
     setShowRequestSoapContent(!showRequestSoapContent);
-    setShowRequestSoapAddParameter(false);
+    setShowAddParameter(false);
   };
 
   const handleResponseSoapClick = () => {
     setShowResponseSoapContent(!showResponseSoapContent);
-    setShowResponseSoapAddParameter(false);
+    setShowAddParameter(false);
   };
 
   const handleSubmitSoap = (event) => {
@@ -49,14 +42,9 @@ const WebServicesSoap = () => {
     // For example, you can make an API call or update a global state
   };
 
-  const handleAddRequestSoapParameters = () => {
-    setShowRequestSoapAddParameter(!showRequestSoapAddParameter);
-    setShowResponseSoapAddParameter(false);
-  };
-
-  const handleAddResponseSoapParameters = () => {
-    setShowResponseSoapAddParameter(!showResponseSoapAddParameter);
-    setShowRequestSoapAddParameter(false);
+  const handleAddSoapParameter = (parameterType) => {
+    setParameterType(parameterType);
+    setShowAddParameter(true);
   };
 
   const handleCloseClickSoap = () => {
@@ -72,8 +60,8 @@ const WebServicesSoap = () => {
     setShowPopupSoap(false);
   };
 
-  const handleAddRequestSoapModal = () => {
-    setShowRequestSoapModal(true);
+  const closeHandlerSoapParameter = () => {
+    setShowAddParameter(() => false);
   };
 
   return (
@@ -111,9 +99,9 @@ const WebServicesSoap = () => {
               />
               <br />
             </form>
-
+            php Copy code
             <form className="form3Soap" onSubmit={handleSubmitSoap}>
-              <label htmlFor="code">Code:</label>
+              <label htmlFor="codeSoap">Code:</label>
               <input
                 type="text"
                 id="codeSoap"
@@ -123,7 +111,6 @@ const WebServicesSoap = () => {
               />
               <br />
             </form>
-
             <form className="form3Soap" onSubmit={handleSubmitSoap}>
               <label htmlFor="codeMessage">Message Element Code:</label>
               <input
@@ -135,7 +122,6 @@ const WebServicesSoap = () => {
               />
               <br />
             </form>
-
             <form className="form6Soap" onSubmit={handleSubmitSoap}>
               <label htmlFor="quantitySoap">Response timeout, ms:</label>
               <input
@@ -147,7 +133,6 @@ const WebServicesSoap = () => {
               />
               <br />
             </form>
-
             <form className="form7Soap" onSubmit={handleSubmitSoap}>
               <label htmlFor="soapAction">Soap Action:</label>
               <input
@@ -159,7 +144,6 @@ const WebServicesSoap = () => {
               />
               <br />
             </form>
-
             <form className="form8Soap" onSubmit={handleSubmitSoap}>
               <label htmlFor="authenticationSoap">Use authentication</label>
               <input
@@ -170,7 +154,6 @@ const WebServicesSoap = () => {
               />
               <br />
             </form>
-
             <div className="container2Soap">
               <div className="parameter-containerSoap">
                 <div className="request-parametersSoap">
@@ -180,7 +163,7 @@ const WebServicesSoap = () => {
                   >
                     Request Parameters
                   </button>
-                  <hr></hr>
+                  <hr />
                 </div>
                 <div className="response-parametersSoap">
                   <button
@@ -189,44 +172,40 @@ const WebServicesSoap = () => {
                   >
                     Response Parameters
                   </button>
-                  <hr></hr>
+                  <hr />
                 </div>
               </div>
 
-              {showRequestSoapContent && (
+              {(showRequestSoapContent || showResponseSoapContent) && (
                 <>
                   <button
-                    className="reqAddSoap"
-                    onClick={handleAddRequestSoapParameters}
+                    className="add-parameterSoap"
+                    onClick={() =>
+                      handleAddSoapParameter(
+                        showRequestSoapContent ? "request" : "response"
+                      )
+                    }
                   >
-                    Add Request Parameters
+                    Add Parameter
                   </button>
-                  {showRequestSoapAddParameter && (
+                  {showAddParameter && (
                     <div className="request-modalSoap">
                       <div className="request-modal-contentSoap">
-                        <RequestParameterSoap />
+                        {parameterType === "request" ? (
+                          <RequestParameterSoap
+                            toClose={closeHandlerSoapParameter}
+                          />
+                        ) : (
+                          <ResponseParameterSoap
+                            toClose={closeHandlerSoapParameter}
+                          />
+                        )}
                       </div>
                     </div>
                   )}
                 </>
               )}
-              {showResponseSoapContent && (
-                <div>
-                  <button
-                    className="resAddSoap"
-                    onClick={handleAddResponseSoapParameters}
-                  >
-                    Add Response Parameters
-                  </button>
-                  {showResponseSoapAddParameter && (
-                    <div className="response-modalSoap">
-                      <div className="response-modal-contentSoap">
-                        <ResponseParameterSoap />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
+
               {showPopupSoap && (
                 <div className="popupSoap">
                   <div className="popup-contentSoap">
@@ -249,5 +228,4 @@ const WebServicesSoap = () => {
     </>
   );
 };
-
 export default WebServicesSoap;

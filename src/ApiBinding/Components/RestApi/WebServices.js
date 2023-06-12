@@ -14,23 +14,20 @@ const WebServices = () => {
   const [pack, setPack] = useState("");
   const [showRequestContent, setShowRequestContent] = useState(false);
   const [showResponseContent, setShowResponseContent] = useState(false);
-  const [showResponseParameter, setShowResponseParameter] = useState(false);
-  const [showRequestParameter, setShowRequestParameter] = useState(false);
-  const [showRequestAddParameter, setShowRequestAddParameter] = useState(false);
-  const [showResponseAddParameter, setShowResponseAddParameter] =
-    useState(false);
+  const [showAddParameter, setShowAddParameter] = useState(false);
   const [showModal, setShowModal] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
   const [showRequestModal, setShowRequestModal] = useState(false); // New state variable for request modal
+  const [parameterType, setParameterType] = useState(""); // New state variable to track parameter type (request or response)
 
   const handleRequestClick = () => {
     setShowRequestContent(!showRequestContent);
-    setShowRequestAddParameter(false);
+    setShowAddParameter(false);
   };
 
   const handleResponseClick = () => {
     setShowResponseContent(!showResponseContent);
-    setShowResponseAddParameter(false);
+    setShowAddParameter(false);
   };
 
   const handleSubmit = (event) => {
@@ -55,14 +52,9 @@ const WebServices = () => {
     setSelectedOption(event.target.value);
   };
 
-  const handleAddRequestParameters = () => {
-    setShowRequestAddParameter(!showRequestAddParameter);
-    setShowResponseAddParameter(false);
-  };
-
-  const handleAddResponseParameters = () => {
-    setShowResponseAddParameter(!showResponseAddParameter);
-    setShowRequestAddParameter(false);
+  const handleAddParameter = (parameterType) => {
+    setParameterType(parameterType);
+    setShowAddParameter(true);
   };
 
   const handleCloseClick = () => {
@@ -80,6 +72,10 @@ const WebServices = () => {
 
   const handleAddRequestModal = () => {
     setShowRequestModal(true);
+  };
+
+  const closeHandlerParameter = () => {
+    setShowAddParameter(() => false);
   };
 
   return (
@@ -194,7 +190,7 @@ const WebServices = () => {
               <br />
             </form>
 
-            <form className="form8" onSubmit={handleSubmit}>
+            <div className="form8" onSubmit={handleSubmit}>
               <label htmlFor="authentication">Use authentication</label>
               <input
                 type="checkbox"
@@ -203,7 +199,7 @@ const WebServices = () => {
                 value="authentication"
               />
               <br />
-            </form>
+            </div>
 
             <div className="container2">
               <div className="parameter-container">
@@ -221,40 +217,32 @@ const WebServices = () => {
                 </div>
               </div>
 
-              {showRequestContent && (
+              {(showRequestContent || showResponseContent) && (
                 <>
                   <button
-                    className="reqAdd"
-                    onClick={handleAddRequestParameters}
+                    className="add-parameter"
+                    onClick={() =>
+                      handleAddParameter(
+                        showRequestContent ? "request" : "response"
+                      )
+                    }
                   >
-                    Add Request Parameters
+                    Add Parameter
                   </button>
-                  {showRequestAddParameter && (
+                  {showAddParameter && (
                     <div className="request-modal">
                       <div className="request-modal-content">
-                        <RequestParameter />
+                        {parameterType === "request" ? (
+                          <RequestParameter toClose={closeHandlerParameter} />
+                        ) : (
+                          <ResponseParameter toClose={closeHandlerParameter} />
+                        )}
                       </div>
                     </div>
                   )}
                 </>
               )}
-              {showResponseContent && (
-                <div>
-                  <button
-                    className="resAdd"
-                    onClick={handleAddResponseParameters}
-                  >
-                    Add Response Parameters
-                  </button>
-                  {showResponseAddParameter && (
-                    <div className="request-modal">
-                      <div className="request-modal-content">
-                        <ResponseParameter />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
+
               {showPopup && (
                 <div className="popup">
                   <div className="popup-content">

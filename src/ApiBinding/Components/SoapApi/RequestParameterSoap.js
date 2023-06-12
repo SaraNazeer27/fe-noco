@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "./RequestParameterSoap.css";
 
-function RequestParameterSoap() {
+function RequestParameterSoap(props) {
   const [nameSoap, setNameSoap] = useState("");
   const [parameterTypeSoap, setParameterTypeSoap] = useState("option1");
   const [elementPathSoap, setElementPathSoap] = useState("");
   const [codeSoap, setCodeSoap] = useState("");
   const [dataTypeSoap, setDataTypeSoap] = useState("");
   const [numberSoap, setNumberSoap] = useState("");
-  const [showResponseModalSoap, setShowResponseModalSoap] = useState(false);
+  const [showRequestModalSoap, setShowRequestModalSoap] = useState(false);
 
   const handleChangeSoap = (event) => {
     setParameterTypeSoap(event.target.value);
@@ -26,17 +26,18 @@ function RequestParameterSoap() {
     };
     const formDataJsonSoap = JSON.stringify(formDataSoap);
     console.log(formDataJsonSoap);
-    setShowResponseModalSoap(true);
+    setShowRequestModalSoap(true);
   };
 
-  const handleCloseResponseModalSoap = () => {
-    setShowResponseModalSoap(false);
+  const handleCloseRequestModalSoap = () => {
+    // setShowRequestModalSoap(false);
+    props.toClose();
   };
 
   return (
     <form>
-      {showResponseModalSoap || (
-        <form onSubmit={handleSubmitSoap}>
+      {showRequestModalSoap || (
+        <div onSubmit={handleSubmitSoap}>
           <label>
             Name:
             <input
@@ -95,7 +96,7 @@ function RequestParameterSoap() {
             </select>
           </div>
 
-          <form className="form8Soap" onSubmit={handleSubmitSoap}>
+          <div className="form8Soap" onSubmit={handleSubmitSoap}>
             <label htmlFor="authenticationSoap">Is array</label>
             <input
               type="checkbox"
@@ -104,9 +105,9 @@ function RequestParameterSoap() {
               value="requiredSoap"
             />
             <br />
-          </form>
+          </div>
 
-          <form className="form8Soap" onSubmit={handleSubmitSoap}>
+          <div className="form8Soap" onSubmit={handleSubmitSoap}>
             <label htmlFor="authenticationSoap">Required</label>
             <input
               type="checkbox"
@@ -115,7 +116,7 @@ function RequestParameterSoap() {
               value="requiredSoap"
             />
             <br />
-          </form>
+          </div>
 
           <label htmlFor="quantitySoap">Default value (Constant):</label>
           <input
@@ -128,16 +129,16 @@ function RequestParameterSoap() {
           <br />
           <br />
 
-          <button className="ok-buttonSoap" onClick={""}>
+          <button type="submit" className="ok-buttonSoap">
             OK
           </button>
           <button
             className="close-buttonSoap"
-            onClick={handleCloseResponseModalSoap}
+            onClick={handleCloseRequestModalSoap}
           >
             Close
           </button>
-        </form>
+        </div>
       )}
     </form>
   );
