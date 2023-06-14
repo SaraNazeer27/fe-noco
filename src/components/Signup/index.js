@@ -1,35 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 
-//Signup component
 const Signup = () => {
-  const [errors, setErrors] = useState({});
-
-  const validate = () => {
-    const errors = {};
-    if (!data.name.trim()) {
-      errors.name = "Name is required";
-    }
-    if (!data.email.trim()) {
-      errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
-      errors.email = "Email is invalid";
-    }
-    if (!data.password.trim()) {
-      errors.password = "Password is required";
-    } else if (data.password.trim().length < 8) {
-      errors.password = "Password must be at least 8 characters long";
-    }
-    if (!data.confirmPassword.trim()) {
-      errors.confirmPassword = "Confirm Password is required";
-    } else if (data.confirmPassword !== data.password) {
-      errors.confirmPassword = "Passwords do not match";
-    }
-    return errors;
-  };
-
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -37,18 +11,55 @@ const Signup = () => {
     confirmPassword: "",
   });
 
+  const [errors, setErrors] = useState({});
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleChange = ({ currentTarget: input }) => {
-    setData({ ...data, [input.name]: input.value });
+  const validate = () => {
+    const validationErrors = {};
+
+    if (!data.name.trim()) {
+      validationErrors.name = "Name is required";
+    }
+
+    if (!data.email.trim()) {
+      validationErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+      validationErrors.email = "Email is invalid";
+    }
+
+    if (!data.password.trim()) {
+      validationErrors.password = "Password is required";
+    } else if (data.password.trim().length < 8) {
+      validationErrors.password = "Password must be at least 8 characters long";
+    } else if (!/(?=.*[a-z])/.test(data.password)) {
+      validationErrors.password =
+        "Password must contain at least one lowercase letter";
+    } else if (!/(?=.*[A-Z])/.test(data.password)) {
+      validationErrors.password =
+        "Password must contain at least one uppercase letter";
+    } else if (!/(?=.*[!@#$%^&*])/.test(data.password)) {
+      validationErrors.password =
+        "Password must contain at least one special character";
+    }
+
+    if (!data.confirmPassword.trim()) {
+      validationErrors.confirmPassword = "Confirm Password is required";
+    } else if (data.confirmPassword !== data.password) {
+      validationErrors.confirmPassword = "Passwords do not match";
+    }
+
+    return validationErrors;
   };
 
-  //Api call to signup
+  const handleChange = ({ target }) => {
+    setData({ ...data, [target.name]: target.value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errors = validate();
-    if (Object.keys(errors).length === 0) {
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length === 0) {
       try {
         const url = "http://localhost:3001/api/signup";
         const { data: res } = await axios.post(url, data);
@@ -64,11 +75,10 @@ const Signup = () => {
         }
       }
     } else {
-      setErrors(errors);
+      setErrors(validationErrors);
     }
   };
 
-  //Form to signup
   return (
     <div className={styles.signup_container}>
       <div className={styles.signup_form_container}>
@@ -113,6 +123,7 @@ const Signup = () => {
             {errors.password && (
               <div className={styles.error_msg}>{errors.password}</div>
             )}
+
             <input
               type="password"
               placeholder="Confirm Password"
@@ -125,8 +136,9 @@ const Signup = () => {
             {errors.confirmPassword && (
               <div className={styles.error_msg}>{errors.confirmPassword}</div>
             )}
+
             <p>
-              Already have account? <Link to="/login">Login</Link>
+              Already have an account? <Link to="/login">Login</Link>
             </p>
 
             {error && <div className={styles.error_msg}>{error}</div>}

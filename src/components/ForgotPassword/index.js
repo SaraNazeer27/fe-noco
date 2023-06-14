@@ -7,23 +7,45 @@ const ForgotPassword = () => {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  const validateEmail = (email) => {
+    const validationErrors = {};
+
+    if (!email.trim()) {
+      validationErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      validationErrors.email = "Email is invalid";
+    }
+
+    return validationErrors;
+  };
+
   const handleChange = (event) => {
     setEmail(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const url = "http://localhost:3001/forgot-password";
-      const response = await axios.post(url, { email });
-      localStorage.setItem("email", email);
-      setSuccessMessage(response.data.message);
-    } catch (error) {
-      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
-        setError(error.response.data.message);
-      } else {
-        setError("An error occurred. Please try again.");
+    const validationErrors = validateEmail(email);
+
+    if (Object.keys(validationErrors).length === 0) {
+      try {
+        const url = "http://localhost:3001/forgot-password";
+        const response = await axios.post(url, { email });
+        localStorage.setItem("email", email);
+        setSuccessMessage(response.data.message);
+      } catch (error) {
+        if (
+          error.response &&
+          error.response.status >= 400 &&
+          error.response.status <= 500
+        ) {
+          setError(error.response.data.message);
+        } else {
+          setError("An error occurred. Please try again.");
+        }
       }
+    } else {
+      setError(validationErrors.email);
     }
   };
 
