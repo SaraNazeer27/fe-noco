@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./RestApi.css";
 import WebServices from "./WebServices";
 import Authentication from "../RestApi/Authentication";
+import ModalAuthenticationRest from "../RestApi/ModalAuthentication";
+import ModalAuthentication from "../RestApi/ModalAuthentication";
 
 const RestApi = (props) => {
   const [selectedOption, setSelectedOption] = useState("option1");
@@ -19,6 +21,38 @@ const RestApi = (props) => {
     useState(false);
   const [showAuthentication, setShowAuthentication] = useState(false);
   const [showWebServices, setShowWebServices] = useState(false); // Updated state
+  const [webServices, setWebServices] = useState([]);
+  const [basicAuthenticationRest, setBasicAuthenticationRest] = useState([]);
+
+  const resetState = () => {
+    setSelectedOption("option1");
+    setFname("");
+    setWebURI("");
+    setCode("");
+    setQuantity("");
+    setDescription("");
+    setType("REST");
+    setPack("");
+    setShowContent(false);
+    setModal(false);
+    setShowModal(true);
+    setShowWebServiceConfiguration(false);
+    setShowAuthentication(false);
+    setShowWebServices(false);
+  };
+
+  const formData = {
+    fname,
+    selectedOption,
+    webURI,
+    code,
+    quantity,
+    description,
+    type,
+    pack,
+    webServices,
+    basicAuthenticationRest,
+  };
 
   const handleMethodButtonClick = () => {
     setShowContent(true);
@@ -29,20 +63,50 @@ const RestApi = (props) => {
     setSelectedOption(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmitRest = async (event) => {
     event.preventDefault();
-    const formData = {
-      fname,
-      selectedOption,
-      webURI,
-      code,
-      quantity,
-      description,
-      type,
-      pack,
-    };
+    // Validate the form data
+    // if (!validateForm()) {
+    //   return;
+    // }
+    try {
+      const response = await fetch("/api/apiintegration", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("Data saved successfully");
+        resetState();
+      } else {
+        console.error("Failed to save data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
     const formDataJson = JSON.stringify(formData);
     console.log(formDataJson);
+  };
+
+  const validateForm = () => {
+    // Check if the required fields are filled in
+    if (
+      !fname ||
+      !webURI ||
+      !code ||
+      !quantity ||
+      !description ||
+      !type ||
+      !pack
+    ) {
+      alert("Please fill in all required fields");
+      return false;
+    }
+
+    return true;
   };
 
   const toggleModal = () => {
@@ -68,8 +132,22 @@ const RestApi = (props) => {
     document.body.classList.remove("active-modal");
   }
 
-  const handleCloseClick = () => {
+  const handleCloseClickRest = () => {
     props.toCancel();
+  };
+
+  const handleAddWebServiceRest = (parameter) => {
+    setWebServices((prevParameters) => [...prevParameters, parameter]);
+    setShowWebServiceConfiguration(() => false);
+    // setShowAddParameterRest(false);
+  };
+
+  const handleAuthenticationRest = (parameter) => {
+    setBasicAuthenticationRest((prevParameters) => [
+      ...prevParameters,
+      parameter,
+    ]);
+    setShowAuthentication(() => false);
   };
 
   return (
@@ -77,10 +155,14 @@ const RestApi = (props) => {
       <div className="container_0">
         {showModal && (
           <>
-            <button className="save" type="submit" onClick={handleSubmit}>
+            <button className="save" type="submit" onClick={handleSubmitRest}>
               Save
             </button>
-            <button className="cancel" onClick={handleCloseClick} type="button">
+            <button
+              className="cancel"
+              onClick={handleCloseClickRest}
+              type="button"
+            >
               Cancel
             </button>
           </>
@@ -114,7 +196,7 @@ const RestApi = (props) => {
         <div className="form3">
           <label htmlFor="code">Code:</label>
           <input
-            type="text"
+            type="number"
             id="code"
             name="code"
             value={code}
@@ -161,7 +243,12 @@ const RestApi = (props) => {
 
         <div>
           <label htmlFor="dropdown">Package:</label>
-          <select id="dropdown" value={selectedOption} onChange={handleChange}>
+          <select
+            id="dropdown"
+            name="pack"
+            value={selectedOption}
+            onChange={handleChange}
+          >
             <option value="option1"></option>
             <option value="option2">Custom</option>
             <option value="option3">UsrTrial</option>
@@ -181,9 +268,14 @@ const RestApi = (props) => {
             Authentication
           </button>
           {showAuthentication && (
-            <Authentication
-              isModalOpen={showAuthentication}
-              toClose={handleAuthenticationClick}
+            // <Authentication
+            //   isModalOpen={showAuthentication}
+            //   toClose={handleAuthenticationClick}
+            //   onHandleAddAuthentication={handleAuthenticationRest}
+            // />
+            <ModalAuthentication
+              toCloseRest={handleAuthenticationClick}
+              onAddModalAuthenticationRest={handleAuthenticationRest}
             />
           )}
         </div>
@@ -194,7 +286,9 @@ const RestApi = (props) => {
           Web Services +
         </button>
       )}
-      {showWebServiceConfiguration && <WebServices />}
+      {showWebServiceConfiguration && (
+        <WebServices onHandleAddWebService={handleAddWebServiceRest} />
+      )}
     </>
   );
 };

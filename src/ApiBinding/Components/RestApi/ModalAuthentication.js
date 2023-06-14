@@ -1,24 +1,46 @@
 import React, { useState } from "react";
 import "./ModalAuthentication.css";
 
-function ModalAuth({ closeModal }) {
+const ModalAuthentication = (props) => {
   const [selectedAuthentication, setSelectedAuthentication] =
     useState("option1");
-  const [application, setApplication] = useState("");
   const [showBasic, setShowBasic] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const formData = {
+    showBasic,
+    username,
+    password,
+  };
+
+  const resetState = () => {
+    setShowBasic(true);
+    setUsername("");
+    setPassword("");
+  };
+
+  const handleSubmitRest = (event) => {
     event.preventDefault();
-    const formData = {
-      application,
-      username,
-      password,
-    };
-    const formDataJson = JSON.stringify(formData);
-    console.log(formDataJson);
-    closeModal(); // Close the modal after form submission
+    if (!validateForm()) {
+      return;
+    }
+
+    console.log(JSON.stringify(formData));
+    props.onAddModalAuthenticationRest(formData);
+    props.toCloseRest();
+  };
+
+  const validateForm = () => {
+    // Check if the required fields are filled in
+    if (selectedAuthentication === "option2") {
+      if (!showBasic || !username || !password) {
+        alert("Please fill in all required fields");
+        return false;
+      }
+    }
+
+    return true;
   };
 
   const handleChange = (event) => {
@@ -26,14 +48,14 @@ function ModalAuth({ closeModal }) {
     setShowBasic(event.target.value === "option2");
   };
 
-  const handleCancel = () => {
-    closeModal(); // Close the modal when "Cancel" button is clicked
+  const handleCancelRest = () => {
+    props.toCloseRest(); // Close the modal when "Cancel" button is clicked
   };
 
   return (
     <div className="modalAuth">
       <div className="modal-contentAuth">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmitRest}>
           <div>
             <label htmlFor="dropdown">Authentication:</label>
             <select
@@ -69,10 +91,14 @@ function ModalAuth({ closeModal }) {
           )}
           <br />
           <div className="modal-buttons">
-            <button type="submit" className="btn_ok">
+            <button type="submit" className="btn_ok" onClick={handleSubmitRest}>
               OK
             </button>
-            <button type="button" className="btn_cancel" onClick={handleCancel}>
+            <button
+              type="button"
+              className="btn_cancel"
+              onClick={handleCancelRest}
+            >
               Cancel
             </button>
           </div>
@@ -80,6 +106,6 @@ function ModalAuth({ closeModal }) {
       </div>
     </div>
   );
-}
+};
 
-export default ModalAuth;
+export default ModalAuthentication;

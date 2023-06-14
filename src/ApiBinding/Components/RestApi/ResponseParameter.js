@@ -5,32 +5,62 @@ function RequestParameter(props) {
   const [name, setName] = useState("");
   const [parameterType, setParameterType] = useState("option1");
   const [elementPath, setElementPath] = useState("");
-  const [code, setCode] = useState("");
+  const [codeResponse, setCodeResponse] = useState("");
   const [dataType, setDataType] = useState("");
   const [number, setNumber] = useState("");
   const [showResponseModal, setShowResponseModal] = useState(false);
+
+  const formData = {
+    name,
+    parameterType,
+    elementPath,
+    codeResponse,
+    number,
+    dataType,
+  };
+
+  const resetState = () => {
+    setName("");
+    setCodeResponse("");
+    setDataType("");
+    setElementPath("");
+    setParameterType("");
+    setNumber("");
+    setShowResponseModal(true);
+  };
 
   const handleChange = (event) => {
     setParameterType(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const validateForm = () => {
+    // Check if the required fields are filled in
+    if (
+      !name ||
+      !parameterType ||
+      !elementPath ||
+      !codeResponse ||
+      !number ||
+      !dataType
+    ) {
+      alert("Please fill in all required fields");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = {
-      name,
-      parameterType,
-      elementPath,
-      code,
-      number,
-      dataType,
-    };
-    const formDataJson = JSON.stringify(formData);
-    console.log(formDataJson);
+    if (!validateForm()) {
+      return;
+    }
+    console.log(JSON.stringify(formData));
     setShowResponseModal(true);
+    props.toClose();
+    props.onAdd(formData);
   };
 
   const handleCloseResponseModal = () => {
-    // setShowResponseModal(false);
     props.toClose();
   };
 
@@ -54,7 +84,7 @@ function RequestParameter(props) {
             <option value="option3">Cookie Parameter</option>
           </select>
         </div>
-
+        php Copy code
         <label>
           Path to element (JSON path):
           <textarea
@@ -63,53 +93,62 @@ function RequestParameter(props) {
           />
         </label>
         <br />
-
         <label>
           Code:
-          <textarea value={code} onChange={(e) => setCode(e.target.value)} />
+          <input
+            type="number"
+            id="number"
+            name="number"
+            value={codeResponse}
+            onChange={(e) => setCodeResponse(e.target.value)}
+          />
         </label>
-
         <div>
-          <label htmlFor="dropdown">DataType:</label>
-          <select id="dropdown" value={dataType} onChange={handleChange}>
-            <option value="option1">Text</option>
-            <option value="option2">Integer</option>
-            <option value="option3">Decimal</option>
-            <option value="option4">Boolean</option>
-            <option value="option5">Date/Time</option>
-            <option value="option6">Unique Identifier</option>
-            <option value="option7">Date</option>
-            <option value="option8">Time</option>
-            <option value="option9">Object</option>
+          <label htmlFor="dataTypeDropdown">DataType:</label>
+          <select
+            id="dataTypeDropdown"
+            value={dataType}
+            onChange={(e) => setDataType(e.target.value)}
+          >
+            <option value="Text">Text</option>
+            <option value="Integer">Integer</option>
+            <option value="Decimal">Decimal</option>
+            <option value="Boolean">Boolean</option>
+            <option value="Date/Time">Date/Time</option>
+            <option value="Unique Identifier">Unique Identifier</option>
+            <option value="Date">Date</option>
+            <option value="Time">Time</option>
+            <option value="Object">Object</option>
           </select>
         </div>
-
-        <form className="form8" onSubmit={handleSubmit}>
-          <label htmlFor="authentication">Required</label>
+        <form className="form8">
+          <label htmlFor="requiredCheckbox">Required</label>
           <input
             type="checkbox"
-            id="required"
+            id="requiredCheckbox"
             name="required"
             value="required"
           />
           <br />
         </form>
-
-        <label htmlFor="quantity">Default value (Constant):</label>
+        <label htmlFor="defaultValue">Default value (Constant):</label>
         <input
           type="number"
-          id="number"
-          name="number"
+          id="defaultValue"
+          name="defaultValue"
           value={number}
           onChange={(e) => setNumber(e.target.value)}
         />
         <br />
         <br />
-
-        <button className="ok-button" onClick={""}>
+        <button className="ok-button" type="submit" onClick={handleSubmit}>
           OK
         </button>
-        <button className="close-button" onClick={handleCloseResponseModal}>
+        <button
+          className="close-button"
+          type="button"
+          onClick={handleCloseResponseModal}
+        >
           Close
         </button>
       </form>

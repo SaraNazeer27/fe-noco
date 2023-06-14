@@ -1,24 +1,40 @@
 import React, { useState } from "react";
 import "./ModalAuthenticationSoap.css";
 
-function ModalAuthSoap({ closeModalSoap }) {
+const ModalAuthenticationSoap = (props) => {
   const [selectedAuthenticationSoap, setSelectedAuthenticationSoap] =
     useState("option1");
-  const [applicationSoap, setApplicationSoap] = useState("");
-  const [showBasicSoap, setShowBasicSoap] = useState(false);
+  const [showBasicSoap, setShowBasicSoap] = useState(true);
   const [usernameSoap, setUsernameSoap] = useState("");
   const [passwordSoap, setPasswordSoap] = useState("");
 
+  const formDataSoap = {
+    showBasicSoap,
+    usernameSoap,
+    passwordSoap,
+  };
+
   const handleSubmitSoap = (event) => {
     event.preventDefault();
-    const formDataSoap = {
-      application,
-      username,
-      password,
-    };
-    const formDataJsonSoap = JSON.stringify(formDataSoap);
-    console.log(formDataJsonSoap);
-    closeModalSoap(); // Close the modal after form submission
+    if (!validateForm()) {
+      return;
+    }
+
+    console.log(JSON.stringify(formDataSoap));
+    props.onAddModalAuthentication(formDataSoap);
+    props.toClose();
+  };
+
+  const validateForm = () => {
+    // Check if the required fields are filled in
+    if (selectedAuthenticationSoap === "option2") {
+      if (!showBasicSoap || !usernameSoap || !passwordSoap) {
+        alert("Please fill in all required fields");
+        return false;
+      }
+    }
+
+    return true;
   };
 
   const handleChangeSoap = (event) => {
@@ -27,7 +43,8 @@ function ModalAuthSoap({ closeModalSoap }) {
   };
 
   const handleCancelSoap = () => {
-    closeModalSoap(); // Close the modal when "Cancel" button is clicked
+    // closeModalSoap(); // Close the modal when "Cancel" button is clicked
+    props.toClose();
   };
 
   return (
@@ -69,7 +86,11 @@ function ModalAuthSoap({ closeModalSoap }) {
           )}
           <br />
           <div className="modal-buttonsSoap">
-            <button type="submit" className="btn_okSoap">
+            <button
+              type="submit"
+              className="btn_okSoap"
+              onClick={handleSubmitSoap}
+            >
               OK
             </button>
             <button
@@ -84,6 +105,6 @@ function ModalAuthSoap({ closeModalSoap }) {
       </div>
     </div>
   );
-}
+};
 
-export default ModalAuthSoap;
+export default ModalAuthenticationSoap;

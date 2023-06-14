@@ -5,24 +5,31 @@ import ModalAuthentication from "./ModalAuthentication";
 const Authentication = (props) => {
   const [selectedAuthentication, setSelectedAuthentication] =
     useState("option1");
-  const [application, setApplication] = useState("");
+
   const [showBasic, setShowBasic] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(props.isModalOpen);
+  const [authenticationRest, setAuthenticationRest] = useState({});
 
-  const handleSubmit = (event) => {
+  const formData = {
+    selectedAuthentication,
+    username,
+    password,
+  };
+
+  const resetState = () => {
+    setSelectedAuthentication("option1");
+    setUsername("");
+    setPassword("");
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = {
-      selectedAuthentication,
-      application,
-      username,
-      password,
-    };
-    const formDataJson = JSON.stringify(formData);
-    console.log(formDataJson);
-    closeModal();
+    console.log(JSON.stringify(formData));
+    props.onHandleAddAuthenticationRest(formData);
+    closeModalRest();
   };
 
   const handleChange = (event) => {
@@ -35,19 +42,31 @@ const Authentication = (props) => {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    props.toClose(false);
+  const closeModalRest = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleModalAuthenticationRest = (parameter) => {
+    setAuthenticationRest((prevParameters) => ({
+      ...prevParameters,
+      ...parameter,
+    }));
   };
 
   return (
-    <div>
-      <div className="modalAuth">
-        <div onClick={closeModal}></div>
-        <div className="modal-contentAuth">
-          <ModalAuthentication closeModal={closeModal} />
+    isModalOpen && (
+      <div>
+        <div className="modalAuth">
+          <div onClick={closeModalRest}></div>
+          <div className="modal-contentAuth">
+            <ModalAuthentication
+              closeModalRest={closeModalRest}
+              onAddModalAuthenticationRest={handleModalAuthenticationRest}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 };
 

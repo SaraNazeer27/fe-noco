@@ -3,48 +3,79 @@ import "./WebServicesSoap.css";
 import RequestParameterSoap from "../SoapApi/RequestParameterSoap";
 import ResponseParameterSoap from "../SoapApi/ResponseParameterSoap";
 
-const WebServicesSoap = () => {
+const WebServicesSoap = (props) => {
   const [fnameSoap, setFnameSoap] = useState("");
   const [codeSoap, setCodeSoap] = useState("");
   const [codeMessage, setCodeMessage] = useState("");
   const [quantitySoap, setQuantitySoap] = useState("");
   const [soapAction, setSoapAction] = useState("");
-
   const [showRequestSoapContent, setShowRequestSoapContent] = useState(false);
   const [showResponseSoapContent, setShowResponseSoapContent] = useState(false);
-  const [showAddParameter, setShowAddParameter] = useState(false);
+  const [showAddParameterSoap, setShowAddParameterSoap] = useState(false);
   const [parameterType, setParameterType] = useState(""); // New state variable for parameter type
   const [showModalSoap, setShowModalSoap] = useState(true);
   const [showPopupSoap, setShowPopupSoap] = useState(false);
+  const [requestParametersSoap, setRequestParametersSoap] = useState([]);
+  const [responseParametersSoap, setResponseParametersSoap] = useState([]);
+
+  const formDataSoap = {
+    fnameSoap,
+    codeMessage,
+    codeSoap,
+    quantitySoap,
+    soapAction,
+    requestParametersSoap,
+    responseParametersSoap,
+  };
+
+  const resetState = () => {
+    setFnameSoap("");
+    setCodeMessage("");
+    setCodeSoap("");
+    setQuantitySoap("");
+    setSoapAction("");
+    setShowModalSoap(true);
+    setShowRequestSoapContent(true);
+    setShowResponseSoapContent(true);
+  };
 
   const handleRequestSoapClick = () => {
     setShowRequestSoapContent(!showRequestSoapContent);
-    setShowAddParameter(false);
+    setShowAddParameterSoap(false);
   };
 
   const handleResponseSoapClick = () => {
     setShowResponseSoapContent(!showResponseSoapContent);
-    setShowAddParameter(false);
+    setShowAddParameterSoap(false);
   };
 
-  const handleSubmitSoap = (event) => {
+  const handleSubmitSoap = async (event) => {
     event.preventDefault();
-    const formDataSoap = {
-      fnameSoap,
-      codeMessage,
-      codeSoap,
-      quantitySoap,
-      soapAction,
-    };
-    const jsonDataSoap = JSON.stringify(formDataSoap);
-    console.log(jsonDataSoap);
-    // Add your logic here to save the data
-    // For example, you can make an API call or update a global state
+    // if (!validateForm()) {
+    //   return;
+    // }
+
+    props.onHandleAddWebService(formDataSoap);
+  };
+
+  // Validate the form data
+  const validateForm = () => {
+    // Check if the required fields are filled in
+    if (
+      !fnameSoap ||
+      !codeMessage ||
+      !codeSoap ||
+      !quantitySoap ||
+      !soapAction
+    ) {
+      alert("Please fill in all required fields");
+      return false;
+    }
   };
 
   const handleAddSoapParameter = (parameterType) => {
     setParameterType(parameterType);
-    setShowAddParameter(true);
+    setShowAddParameterSoap(true);
   };
 
   const handleCloseClickSoap = () => {
@@ -52,7 +83,6 @@ const WebServicesSoap = () => {
   };
 
   const handleTestRequestSoapClick = () => {
-    debugger;
     setShowPopupSoap(() => true);
   };
 
@@ -61,7 +91,23 @@ const WebServicesSoap = () => {
   };
 
   const closeHandlerSoapParameter = () => {
-    setShowAddParameter(() => false);
+    setShowAddParameterSoap(() => false);
+  };
+
+  const handleRequestParameterSoap = (parameter) => {
+    setRequestParametersSoap((prevParameters) => [
+      ...prevParameters,
+      parameter,
+    ]);
+    setShowAddParameterSoap(false);
+  };
+
+  const handleResponsetParameterSoap = (parameter) => {
+    setResponseParametersSoap((prevParameters) => [
+      ...prevParameters,
+      parameter,
+    ]);
+    setShowAddParameterSoap(false);
   };
 
   return (
@@ -69,7 +115,11 @@ const WebServicesSoap = () => {
       {showModalSoap && (
         <div className="webSoap">
           <div className="container0Soap">
-            <button className="OK-webSoap" type="submit">
+            <button
+              className="OK-webSoap"
+              type="submit"
+              onClick={handleSubmitSoap}
+            >
               OK
             </button>
             <button
@@ -88,7 +138,7 @@ const WebServicesSoap = () => {
             </button>
           </div>
           <div className="container1Soap">
-            <form className="form1Soap" onSubmit={handleSubmitSoap}>
+            <form className="form1Soap">
               <label htmlFor="fnameSoap">Name:</label>
               <input
                 type="text"
@@ -99,11 +149,11 @@ const WebServicesSoap = () => {
               />
               <br />
             </form>
-            php Copy code
-            <form className="form3Soap" onSubmit={handleSubmitSoap}>
+
+            <form className="form3Soap">
               <label htmlFor="codeSoap">Code:</label>
               <input
-                type="text"
+                type="number"
                 id="codeSoap"
                 name="codeSoap"
                 value={codeSoap}
@@ -111,10 +161,10 @@ const WebServicesSoap = () => {
               />
               <br />
             </form>
-            <form className="form3Soap" onSubmit={handleSubmitSoap}>
+            <form className="form3Soap">
               <label htmlFor="codeMessage">Message Element Code:</label>
               <input
-                type="text"
+                type="number"
                 id="codeMessage"
                 name="codeMessage"
                 value={codeMessage}
@@ -122,7 +172,7 @@ const WebServicesSoap = () => {
               />
               <br />
             </form>
-            <form className="form6Soap" onSubmit={handleSubmitSoap}>
+            <form className="form6Soap">
               <label htmlFor="quantitySoap">Response timeout, ms:</label>
               <input
                 type="number"
@@ -133,7 +183,7 @@ const WebServicesSoap = () => {
               />
               <br />
             </form>
-            <form className="form7Soap" onSubmit={handleSubmitSoap}>
+            <form className="form7Soap">
               <label htmlFor="soapAction">Soap Action:</label>
               <input
                 type="text"
@@ -144,7 +194,7 @@ const WebServicesSoap = () => {
               />
               <br />
             </form>
-            <form className="form8Soap" onSubmit={handleSubmitSoap}>
+            <form className="form8Soap">
               <label htmlFor="authenticationSoap">Use authentication</label>
               <input
                 type="checkbox"
@@ -188,16 +238,18 @@ const WebServicesSoap = () => {
                   >
                     Add Parameter
                   </button>
-                  {showAddParameter && (
+                  {showAddParameterSoap && (
                     <div className="request-modalSoap">
                       <div className="request-modal-contentSoap">
                         {parameterType === "request" ? (
                           <RequestParameterSoap
                             toClose={closeHandlerSoapParameter}
+                            onAdd={handleRequestParameterSoap}
                           />
                         ) : (
                           <ResponseParameterSoap
                             toClose={closeHandlerSoapParameter}
+                            onAdd={handleResponsetParameterSoap}
                           />
                         )}
                       </div>

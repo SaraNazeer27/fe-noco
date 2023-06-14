@@ -10,34 +10,65 @@ function ResponseParameterSoap(props) {
   const [numberSoap, setNumberSoap] = useState("");
   const [showResponseModalSoap, setShowResponseModalSoap] = useState(false);
 
+  const formDataSoap = {
+    nameSoap,
+    parameterTypeSoap,
+    elementPathSoap,
+    codeSoap,
+    numberSoap,
+    dataTypeSoap,
+  };
+
+  const resetState = () => {
+    setNameSoap("");
+    setCodeSoap("");
+    setElementPathSoap("");
+    setNumberSoap("");
+    setDataTypeSoap("");
+    setParameterTypeSoap("option1");
+    setShowResponseModalSoap(true);
+  };
+
   const handleChangeSoap = (event) => {
     setParameterTypeSoap(event.target.value);
   };
 
-  const handleSubmitSoap = (event) => {
+  const handleSubmitSoap = async (event) => {
     event.preventDefault();
-    const formDataSoap = {
-      nameSoap,
-      parameterTypeSoap,
-      elementPathSoap,
-      codeSoap,
-      numberSoap,
-      dataTypeSoap,
-    };
-    const formDataJsonSoap = JSON.stringify(formDataSoap);
-    console.log(formDataJsonSoap);
+    if (!validateForm()) {
+      return;
+    }
+
+    console.log(JSON.stringify(formDataSoap));
+    props.toClose();
+    props.onAdd(formDataSoap);
     setShowResponseModalSoap(true);
   };
 
+  // Validate the form data
+  const validateForm = () => {
+    // Check if the required fields are filled in
+    if (
+      !nameSoap ||
+      !parameterTypeSoap ||
+      !elementPathSoap ||
+      !codeSoap ||
+      !numberSoap ||
+      !dataTypeSoap
+    ) {
+      alert("Please fill in all required fields");
+      return false;
+    }
+  };
+
   const handleCloseResponseModalSoap = () => {
-    // setShowResponseModalSoap(false);
     props.toClose();
   };
 
   return (
-    <form>
+    <form onClick={handleSubmitSoap}>
       {showResponseModalSoap || (
-        <div onSubmit={handleSubmitSoap}>
+        <div>
           <label>
             Name:
             <input
@@ -71,7 +102,10 @@ function ResponseParameterSoap(props) {
 
           <label>
             Code:
-            <textarea
+            <input
+              type="number"
+              id="codeSoap"
+              name="codeSoap"
               value={codeSoap}
               onChange={(e) => setCodeSoap(e.target.value)}
             />
@@ -96,7 +130,7 @@ function ResponseParameterSoap(props) {
             </select>
           </div>
 
-          <div className="form8Soap" onSubmit={handleSubmitSoap}>
+          <div className="form8Soap">
             <label htmlFor="authenticationSoap">Is array</label>
             <input
               type="checkbox"
@@ -118,7 +152,9 @@ function ResponseParameterSoap(props) {
           <br />
           <br />
 
-          <button className="ok-buttonSoap">OK</button>
+          <button className="ok-buttonSoap" onClick={handleSubmitSoap}>
+            OK
+          </button>
           <button
             className="close-buttonSoap"
             onClick={handleCloseResponseModalSoap}

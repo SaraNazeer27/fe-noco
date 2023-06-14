@@ -1,72 +1,135 @@
 import React, { useState } from "react";
 import ApiHome from "../ApiHome/ApiHome";
 import "./SoapApi.css";
-import Authentication from "../RestApi/Authentication";
+import AuthenticationSoap from "../SoapApi/AuthenticationSoap";
 import WebServicesSoap from "../SoapApi/WebServicesSoap";
+import ModalAuthenticationSoap from "./ModalAuthenticationSoap";
 
 const SoapApi = (props) => {
-  const [selectedOption, setSelectedOption] = useState("option1");
-  const [fname, setFname] = useState("");
-  const [tname, setTname] = useState("");
-  const [webURI, setWebURI] = useState("");
-  const [code, setCode] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [description, setDescription] = useState("");
-  const [type, setType] = useState("");
-  const [pack, setPack] = useState("");
+  const [sSelectedOption, setSselectedOption] = useState("option1");
+  const [sname, setSname] = useState("");
+  const [sWebURI, setSwebURI] = useState("");
+  const [sCode, setScode] = useState("");
+  const [sQuantity, setSquantity] = useState("");
+  const [sDescription, setSdescription] = useState("");
+  const [sType, setStype] = useState("");
+  const [sPack, setSpack] = useState("");
   const [nameSpaces, setNameSpaces] = useState("");
-  const [showModal, setShowModal] = useState(true);
-  const [showContent, setShowContent] = useState(false);
-  const [modal, setModal] = useState(false);
-  const [showWebServiceConfiguration, setShowWebServiceConfiguration] =
+  const [sShowModal, setSshowModal] = useState(true);
+  const [sShowContent, setSshowContent] = useState(false);
+  const [sModal, setSmodal] = useState(false);
+  const [sShowWebServiceConfiguration, setSshowWebServiceConfiguration] =
     useState(false);
-  const [showAuthentication, setShowAuthentication] = useState(false);
-  const [showWebServices, setShowWebServices] = useState(false); // Updated state
+  const [sShowAuthentication, setSshowAuthentication] = useState(false);
+  const [sShowWebServices, setSshowWebServices] = useState(false); // Updated state
+  const [sWebServices, setSwebServices] = useState([]);
+  const [basicAuthenticationSoap, setBasicAuthenticationSoap] = useState([]);
+
+  const formData = {
+    sSelectedOption,
+    sname,
+    sWebURI,
+    sCode,
+    sQuantity,
+    sDescription,
+    sType,
+    sPack,
+    nameSpaces,
+    sWebServices,
+    basicAuthenticationSoap,
+  };
+
+  const resetState = () => {
+    setSselectedOption("option1");
+    setSname("");
+    setSwebURI("");
+    setScode("");
+    setSquantity("");
+    setSdescription("");
+    setStype("SOAP");
+    setSpack("");
+    setNameSpaces("");
+    setSshowContent(false);
+    setSmodal(false);
+    setSshowModal(true);
+    setSshowWebServiceConfiguration(false);
+    setSshowAuthentication(false);
+    setSshowWebServices(false);
+  };
 
   const handleMethodButtonClick = () => {
-    setShowContent(true);
-    setShowWebServices(true); // Show Web Services button
+    setSshowContent(true);
+    setSshowWebServices(true); // Show Web Services button
   };
 
   const handleChange = (event) => {
-    setSelectedOption(event.target.value);
+    setSselectedOption(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = {
-      fname,
-      selectedOption,
-      tname,
-      webURI,
-      code,
-      quantity,
-      description,
-      type,
-      pack,
-      nameSpaces,
-    };
+    // if (!validateForm()) {
+    //   return;
+    // }
+    try {
+      const response = await fetch("/api/apiintegration", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("Data saved successfully");
+        resetState();
+      } else {
+        console.error("Failed to save data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
     const formDataJson = JSON.stringify(formData);
     console.log(formDataJson);
   };
+
+  const validateForm = () => {
+    // Check if the required fields are filled in
+    if (
+      !sSelectedOption ||
+      !sname ||
+      !sWebURI ||
+      !sCode ||
+      !sQuantity ||
+      !sDescription ||
+      !sType ||
+      !sPack ||
+      !nameSpaces
+    ) {
+      alert("Please fill in all required fields");
+      return false;
+    }
+  };
+
   const toggleModal = () => {
-    setShowWebServices(true);
+    setSshowWebServices(true);
   };
 
   const handleOpenClick = () => {
-    setShowAuthentication(() => true);
-    setShowWebServices(false); // Hide Web Services button
+    setSshowAuthentication(() => true);
+    setSshowWebServices(false); // Hide Web Services button
   };
 
   const handleWebServicesClick = () => {
-    setShowWebServiceConfiguration((prevState) => !prevState);
+    setSshowWebServiceConfiguration((prevState) => !prevState);
   };
 
   const handleAuthenticationClick = (newChange) => {
-    setShowAuthentication(() => newChange);
+    setSshowAuthentication(() => newChange);
   };
 
-  if (modal) {
+  if (sModal) {
     document.body.classList.add("active-modal");
   } else {
     document.body.classList.remove("active-modal");
@@ -75,10 +138,24 @@ const SoapApi = (props) => {
   const handleCloseClick = () => {
     props.toCancel();
   };
+
+  const handleAddSWebService = (parameter) => {
+    setSwebServices((prevParameters) => [...prevParameters, parameter]);
+    setSshowWebServiceConfiguration(() => false);
+  };
+
+  const handleAuthenticationSoap = (parameter) => {
+    setBasicAuthenticationSoap((prevParameters) => [
+      ...prevParameters,
+      parameter,
+    ]);
+    setSshowAuthentication(() => false);
+  };
+
   return (
     <>
       <div className="container0Soap">
-        {showModal && (
+        {sShowModal && (
           <>
             <button className="saveSoap" type="submit" onClick={handleSubmit}>
               Save
@@ -96,82 +173,82 @@ const SoapApi = (props) => {
       <div className="container1Soap">
         <form className="form1">
           <div className="form1">
-            <label htmlFor="fname">Name:</label>
+            <label htmlFor="sname">Name:</label>
             <input
               type="text"
-              id="fname"
-              name="fname"
-              value={fname}
-              onChange={(event) => setFname(event.target.value)}
+              id="sname"
+              name="sname"
+              value={sname}
+              onChange={(event) => setSname(event.target.value)}
             />
             <br />
           </div>
 
           <div className="form2Soap">
-            <label htmlFor="webURL">Web service URI:</label>
+            <label htmlFor="sWebURL">Web service URI:</label>
             <input
               type="url"
-              id="webURI"
-              name="webURI"
-              value={webURI}
-              onChange={(event) => setWebURI(event.target.value)}
+              id="sWebURI"
+              name="sWebURI"
+              value={sWebURI}
+              onChange={(event) => setSwebURI(event.target.value)}
             />
             <br />
           </div>
 
           <div className="form3Soap">
-            <label htmlFor="code">Code:</label>
+            <label htmlFor="sCode">Code:</label>
             <input
-              type="text"
-              id="code"
-              name="code"
-              value={code}
-              onChange={(event) => setCode(event.target.value)}
+              type="number"
+              id="sCode"
+              name="sCode"
+              value={sCode}
+              onChange={(event) => setScode(event.target.value)}
             />
             <br />
           </div>
 
           <div className="form4Soap">
-            <label htmlFor="quantity">Retries on call failure:</label>
+            <label htmlFor="sQuantity">Retries on call failure:</label>
             <input
               type="number"
-              id="quantity"
-              name="quantity"
-              value={quantity}
-              onChange={(event) => setQuantity(event.target.value)}
+              id="sQuantity"
+              name="sQuantity"
+              value={sQuantity}
+              onChange={(event) => setSquantity(event.target.value)}
             />
             <br />
           </div>
 
           <div className="form5Soap">
-            <label htmlFor="description">Description:</label>
+            <label htmlFor="sDescription">Description:</label>
             <input
               type="text"
-              id="description"
-              name="description"
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
+              id="sDescription"
+              name="sDescription"
+              value={sDescription}
+              onChange={(event) => setSdescription(event.target.value)}
             />
             <br />
           </div>
 
           <div className="form6Soap">
-            <label htmlFor="type">Type:</label>
+            <label htmlFor="sType">Type:</label>
             <input
               type="text"
-              id="type"
-              name="type"
+              id="sType"
+              name="sType"
               value="SOAP"
-              onChange={(event) => setType(event.target.value)}
+              onChange={(event) => setStype(event.target.value)}
             />
             <br />
           </div>
 
           <div>
-            <label htmlFor="dropdown">Package:</label>
+            <label htmlFor="sDropdown">Package:</label>
             <select
-              id="dropdown"
-              value={selectedOption}
+              id="sDropdown"
+              value={sSelectedOption}
               onChange={handleChange}
             >
               <option value="option1"></option>
@@ -202,24 +279,31 @@ const SoapApi = (props) => {
         </div>
         <br />
         <div>
-          <button onClick={handleOpenClick} className="authenticationSoap">
+          <button onClick={handleOpenClick} className="authSoap">
             Authentication
           </button>
-          {showAuthentication && (
-            <Authentication
-              isModalOpen={showAuthentication}
+          {sShowAuthentication && (
+            // <AuthenticationSoap
+            //   isModalOpen={sShowAuthentication}
+            //   toClose={handleAuthenticationClick}
+            //   onHandleAuthentication={handleAuthenticationSoap}
+            // />
+            <ModalAuthenticationSoap
               toClose={handleAuthenticationClick}
+              onAddModalAuthentication={handleAuthenticationSoap}
             />
           )}
         </div>
       </div>
 
-      {showWebServices && (
+      {sShowWebServices && (
         <button className="web_serviceSoap" onClick={handleWebServicesClick}>
           Web Services +
         </button>
       )}
-      {showWebServiceConfiguration && <WebServicesSoap />}
+      {sShowWebServiceConfiguration && (
+        <WebServicesSoap onHandleAddWebService={handleAddSWebService} />
+      )}
     </>
   );
 };

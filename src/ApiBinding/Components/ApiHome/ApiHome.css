@@ -24,8 +24,15 @@
   border-color: rgb(134, 82, 117);
   border-radius: 10px;
   width: 20vh;
+  position: fixed;
+  top: 25px;
+  left: 20px;
 }
 
+.dropdown-menu {
+  position: fixed;
+  top: 50px;
+}
 .dropdown-menu :hover {
   background-color: rgb(214, 214, 221);
   border: 5px solid rgb(214, 214, 221);
@@ -45,4 +52,13 @@ li {
 .link {
   text-decoration: none;
   color: #000;
+}
+
+.container {
+  background-color: rgb(236, 236, 236);
+  height: 100%;
+  min-height: 700px;
+  box-shadow: 1px 1px 1px 1px rgb(167, 132, 163);
+  border: 8px;
+  border-color: coral;
 }

@@ -6,32 +6,61 @@ const RequestParameter = (props) => {
   const [lname, setLname] = useState("");
   const [selectedType, setSelectedType] = useState("option1");
   const [codeAddress, setCodeAddress] = useState("");
-  const [code, setCode] = useState("");
-  const [number, setNumber] = useState("");
+  const [codeRequest, setCodeRequest] = useState("");
+  const [numberRequest, setNumberRequest] = useState("");
   const [showRequestModal, setShowRequestModal] = useState(false);
-  const [formData, setFormData] = useState(null);
 
-  const handleChange = (event) => {
-    setSelectedType(event.target.value);
+  const formData = {
+    lname,
+    selectedType,
+    codeAddress,
+    codeRequest,
+    numberRequest,
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const formData = {
-      lname,
-      selectedType,
-      codeAddress,
-      code,
-      number,
-    };
-    const formDataJson = JSON.stringify(formData);
-    console.log(formDataJson);
+  const resetState = () => {
+    setLname("");
+    setSelectedType("option1");
+    setCodeAddress("");
+    setCodeRequest("");
+    setNumberRequest("");
     setShowRequestModal(true);
-    setFormData(formData);
+  };
+
+  const handleChange = (event) => {
+    // setFormData((prevFormData) => ({
+    //   ...prevFormData,
+    //   [event.target.name]: event.target.value,
+    // }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
+
+    console.log(JSON.stringify(formData));
+    props.toClose();
+    props.onAdd(formData);
+  };
+
+  const validateForm = () => {
+    // Check if the required fields are filled in
+    if (
+      !lname ||
+      !selectedType ||
+      !codeAddress ||
+      !codeRequest ||
+      !numberRequest
+    ) {
+      alert("Please fill in all required fields");
+      return false;
+    }
+    return true;
   };
 
   const handleCloseRequestModal = () => {
-    //setShowRequestModal(false);
     props.toClose();
   };
 
@@ -69,10 +98,16 @@ const RequestParameter = (props) => {
 
         <label>
           Code:
-          <textarea value={code} onChange={(e) => setCode(e.target.value)} />
+          <input
+            type="number"
+            id="number"
+            name="number"
+            value={codeRequest}
+            onChange={(e) => setCodeRequest(e.target.value)}
+          />
         </label>
 
-        <div className="form8" onSubmit={handleSubmit}>
+        <div className="form8">
           <label htmlFor="authentication">Required</label>
           <input
             type="checkbox"
@@ -88,13 +123,13 @@ const RequestParameter = (props) => {
           type="number"
           id="number"
           name="number"
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
+          value={numberRequest}
+          onChange={(e) => setNumberRequest(e.target.value)}
         />
         <br />
         <br />
 
-        <button className="ok-button" type="submit">
+        <button className="ok-button" type="submit" onClick={handleSubmit}>
           OK
         </button>
         <button className="close-button" onClick={handleCloseRequestModal}>

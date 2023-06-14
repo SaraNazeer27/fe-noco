@@ -109,18 +109,6 @@
   cursor: pointer;
 }
 
-.authenticationSoap {
-  background-color: #ecd7eb;
-  font: 100px;
-  margin-right: 1020px;
-  border: none;
-  position: fixed;
-  top: 380px;
-  right: 20px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
 .web_serviceSoap {
   background-color: #ecd7eb;
   font-size: 15px;
@@ -130,4 +118,16 @@
   top: 420px;
   left: 20px;
   cursor: pointer;
+}
+
+.authSoap {
+  background-color: #ecd7eb;
+  font: 100px;
+  margin-right: 1020px;
+  border: none;
+  position: fixed;
+  top: 380px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 16px;
 }
