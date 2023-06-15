@@ -80,6 +80,7 @@ const RequestParameter = (props) => {
             <option value="Method Address Parameter">
               Method Address Parameter
             </option>
+            <option value="Query Parameter">BodyParameter</option>
             <option value="Query Parameter">Query Parameter</option>
             <option value="Header Parameter">Header Parameter</option>
             <option value="Cookie Parameter">Cookie Parameter</option>
