@@ -13,7 +13,7 @@ const Authentication = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(props.isModalOpen);
   const [authenticationRest, setAuthenticationRest] = useState({});
 
-  const formData = {
+  const formDataAuthentication = {
     selectedAuthentication,
     username,
     password,
@@ -27,8 +27,8 @@ const Authentication = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(JSON.stringify(formData));
-    props.onHandleAddAuthenticationRest(formData);
+    console.log(JSON.stringify(formDataAuthentication));
+    props.onHandleAddAuthenticationRest(formDataAuthentication);
     closeModalRest();
   };
 

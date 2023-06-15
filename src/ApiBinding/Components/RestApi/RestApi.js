@@ -23,6 +23,7 @@ const RestApi = (props) => {
   const [showWebServices, setShowWebServices] = useState(false); // Updated state
   const [webServices, setWebServices] = useState([]);
   const [basicAuthenticationRest, setBasicAuthenticationRest] = useState([]);
+  const [showWebServiceTable, setShowWebServiceTable] = useState(false);
 
   const resetState = () => {
     setSelectedOption("option1");
@@ -41,7 +42,7 @@ const RestApi = (props) => {
     setShowWebServices(false);
   };
 
-  const formData = {
+  const formDataRestApi = {
     fname,
     selectedOption,
     webURI,
@@ -75,7 +76,7 @@ const RestApi = (props) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formDataRestApi),
       });
 
       if (response.ok) {
@@ -87,8 +88,9 @@ const RestApi = (props) => {
     } catch (error) {
       console.error("Error:", error);
     }
-    const formDataJson = JSON.stringify(formData);
+    const formDataJson = JSON.stringify(formDataRestApi);
     console.log(formDataJson);
+    console.log(webServices);
   };
 
   const validateForm = () => {
@@ -122,6 +124,10 @@ const RestApi = (props) => {
     setShowWebServiceConfiguration((prevState) => !prevState);
   };
 
+  const handleShowWebServicesClick = () => {
+    setShowWebServiceTable((prevState) => !prevState);
+  };
+
   const handleAuthenticationClick = (newChange) => {
     setShowAuthentication(() => newChange);
   };
@@ -151,7 +157,7 @@ const RestApi = (props) => {
   };
 
   return (
-    <>
+    <div>
       <div className="container_0">
         {showModal && (
           <>
@@ -168,6 +174,7 @@ const RestApi = (props) => {
           </>
         )}
       </div>
+
       <div className="container_1">
         <div className="form1">
           <label htmlFor="fname">Name:</label>
@@ -238,6 +245,7 @@ const RestApi = (props) => {
             value="REST"
             onChange={(event) => setType(event.target.value)}
           />
+
           <br />
         </div>
 
@@ -250,8 +258,8 @@ const RestApi = (props) => {
             onChange={handleChange}
           >
             <option value="option1"></option>
-            <option value="option2">Custom</option>
-            <option value="option3">UsrTrial</option>
+            <option value="Custom">Custom</option>
+            <option value="UsrTrial">UsrTrial</option>
           </select>
         </div>
       </div>
@@ -262,23 +270,48 @@ const RestApi = (props) => {
             Methods
           </button>
         </div>
+
         <br />
+
         <div>
           <button onClick={handleOpenClick} className="authentication">
             Authentication
           </button>
           {showAuthentication && (
-            // <Authentication
-            //   isModalOpen={showAuthentication}
-            //   toClose={handleAuthenticationClick}
-            //   onHandleAddAuthentication={handleAuthenticationRest}
-            // />
             <ModalAuthentication
               toCloseRest={handleAuthenticationClick}
               onAddModalAuthenticationRest={handleAuthenticationRest}
             />
           )}
         </div>
+
+        <button
+          className="showWebservicesButtton"
+          onClick={handleShowWebServicesClick}
+        >
+          Show
+        </button>
+
+        {showWebServiceTable && ( // Render the table only when showWebServiceTable is true
+          <div className="savedRestWebservice">
+            <table>
+              <tr>
+                <th>Name</th>
+                <th className="webServiceRestHeading">Type</th>
+              </tr>
+              {webServices.map((service, index) => (
+                <div key={index}>
+                  <tr>
+                    <td>{service.fnameRest}</td>
+                    <td className="webServiceRestHeading">
+                      {service.selectedOptionRestType}
+                    </td>
+                  </tr>
+                </div>
+              ))}
+            </table>
+          </div>
+        )}
       </div>
 
       {showWebServices && (
@@ -286,10 +319,11 @@ const RestApi = (props) => {
           Web Services +
         </button>
       )}
+
       {showWebServiceConfiguration && (
         <WebServices onHandleAddWebService={handleAddWebServiceRest} />
       )}
-    </>
+    </div>
   );
 };
 

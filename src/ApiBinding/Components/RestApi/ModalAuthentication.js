@@ -8,7 +8,7 @@ const ModalAuthentication = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const formData = {
+  const formDataModalAuthentication = {
     showBasic,
     username,
     password,
@@ -26,8 +26,8 @@ const ModalAuthentication = (props) => {
       return;
     }
 
-    console.log(JSON.stringify(formData));
-    props.onAddModalAuthenticationRest(formData);
+    console.log(JSON.stringify(formDataModalAuthentication));
+    props.onAddModalAuthenticationRest(formDataModalAuthentication);
     props.toCloseRest();
   };
 
@@ -63,8 +63,8 @@ const ModalAuthentication = (props) => {
               value={selectedAuthentication}
               onChange={handleChange}
             >
-              <option value="option1">None</option>
-              <option value="option2">Basic</option>
+              <option value="None">None</option>
+              <option value="Basic">Basic</option>
             </select>
           </div>
 

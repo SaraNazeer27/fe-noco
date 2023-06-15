@@ -3,14 +3,14 @@ import "./ResponseParameter.css";
 
 function RequestParameter(props) {
   const [name, setName] = useState("");
-  const [parameterType, setParameterType] = useState("option1");
+  const [parameterType, setParameterType] = useState("Body Parameter");
   const [elementPath, setElementPath] = useState("");
   const [codeResponse, setCodeResponse] = useState("");
   const [dataType, setDataType] = useState("");
   const [number, setNumber] = useState("");
   const [showResponseModal, setShowResponseModal] = useState(false);
 
-  const formData = {
+  const formDataResponseRest = {
     name,
     parameterType,
     elementPath,
@@ -24,7 +24,7 @@ function RequestParameter(props) {
     setCodeResponse("");
     setDataType("");
     setElementPath("");
-    setParameterType("");
+    setParameterType("Body Parameter");
     setNumber("");
     setShowResponseModal(true);
   };
@@ -51,13 +51,13 @@ function RequestParameter(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!validateForm()) {
-      return;
-    }
-    console.log(JSON.stringify(formData));
+    // if (!validateForm()) {
+    //   return;
+    // }
+    console.log(JSON.stringify(formDataResponseRest));
     setShowResponseModal(true);
     props.toClose();
-    props.onAdd(formData);
+    props.onAdd(formDataResponseRest);
   };
 
   const handleCloseResponseModal = () => {
@@ -79,12 +79,12 @@ function RequestParameter(props) {
         <div>
           <label htmlFor="dropdown">Parameter Type:</label>
           <select id="dropdown" value={parameterType} onChange={handleChange}>
-            <option value="option1">Body Parameter</option>
-            <option value="option2">Header Parameter</option>
-            <option value="option3">Cookie Parameter</option>
+            <option value="Body Parameter">Body Parameter</option>
+            <option value="Header Parameter">Header Parameter</option>
+            <option value="Cookie Parameter">Cookie Parameter</option>
           </select>
         </div>
-        php Copy code
+
         <label>
           Path to element (JSON path):
           <textarea

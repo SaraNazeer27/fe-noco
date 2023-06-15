@@ -50,7 +50,7 @@
   border-radius: 4px;
   position: fixed;
   left: 160px;
-  top: 320px;
+  top: 340px;
 }
 
 .popup {
@@ -176,7 +176,7 @@
   border: none;
   font-size: small;
   position: fixed;
-  top: 300px;
+  top: 320px;
   left: 420px;
   font-size: 16px;
 }
@@ -185,14 +185,14 @@
   background: transparent;
   border: none;
   position: fixed;
-  top: 300px;
+  top: 320px;
   font-size: 16px;
 }
 
 .request-modal {
   position: fixed;
   top: 10rem;
-  left: 12rem;
+  left: 25rem;
   width: 50%;
   height: 50%;
   display: flex;
@@ -221,4 +221,81 @@
 hr {
   position: fixed;
   top: 100px;
+}
+
+.showRequestButton {
+  position: fixed;
+  left: 100px;
+}
+
+.requestRestHeading1 {
+  left: 350px;
+  position: fixed;
+  top: 430px;
+}
+
+.requestRestHeading2 {
+  left: 100px;
+  position: fixed;
+  top: 430px;
+}
+
+.savedRequestRestParameter {
+  position: fixed;
+  top: 400px;
+  left: 20px;
+}
+
+.showRequestButton {
+  position: fixed;
+  left: 120px;
+  top: 400px;
+}
+
+.showResponseButton {
+  position: fixed;
+  left: 120px;
+  top: 400px;
+}
+
+.requestRestData1 {
+  left: 100px;
+  position: fixed;
+  top: 450px;
+}
+
+.requestRestData2 {
+  left: 350px;
+  position: fixed;
+  top: 450px;
+}
+
+.responseRestData1 {
+  left: 100px;
+  position: fixed;
+  top: 450px;
+}
+
+.responseRestData2 {
+  left: 350px;
+  position: fixed;
+  top: 450px;
+}
+
+.savedResponseRestParameters {
+  position: fixed;
+  top: 400px;
+  left: 20px;
+}
+
+.responseRestHeading1 {
+  left: 350px;
+  position: fixed;
+  top: 430px;
+}
+
+.responseRestHeading2 {
+  left: 100px;
+  position: fixed;
+  top: 430px;
 }

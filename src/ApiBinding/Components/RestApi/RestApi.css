@@ -131,3 +131,20 @@
   left: 20px;
   cursor: pointer;
 }
+
+.webServiceRestHeading {
+  left: 300px;
+  position: fixed;
+}
+
+.savedRestWebservice {
+  position: fixed;
+  top: 400px;
+  left: 20px;
+}
+
+.showWebservicesButtton {
+  position: fixed;
+  top: 370px;
+  left: 20px;
+}

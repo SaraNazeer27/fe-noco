@@ -4,13 +4,14 @@ import DisplayData from "./DisplayData";
 
 const RequestParameter = (props) => {
   const [lname, setLname] = useState("");
-  const [selectedType, setSelectedType] = useState("option1");
+  const [selectedType, setSelectedType] = useState("Method Address Parameter");
   const [codeAddress, setCodeAddress] = useState("");
   const [codeRequest, setCodeRequest] = useState("");
   const [numberRequest, setNumberRequest] = useState("");
   const [showRequestModal, setShowRequestModal] = useState(false);
+  const [inputRequestArr, setInputRequestArr] = useState({});
 
-  const formData = {
+  const formDataRequestRest = {
     lname,
     selectedType,
     codeAddress,
@@ -20,7 +21,7 @@ const RequestParameter = (props) => {
 
   const resetState = () => {
     setLname("");
-    setSelectedType("option1");
+    setSelectedType("Method Address Parameter");
     setCodeAddress("");
     setCodeRequest("");
     setNumberRequest("");
@@ -28,21 +29,18 @@ const RequestParameter = (props) => {
   };
 
   const handleChange = (event) => {
-    // setFormData((prevFormData) => ({
-    //   ...prevFormData,
-    //   [event.target.name]: event.target.value,
-    // }));
+    setSelectedType(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!validateForm()) {
-      return;
-    }
-
-    console.log(JSON.stringify(formData));
+    // if (!validateForm()) {
+    //   return;
+    // }
+    console.log(JSON.stringify(formDataRequestRest));
     props.toClose();
-    props.onAdd(formData);
+    props.onAdd(formDataRequestRest);
+    console.log(formDataRequestRest);
   };
 
   const validateForm = () => {
@@ -76,17 +74,17 @@ const RequestParameter = (props) => {
           />
         </label>
         <br />
-
         <div>
           <label htmlFor="dropdown">Parameter Type:</label>
           <select id="dropdown" value={selectedType} onChange={handleChange}>
-            <option value="option1">Method Address Parameter</option>
-            <option value="option2">Query Parameter</option>
-            <option value="option3">Header Parameter</option>
-            <option value="option4">Cookie Parameter</option>
+            <option value="Method Address Parameter">
+              Method Address Parameter
+            </option>
+            <option value="Query Parameter">Query Parameter</option>
+            <option value="Header Parameter">Header Parameter</option>
+            <option value="Cookie Parameter">Cookie Parameter</option>
           </select>
         </div>
-
         <label>
           Code address:
           <textarea
@@ -95,7 +93,6 @@ const RequestParameter = (props) => {
           />
         </label>
         <br />
-
         <label>
           Code:
           <input
@@ -106,7 +103,6 @@ const RequestParameter = (props) => {
             onChange={(e) => setCodeRequest(e.target.value)}
           />
         </label>
-
         <div className="form8">
           <label htmlFor="authentication">Required</label>
           <input
@@ -117,7 +113,6 @@ const RequestParameter = (props) => {
           />
           <br />
         </div>
-
         <label htmlFor="quantity">Default value (Constant):</label>
         <input
           type="number"
@@ -128,7 +123,6 @@ const RequestParameter = (props) => {
         />
         <br />
         <br />
-
         <button className="ok-button" type="submit" onClick={handleSubmit}>
           OK
         </button>
