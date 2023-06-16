@@ -3,8 +3,7 @@ import "./Authentication.css";
 import ModalAuthentication from "./ModalAuthentication";
 
 const Authentication = (props) => {
-  const [selectedAuthentication, setSelectedAuthentication] =
-    useState("option1");
+  const [selectedAuthentication, setSelectedAuthentication] = useState("None");
 
   const [showBasic, setShowBasic] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
@@ -20,7 +19,7 @@ const Authentication = (props) => {
   };
 
   const resetState = () => {
-    setSelectedAuthentication("option1");
+    setSelectedAuthentication("None");
     setUsername("");
     setPassword("");
   };
@@ -34,8 +33,8 @@ const Authentication = (props) => {
 
   const handleChange = (event) => {
     setSelectedAuthentication(event.target.value);
-    setShowBasic(event.target.value === "option2");
-    setShowAuth(event.target.value === "option3");
+    setShowBasic(event.target.value === "None");
+    setShowAuth(event.target.value === "Basic");
   };
 
   const handleAuthenticationClick = () => {

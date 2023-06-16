@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import "./ModalAuthentication.css";
 
 const ModalAuthentication = (props) => {
-  const [selectedAuthentication, setSelectedAuthentication] =
-    useState("option1");
+  const [selectedAuthentication, setSelectedAuthentication] = useState("None");
   const [showBasic, setShowBasic] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -33,7 +32,7 @@ const ModalAuthentication = (props) => {
 
   const validateForm = () => {
     // Check if the required fields are filled in
-    if (selectedAuthentication === "option2") {
+    if (selectedAuthentication === "Basic") {
       if (!showBasic || !username || !password) {
         alert("Please fill in all required fields");
         return false;
@@ -45,7 +44,7 @@ const ModalAuthentication = (props) => {
 
   const handleChange = (event) => {
     setSelectedAuthentication(event.target.value);
-    setShowBasic(event.target.value === "option2");
+    setShowBasic(event.target.value === "Basic");
   };
 
   const handleCancelRest = () => {

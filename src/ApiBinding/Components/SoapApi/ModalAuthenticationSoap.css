@@ -1,4 +1,4 @@
-.modalAuthSoap {
+.modalAuth {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -12,25 +12,26 @@
   box-shadow: 5px 5px 5px 3px rgb(207, 169, 201);
 }
 
-.modal-contentAuthSoap {
+.modal-contentAuth {
   width: 100%;
+  /* Set the content width to 100% */
 }
 
-.btn_okSoap {
+.btn_ok {
   background-color: rgb(176, 138, 167);
   border: none;
   margin: 5px;
 }
 
-.btn_okSoap:hover {
+.btn_ok:hover {
   background-color: #9f7e95;
 }
 
-.btn_cancelSoap {
+.btn_cancel {
   background-color: rgb(255, 255, 255);
   border: none;
 }
 
-.btn_cancelSoap:hover {
+.btn_cancel:hover {
   background-color: #ccc4c9;
 }

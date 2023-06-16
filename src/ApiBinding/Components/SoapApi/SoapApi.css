@@ -1,4 +1,4 @@
-.container0Soap {
+.container_0 {
   border: 2px solid #ffffff;
   background-color: #ffffff;
   border-radius: 5px;
@@ -7,7 +7,7 @@
   display: flex;
   flex-wrap: wrap;
 }
-.container1Soap {
+.container_1 {
   border: 2px solid #eec7e4;
   background-color: #ecd7eb;
   border-radius: 5px;
@@ -18,7 +18,7 @@
   justify-content: space-between;
 }
 
-.container2Soap {
+.container_2 {
   border: 2px solid #ccc;
   background-color: #ecd7eb;
   border-radius: 5px;
@@ -29,42 +29,42 @@
   justify-content: space-between;
 }
 
-.containerSoap::after {
+.container::after {
   content: "";
   clear: both;
   display: table;
 }
 
-.container2Soap .container1Soap span {
+.container_2 .container_1 span {
   font-size: 20px;
   margin-right: 15px;
 }
 
-.form1Soap,
-.form2Soap,
-.form4Soap,
-.form5Soap {
-  width: calc(50% - 10px);
+.form1,
+.form2,
+.form4,
+.form5 {
+  width: calc(50% - 20px);
   display: inline-block;
   margin-bottom: 10px;
 }
 
-.form3Soap {
+.form3 {
   clear: both;
 }
 
-.form6Soap,
-.form7Soap {
+.form6,
+.form7 {
   width: calc(50% - 10px);
   display: inline-block;
   margin-bottom: 10px;
 }
 
-.form7Soap {
+.form7 {
   float: right;
 }
 
-.saveSoap {
+.save {
   background-color: rgb(82, 205, 57);
   height: 5vh;
   border: none;
@@ -74,11 +74,11 @@
   margin: 10px;
 }
 
-.saveSoap:hover {
+.save:hover {
   background-color: rgb(79, 183, 34);
 }
 
-.cancelSoap {
+.cancel {
   background-color: rgb(255, 255, 255);
   height: 5vh;
   border: none;
@@ -88,46 +88,63 @@
   margin: 10px;
 }
 
-.cancelSoap:hover {
+.cancel:hover {
   background-color: rgb(210, 210, 216);
   border: 5px solid rgb(210, 210, 216);
 }
 
-.lineSoap {
+.line {
   background: "#6F38C5";
   height: "5px";
   border: "none";
 }
 
-.methodSoap {
+.method {
   background-color: #ecd7eb;
   font-size: medium;
   position: fixed;
-  top: 380px;
+  top: 300px;
   left: 20px;
   border: none;
   cursor: pointer;
 }
 
-.web_serviceSoap {
-  background-color: #ecd7eb;
-  font-size: 15px;
-  margin-right: 1020px;
-  border: none;
-  position: fixed;
-  top: 420px;
-  left: 20px;
-  cursor: pointer;
-}
-
-.authSoap {
+.authentication {
   background-color: #ecd7eb;
   font: 100px;
   margin-right: 1020px;
   border: none;
   position: fixed;
-  top: 380px;
+  top: 300px;
   right: 20px;
   cursor: pointer;
   font-size: 16px;
+}
+
+.web_service {
+  background-color: #ecd7eb;
+  font-size: 15px;
+  margin-right: 1020px;
+  border: none;
+  position: fixed;
+  top: 340px;
+  left: 20px;
+  cursor: pointer;
+}
+
+.webServiceRestHeading {
+  left: 300px;
+  position: fixed;
+}
+
+.savedRestWebservice {
+  position: fixed;
+  top: 400px;
+  left: 20px;
+}
+
+.showWebservicesButtton {
+  position: fixed;
+  top: 370px;
+  left: 20px;
 }

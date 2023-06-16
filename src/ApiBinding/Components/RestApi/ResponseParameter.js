@@ -7,7 +7,6 @@ function RequestParameter(props) {
   const [elementPath, setElementPath] = useState("");
   const [codeResponse, setCodeResponse] = useState("");
   const [dataType, setDataType] = useState("");
-  const [number, setNumber] = useState("");
   const [showResponseModal, setShowResponseModal] = useState(false);
 
   const formDataResponseRest = {
@@ -15,7 +14,6 @@ function RequestParameter(props) {
     parameterType,
     elementPath,
     codeResponse,
-    number,
     dataType,
   };
 
@@ -25,7 +23,6 @@ function RequestParameter(props) {
     setDataType("");
     setElementPath("");
     setParameterType("Body Parameter");
-    setNumber("");
     setShowResponseModal(true);
   };
 
@@ -35,14 +32,7 @@ function RequestParameter(props) {
 
   const validateForm = () => {
     // Check if the required fields are filled in
-    if (
-      !name ||
-      !parameterType ||
-      !elementPath ||
-      !codeResponse ||
-      !number ||
-      !dataType
-    ) {
+    if (!name || !parameterType || !elementPath || !codeResponse || !dataType) {
       alert("Please fill in all required fields");
       return false;
     }
@@ -93,16 +83,7 @@ function RequestParameter(props) {
           />
         </label>
         <br />
-        <label>
-          Code:
-          <input
-            type="number"
-            id="number"
-            name="number"
-            value={codeResponse}
-            onChange={(e) => setCodeResponse(e.target.value)}
-          />
-        </label>
+
         <div>
           <label htmlFor="dataTypeDropdown">DataType:</label>
           <select
@@ -121,25 +102,7 @@ function RequestParameter(props) {
             <option value="Object">Object</option>
           </select>
         </div>
-        <form className="form8">
-          <label htmlFor="requiredCheckbox">Required</label>
-          <input
-            type="checkbox"
-            id="requiredCheckbox"
-            name="required"
-            value="required"
-          />
-          <br />
-        </form>
-        <label htmlFor="defaultValue">Default value (Constant):</label>
-        <input
-          type="number"
-          id="defaultValue"
-          name="defaultValue"
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
-        />
-        <br />
+
         <br />
         <button className="ok-button" type="submit" onClick={handleSubmit}>
           OK

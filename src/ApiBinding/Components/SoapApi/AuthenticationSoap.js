@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./AuthenticationSoap.css";
 import ModalAuthenticationSoap from "../SoapApi/ModalAuthenticationSoap";
-import zIndex from "@mui/material/styles/zIndex";
 
 const AuthenticationSoap = (props) => {
   const [selectedAuthenticationSoap, setSelectedAuthenticationSoap] =
-    useState("option1");
+    useState("None");
+
   const [showBasicSoap, setShowBasicSoap] = useState(false);
   const [showAuthSoap, setShowAuthSoap] = useState(false);
   const [usernameSoap, setUsernameSoap] = useState("");
@@ -13,40 +13,40 @@ const AuthenticationSoap = (props) => {
   const [isModalOpenSoap, setIsModalOpenSoap] = useState(props.isModalOpen);
   const [authenticationSoap, setAuthenticationSoap] = useState({});
 
-  const formDataSoap = {
+  const formDataAuthentication = {
     selectedAuthenticationSoap,
     usernameSoap,
     passwordSoap,
   };
 
   const resetState = () => {
-    setSelectedAuthenticationSoap("option1");
+    setSelectedAuthenticationSoap("None");
     setUsernameSoap("");
     setPasswordSoap("");
   };
 
-  const handleSubmitSoap = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(JSON.stringify(formDataSoap));
-    props.onHandleAuthentication(formDataSoap);
-    closeModalSoap();
+    console.log(JSON.stringify(formDataAuthentication));
+    props.onHandleAddAuthenticationRest(formDataAuthentication);
+    closeModalRest();
   };
 
-  const handleChangeSoap = (event) => {
+  const handleChange = (event) => {
     setSelectedAuthenticationSoap(event.target.value);
-    setShowBasicSoap(event.target.value === "option2");
-    setShowAuthSoap(event.target.value === "option3");
+    setShowBasicSoap(event.target.value === "None");
+    setShowAuthSoap(event.target.value === "Basic");
   };
 
-  const handleAuthenticationClickSoap = () => {
+  const handleAuthenticationClick = () => {
     setIsModalOpenSoap(true);
   };
 
-  const closeModalSoap = () => {
+  const closeModalRest = () => {
     setIsModalOpenSoap(false);
   };
 
-  const handleModalAuthenticationSoap = (parameter) => {
+  const handleModalAuthenticationRest = (parameter) => {
     setAuthenticationSoap((prevParameters) => ({
       ...prevParameters,
       ...parameter,
@@ -54,17 +54,19 @@ const AuthenticationSoap = (props) => {
   };
 
   return (
-    <div>
-      <div className="modalAuthSoap">
-        <div onClick={closeModalSoap}></div>
-        <div className="modal-contentAuthSoap">
-          <ModalAuthenticationSoap
-            closeModalSoap={closeModalSoap}
-            onAddModalAuthentication={handleModalAuthenticationSoap}
-          />
+    isModalOpenSoap && (
+      <div>
+        <div className="modalAuth">
+          <div onClick={closeModalRest}></div>
+          <div className="modal-contentAuth">
+            <ModalAuthenticationSoap
+              closeModalRest={closeModalRest}
+              onAddModalAuthenticationRest={handleModalAuthenticationRest}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 };
 

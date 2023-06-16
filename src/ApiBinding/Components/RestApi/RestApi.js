@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./RestApi.css";
 import WebServices from "./WebServices";
 import Authentication from "../RestApi/Authentication";
-import ModalAuthenticationRest from "../RestApi/ModalAuthentication";
 import ModalAuthentication from "../RestApi/ModalAuthentication";
 
 const RestApi = (props) => {
   const [selectedOption, setSelectedOption] = useState("option1");
   const [fname, setFname] = useState("");
   const [webURI, setWebURI] = useState("");
-  const [code, setCode] = useState("");
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
-  const [type, setType] = useState("");
-  const [pack, setPack] = useState("");
+  const [type, setType] = useState("REST");
   const [showContent, setShowContent] = useState(false);
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(true);
@@ -24,16 +21,17 @@ const RestApi = (props) => {
   const [webServices, setWebServices] = useState([]);
   const [basicAuthenticationRest, setBasicAuthenticationRest] = useState([]);
   const [showWebServiceTable, setShowWebServiceTable] = useState(false);
+  const [showRestServiceTable, setShowRestServiceTable] = useState(false);
+  const [savedRest, setSavedRest] = useState(false);
 
   const resetState = () => {
     setSelectedOption("option1");
     setFname("");
     setWebURI("");
-    setCode("");
     setQuantity("");
     setDescription("");
     setType("REST");
-    setPack("");
+
     setShowContent(false);
     setModal(false);
     setShowModal(true);
@@ -46,12 +44,10 @@ const RestApi = (props) => {
     fname,
     selectedOption,
     webURI,
-    code,
     quantity,
     description,
-    type,
-    pack,
     webServices,
+    type,
     basicAuthenticationRest,
   };
 
@@ -66,10 +62,12 @@ const RestApi = (props) => {
 
   const handleSubmitRest = async (event) => {
     event.preventDefault();
+    console.log(formDataRestApi);
+
     // Validate the form data
-    // if (!validateForm()) {
-    //   return;
-    // }
+    if (!validateForm()) {
+      return;
+    }
     try {
       const response = await fetch("/api/apiintegration", {
         method: "POST",
@@ -81,7 +79,7 @@ const RestApi = (props) => {
 
       if (response.ok) {
         alert("Data saved successfully");
-        resetState();
+        // resetState();
       } else {
         console.error("Failed to save data");
       }
@@ -91,19 +89,13 @@ const RestApi = (props) => {
     const formDataJson = JSON.stringify(formDataRestApi);
     console.log(formDataJson);
     console.log(webServices);
+
+    props.toAdd();
   };
 
   const validateForm = () => {
     // Check if the required fields are filled in
-    if (
-      !fname ||
-      !webURI ||
-      !code ||
-      !quantity ||
-      !description ||
-      !type ||
-      !pack
-    ) {
+    if (!fname || !webURI || !quantity || !description) {
       alert("Please fill in all required fields");
       return false;
     }
@@ -200,18 +192,6 @@ const RestApi = (props) => {
           <br />
         </div>
 
-        <div className="form3">
-          <label htmlFor="code">Code:</label>
-          <input
-            type="number"
-            id="code"
-            name="code"
-            value={code}
-            onChange={(event) => setCode(event.target.value)}
-          />
-          <br />
-        </div>
-
         <div className="form4">
           <label htmlFor="quantity">Retries on call failure:</label>
           <input
@@ -243,24 +223,10 @@ const RestApi = (props) => {
             id="type"
             name="type"
             value="REST"
-            onChange={(event) => setType(event.target.value)}
+            readOnly={true}
           />
 
           <br />
-        </div>
-
-        <div>
-          <label htmlFor="dropdown">Package:</label>
-          <select
-            id="dropdown"
-            name="pack"
-            value={selectedOption}
-            onChange={handleChange}
-          >
-            <option value="option1"></option>
-            <option value="Custom">Custom</option>
-            <option value="UsrTrial">UsrTrial</option>
-          </select>
         </div>
       </div>
 

@@ -2,63 +2,49 @@ import React, { useState } from "react";
 import "./RequestParameterSoap.css";
 
 function RequestParameterSoap(props) {
-  const [nameSoap, setNameSoap] = useState("");
-  const [parameterTypeSoap, setParameterTypeSoap] = useState("option1");
+  const [lnameSoap, setLNameSoap] = useState("");
+  const [parameterTypeSoap, setParameterTypeSoap] = useState("Body Parameter");
   const [elementPathSoap, setElementPathSoap] = useState("");
-  const [codeSoap, setCodeSoap] = useState("");
-  const [dataTypeSoap, setDataTypeSoap] = useState("");
-  const [numberSoap, setNumberSoap] = useState("");
+  const [dataTypeSoap, setDataTypeSoap] = useState("Text");
   const [showRequestModalSoap, setShowRequestModalSoap] = useState(false);
 
-  const formDataSoap = {
-    nameSoap,
+  const formDataResponseRest = {
+    lnameSoap,
     parameterTypeSoap,
     elementPathSoap,
-    codeSoap,
-    numberSoap,
     dataTypeSoap,
   };
 
   const resetState = () => {
-    setNameSoap("");
-    setCodeSoap("");
-    setNumberSoap("");
+    setLNameSoap("");
     setDataTypeSoap("");
     setElementPathSoap("");
-    setParameterTypeSoap("option1");
+    setParameterTypeSoap("Body Parameter");
     setShowRequestModalSoap(true);
   };
 
-  const handleChangeSoap = (event) => {
+  const handleChange = (event) => {
     setParameterTypeSoap(event.target.value);
   };
 
-  const handleSubmitSoap = async (event) => {
+  const validateForm = () => {
+    // Check if the required fields are filled in
+    if (!lnameSoap || !parameterTypeSoap || !elementPathSoap || !dataTypeSoap) {
+      alert("Please fill in all required fields");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // if (!validateForm()) {
     //   return;
     // }
-
-    console.log(JSON.stringify(formDataSoap));
+    console.log(JSON.stringify(formDataResponseRest));
+    setShowRequestModalSoap(true);
     props.toClose();
-    props.onAdd(formDataSoap);
-  };
-
-  // Validate the form data
-
-  const validateForm = () => {
-    // Check if the required fields are filled in
-    if (
-      !nameSoap ||
-      !parameterTypeSoap ||
-      !elementPathSoap ||
-      !codeSoap ||
-      !numberSoap ||
-      !dataTypeSoap
-    ) {
-      alert("Please fill in all required fields");
-      return false;
-    }
+    props.onAdd(formDataResponseRest);
   };
 
   const handleCloseRequestModalSoap = () => {
@@ -66,27 +52,27 @@ function RequestParameterSoap(props) {
   };
 
   return (
-    <form>
-      <div>
+    <div>
+      <form onSubmit={handleSubmit}>
         <label>
           Name:
           <input
             type="text"
-            value={nameSoap}
-            onChange={(e) => setNameSoap(e.target.value)}
+            value={lnameSoap}
+            onChange={(e) => setLNameSoap(e.target.value)}
           />
         </label>
         <br />
         <div>
-          <label htmlFor="dropdownSoap">Parameter Type:</label>
+          <label htmlFor="dropdown">Parameter Type:</label>
           <select
-            id="dropdownSoap"
+            id="dropdown"
             value={parameterTypeSoap}
-            onChange={handleChangeSoap}
+            onChange={handleChange}
           >
-            <option value="option1">Body Parameter</option>
-            <option value="option2">Header Parameter</option>
-            <option value="option3">Cookie Parameter</option>
+            <option value="Body Parameter">Body Parameter</option>
+            <option value="Header Parameter">Header Parameter</option>
+            <option value="Cookie Parameter">Cookie Parameter</option>
           </select>
         </div>
 
@@ -99,84 +85,38 @@ function RequestParameterSoap(props) {
         </label>
         <br />
 
-        <label>
-          Code:
-          <input
-            type="number"
-            id="codeSoap"
-            name="codeSoap"
-            value={codeSoap}
-            onChange={(e) => setCodeSoap(e.target.value)}
-          />
-        </label>
-
         <div>
-          <label htmlFor="dropdownSoap">DataType:</label>
+          <label htmlFor="dataTypeDropdown">DataType:</label>
           <select
-            id="dropdownSoap"
+            id="dataTypeDropdown"
             value={dataTypeSoap}
-            onChange={handleChangeSoap}
+            onChange={(e) => setDataTypeSoap(e.target.value)}
           >
-            <option value="option1">Text</option>
-            <option value="option2">Integer</option>
-            <option value="option3">Decimal</option>
-            <option value="option4">Boolean</option>
-            <option value="option5">Date/Time</option>
-            <option value="option6">Unique Identifier</option>
-            <option value="option7">Date</option>
-            <option value="option8">Time</option>
-            <option value="option9">Object</option>
+            <option value="Text">Text</option>
+            <option value="Integer">Integer</option>
+            <option value="Decimal">Decimal</option>
+            <option value="Boolean">Boolean</option>
+            <option value="Date/Time">Date/Time</option>
+            <option value="Unique Identifier">Unique Identifier</option>
+            <option value="Date">Date</option>
+            <option value="Time">Time</option>
+            <option value="Object">Object</option>
           </select>
         </div>
 
-        <div className="form8Soap">
-          <label htmlFor="authenticationSoap">Is array</label>
-          <input
-            type="checkbox"
-            id="requiredSoap"
-            name="requiredSoap"
-            value="requiredSoap"
-          />
-          <br />
-        </div>
-
-        <div className="form8Soap">
-          <label htmlFor="authenticationSoap">Required</label>
-          <input
-            type="checkbox"
-            id="requiredSoap"
-            name="requiredSoap"
-            value="requiredSoap"
-          />
-          <br />
-        </div>
-
-        <label htmlFor="quantitySoap">Default value (Constant):</label>
-        <input
-          type="number"
-          id="numberSoap"
-          name="numberSoap"
-          value={numberSoap}
-          onChange={(e) => setNumberSoap(e.target.value)}
-        />
         <br />
-        <br />
-
-        <button
-          type="submit"
-          className="ok-buttonSoap"
-          onClick={handleSubmitSoap}
-        >
+        <button className="ok-button" type="submit" onClick={handleSubmit}>
           OK
         </button>
         <button
-          className="close-buttonSoap"
+          className="close-button"
+          type="button"
           onClick={handleCloseRequestModalSoap}
         >
           Close
         </button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
 

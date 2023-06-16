@@ -2,33 +2,39 @@ import React, { useState } from "react";
 import "./ModalAuthenticationSoap.css";
 
 const ModalAuthenticationSoap = (props) => {
-  const [selectedAuthenticationSoap, setSelectedAuthenticationSoap] =
-    useState("option1");
-  const [showBasicSoap, setShowBasicSoap] = useState(true);
-  const [usernameSoap, setUsernameSoap] = useState("");
-  const [passwordSoap, setPasswordSoap] = useState("");
+  const [selectedSAuthentication, setSelectedSAuthentication] =
+    useState("None");
+  const [showSBasic, setShowSBasic] = useState(false);
+  const [susername, setSUsername] = useState("");
+  const [spassword, setSPassword] = useState("");
 
-  const formDataSoap = {
-    showBasicSoap,
-    usernameSoap,
-    passwordSoap,
+  const formDataModalAuthentication = {
+    showSBasic,
+    susername,
+    spassword,
   };
 
-  const handleSubmitSoap = (event) => {
+  const resetState = () => {
+    setShowSBasic(true);
+    setSUsername("");
+    setSPassword("");
+  };
+
+  const handleSubmitRest = (event) => {
     event.preventDefault();
     if (!validateForm()) {
       return;
     }
 
-    console.log(JSON.stringify(formDataSoap));
-    props.onAddModalAuthentication(formDataSoap);
-    props.toClose();
+    console.log(JSON.stringify(formDataModalAuthentication));
+    props.onAddModalAuthenticationRest(formDataModalAuthentication);
+    props.toCloseRest();
   };
 
   const validateForm = () => {
     // Check if the required fields are filled in
-    if (selectedAuthenticationSoap === "option2") {
-      if (!showBasicSoap || !usernameSoap || !passwordSoap) {
+    if (selectedSAuthentication === "Basic") {
+      if (!showSBasic || !susername || !spassword) {
         alert("Please fill in all required fields");
         return false;
       }
@@ -37,66 +43,61 @@ const ModalAuthenticationSoap = (props) => {
     return true;
   };
 
-  const handleChangeSoap = (event) => {
-    setSelectedAuthenticationSoap(event.target.value);
-    setShowBasicSoap(event.target.value === "option2");
+  const handleChange = (event) => {
+    setSelectedSAuthentication(event.target.value);
+    setShowSBasic(event.target.value === "Basic");
   };
 
-  const handleCancelSoap = () => {
-    // closeModalSoap(); // Close the modal when "Cancel" button is clicked
-    props.toClose();
+  const handleCancelRest = () => {
+    props.toCloseRest(); // Close the modal when "Cancel" button is clicked
   };
 
   return (
-    <div className="modalAuthSoap">
-      <div className="modal-contentAuthSoap">
-        <form onSubmit={handleSubmitSoap}>
+    <div className="modalAuth">
+      <div className="modal-contentAuth">
+        <form onSubmit={handleSubmitRest}>
           <div>
-            <label htmlFor="dropdownSoap">Authentication:</label>
+            <label htmlFor="dropdown">Authentication:</label>
             <select
-              id="dropdownSoap"
-              value={selectedAuthenticationSoap}
-              onChange={handleChangeSoap}
+              id="dropdown"
+              value={selectedSAuthentication}
+              onChange={handleChange}
             >
-              <option value="option1">None</option>
-              <option value="option2">Basic</option>
+              <option value="None">None</option>
+              <option value="Basic">Basic</option>
             </select>
           </div>
 
-          {showBasicSoap && (
+          {showSBasic && (
             <div>
-              <label htmlFor="usernameSoap">Username:</label>
+              <label htmlFor="susername">Username:</label>
               <input
                 type="text"
-                id="usernameSoap"
-                name="usernameSoap"
-                value={usernameSoap}
-                onChange={(event) => setUsernameSoap(event.target.value)}
+                id="susername"
+                name="susername"
+                value={susername}
+                onChange={(event) => setSUsername(event.target.value)}
               />
               <br />
-              <label htmlFor="passwordSoap">Password:</label>
+              <label htmlFor="spassword">Password:</label>
               <input
-                type="password"
-                id="passwordSoap"
-                name="passwordSoap"
-                value={passwordSoap}
-                onChange={(event) => setPasswordSoap(event.target.value)}
+                type="spassword"
+                id="spassword"
+                name="spassword"
+                value={spassword}
+                onChange={(event) => setSPassword(event.target.value)}
               />
             </div>
           )}
           <br />
-          <div className="modal-buttonsSoap">
-            <button
-              type="submit"
-              className="btn_okSoap"
-              onClick={handleSubmitSoap}
-            >
+          <div className="modal-buttons">
+            <button type="submit" className="btn_ok" onClick={handleSubmitRest}>
               OK
             </button>
             <button
               type="button"
-              className="btn_cancelSoap"
-              onClick={handleCancelSoap}
+              className="btn_cancel"
+              onClick={handleCancelRest}
             >
               Cancel
             </button>

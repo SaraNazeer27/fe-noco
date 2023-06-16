@@ -4,18 +4,15 @@ import RequestParameter from "../RestApi/RequestParameter";
 import ResponseParameter from "../RestApi/ResponseParameter";
 
 const WebServices = (props) => {
-  const [selectedOptionRestType, setSelectedOptionRestType] =
-    useState("option1");
+  const [selectedOptionRestType, setSelectedOptionRestType] = useState("GET");
   const [selectedOptionRestContent, setSelectedOptionRestContent] =
-    useState("option1");
+    useState("JSON");
   const [fnameRest, setFnameRest] = useState("");
   const [webURIRestMethod, setWebURIRestMethod] = useState("");
   const [webURIRestComplete, setWebURIRestComplete] = useState("");
-  const [codeRest, setCodeRest] = useState("");
   const [quantityRest, setQuantityRest] = useState("");
   const [descriptionRest, setDescriptionRest] = useState("");
   const [typeRest, setTypeRest] = useState("");
-  const [packRest, setPackRest] = useState("");
   const [showRequestContentRest, setShowRequestContentRest] = useState(false);
   const [showResponseContentRest, setShowResponseContentRest] = useState(false);
   const [showAddParameterRest, setShowAddParameterRest] = useState(false);
@@ -34,26 +31,22 @@ const WebServices = (props) => {
     fnameRest,
     webURIRestMethod,
     webURIRestComplete,
-    codeRest,
     quantityRest,
     descriptionRest,
     typeRest,
-    packRest,
     requestParametersRest,
     responseParametersRest,
   };
 
   const resetState = () => {
-    setSelectedOptionRestType("option1");
-    setSelectedOptionRestContent("option1");
+    setSelectedOptionRestType("GET");
+    setSelectedOptionRestContent("JSON");
     setFnameRest("");
     setWebURIRestComplete("");
     setWebURIRestMethod("");
-    setCodeRest("");
     setQuantityRest("");
     setDescriptionRest("");
     setTypeRest("REST");
-    setPackRest("");
     setShowRequestContentRest(false);
     setShowResponseContentRest(false);
     setShowModalRest(true);
@@ -71,29 +64,27 @@ const WebServices = (props) => {
 
   const handleShowRequestTableClick = () => {
     setShowRequestTable((prevState) => !prevState);
-    setShowResponseTable(false);
   };
 
   const handleShowResponseTableClick = () => {
     setShowResponseTable((prevState) => !prevState);
-    setShowRequestTable(false);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!validateForm()) {
-      return;
-    }
+    // if (!validateForm()) {
+    //   return;
+    // }
     props.onHandleAddWebService(formDataWebServices);
   };
 
-  const validateForm = () => {
-    if (!fnameRest || !codeRest || !quantityRest || !webURIRestComplete) {
-      alert("Please fill in all required fields");
-      return false;
-    }
-    return true;
-  };
+  // const validateForm = () => {
+  //   if (!fnameRest || !codeRest || !quantityRest || !webURIRestComplete) {
+  //     alert("Please fill in all required fields");
+  //     return false;
+  //   }
+  //   return true;
+  // };
 
   const handleChange = (event) => {
     setSelectedOptionRestContent(event.target.value);
@@ -190,17 +181,7 @@ const WebServices = (props) => {
               </select>
               <br />
             </form>
-            <form className="form3">
-              <label htmlFor="code">Code:</label>
-              <input
-                type="number"
-                id="code"
-                name="code"
-                value={codeRest}
-                onChange={(event) => setCodeRest(event.target.value)}
-              />
-              <br />
-            </form>
+
             <form className="form4">
               <label htmlFor="dropdownType">Content type:</label>
               <select
@@ -246,7 +227,7 @@ const WebServices = (props) => {
               />
               <br />
             </form>
-            <div className="form8">
+            {/* <div className="form8">
               <label htmlFor="authentication">Use authentication</label>
               <input
                 type="checkbox"
@@ -255,7 +236,7 @@ const WebServices = (props) => {
                 value="authentication"
               />
               <br />
-            </div>
+            </div> */}
           </div>
           <div className="container2">
             <div className="parameter-container">
@@ -306,73 +287,67 @@ const WebServices = (props) => {
               </>
             )}
 
-            {parameterTypeRest === "request" ? (
-              <div>
-                <button
-                  className="showRequestButton"
-                  onClick={handleShowRequestTableClick}
-                >
-                  Show Saved Request
-                </button>
-                {showRequestTable && (
-                  <div className="savedRequestRestParameters">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th className="requestRestHeading1">Name</th>
-                          <th className="requestRestHeading2">Type</th>
+            <div>
+              <button
+                className="showRequestButton"
+                onClick={handleShowRequestTableClick}
+              >
+                Show Saved Request
+              </button>
+              {!showResponseTable && showRequestTable && (
+                <div className="savedRequestRestParameters">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th className="requestRestHeading1">Name</th>
+                        <th className="requestRestHeading2">Type</th>
+                      </tr>
+                    </thead>
+                    <tr className="r">
+                      {requestParametersRest.map((service, index) => (
+                        <tr key={index}>
+                          <td className="requestRestData1">{service.lname}</td>
+                          <td className="requestRestData2">
+                            {service.selectedType}
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        {requestParametersRest.map((service, index) => (
-                          <tr key={index}>
-                            <td className="requestRestData1">
-                              {service.lname}
-                            </td>
-                            <td className="requestRestData2">
-                              {service.selectedType}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div>
-                <button
-                  className="showResponseButton"
-                  onClick={handleShowResponseTableClick}
-                >
-                  Show Saved Response
-                </button>
-                {showResponseTable && (
-                  <div className="savedResponseRestParameters">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th className="responseRestHeading1">Name</th>
-                          <th className="responseRestHeading2">Type</th>
+                      ))}
+                    </tr>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <button
+                className="showResponseButton"
+                onClick={handleShowResponseTableClick}
+              >
+                Show Saved Response
+              </button>
+              {!showRequestTable && showResponseTable && (
+                <div className="savedResponseRestParameters">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th className="responseRestHeading1">Name</th>
+                        <th className="responseRestHeading2">Type</th>
+                      </tr>
+                    </thead>
+                    <tr className="s">
+                      {responseParametersRest.map((service, index) => (
+                        <tr key={index}>
+                          <td className="responseRestData1">{service.name}</td>
+                          <td className="responseRestData2">
+                            {service.parameterType}
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        {responseParametersRest.map((service, index) => (
-                          <tr key={index}>
-                            <td className="responseRestData1">
-                              {service.name}
-                            </td>
-                            <td className="responseRestData2">
-                              {service.parameterType}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-              </div>
-            )}
+                      ))}
+                    </tr>
+                  </table>
+                </div>
+              )}
+            </div>
 
             {showPopupRest && (
               <div className="popup">

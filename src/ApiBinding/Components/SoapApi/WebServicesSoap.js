@@ -4,97 +4,110 @@ import RequestParameterSoap from "../SoapApi/RequestParameterSoap";
 import ResponseParameterSoap from "../SoapApi/ResponseParameterSoap";
 
 const WebServicesSoap = (props) => {
-  const [fnameSoap, setFnameSoap] = useState("");
-  const [codeSoap, setCodeSoap] = useState("");
-  const [codeMessage, setCodeMessage] = useState("");
+  const [selectedOptionSoapType, setSelectedOptionSoapType] = useState("POST");
+  const [snameSoap, setSnameSoap] = useState("");
   const [quantitySoap, setQuantitySoap] = useState("");
-  const [soapAction, setSoapAction] = useState("");
-  const [showRequestSoapContent, setShowRequestSoapContent] = useState(false);
-  const [showResponseSoapContent, setShowResponseSoapContent] = useState(false);
+  const [messageSoap, setMessageSoap] = useState("");
+  const [action, setAction] = useState("");
+  const [showRequestContentSoap, setShowRequestContentSoap] = useState(false);
+  const [showResponseContentSoap, setShowResponseContentSoap] = useState(false);
   const [showAddParameterSoap, setShowAddParameterSoap] = useState(false);
-  const [parameterType, setParameterType] = useState(""); // New state variable for parameter type
   const [showModalSoap, setShowModalSoap] = useState(true);
   const [showPopupSoap, setShowPopupSoap] = useState(false);
+  const [showRequestModalSoap, setShowRequestModalSoap] = useState(false);
+  const [parameterTypeSoap, setParameterTypeSoap] = useState("");
   const [requestParametersSoap, setRequestParametersSoap] = useState([]);
   const [responseParametersSoap, setResponseParametersSoap] = useState([]);
+  const [showRequestTableSoap, setShowRequestTableSoap] = useState(false);
+  const [showResponseTableSoap, setShowResponseTableSoap] = useState(false);
 
-  const formDataSoap = {
-    fnameSoap,
-    codeMessage,
-    codeSoap,
+  const formDataWebServices = {
+    selectedOptionSoapType,
+    snameSoap,
     quantitySoap,
-    soapAction,
+    messageSoap,
+    action,
     requestParametersSoap,
     responseParametersSoap,
   };
 
   const resetState = () => {
-    setFnameSoap("");
-    setCodeMessage("");
-    setCodeSoap("");
+    setSelectedOptionSoapType("POST");
+    setSnameSoap("");
     setQuantitySoap("");
-    setSoapAction("");
+    setMessageSoap("");
+    setAction("");
+    setShowRequestContentSoap(false);
+    setShowResponseContentSoap(false);
     setShowModalSoap(true);
-    setShowRequestSoapContent(true);
-    setShowResponseSoapContent(true);
   };
 
-  const handleRequestSoapClick = () => {
-    setShowRequestSoapContent(!showRequestSoapContent);
+  const handleRequestClick = () => {
+    setShowRequestContentSoap(!showRequestContentSoap);
     setShowAddParameterSoap(false);
   };
 
-  const handleResponseSoapClick = () => {
-    setShowResponseSoapContent(!showResponseSoapContent);
+  const handleResponseClick = () => {
+    setShowResponseContentSoap(!showResponseContentSoap);
     setShowAddParameterSoap(false);
   };
 
-  const handleSubmitSoap = async (event) => {
+  const handleShowRequestTableClick = () => {
+    setShowRequestTableSoap((prevState) => !prevState);
+  };
+
+  const handleShowResponseTableClick = () => {
+    setShowResponseTableSoap((prevState) => !prevState);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // if (!validateForm()) {
     //   return;
     // }
+    console.log(formDataWebServices);
 
-    props.onHandleAddWebService(formDataSoap);
+    props.onHandleAddWebService(formDataWebServices);
   };
 
-  // Validate the form data
-  const validateForm = () => {
-    // Check if the required fields are filled in
-    if (
-      !fnameSoap ||
-      !codeMessage ||
-      !codeSoap ||
-      !quantitySoap ||
-      !soapAction
-    ) {
-      alert("Please fill in all required fields");
-      return false;
-    }
+  // const validateForm = () => {
+  //   if (!fnameRest || !codeRest || !quantityRest || !webURIRestComplete) {
+  //     alert("Please fill in all required fields");
+  //     return false;
+  //   }
+  //   return true;
+  // };
+
+  const handleChange = (event) => {
+    setSelectedOptionSoapType(event.target.value);
   };
 
-  const handleAddSoapParameter = (parameterType) => {
-    setParameterType(parameterType);
+  const handleAddRestParameter = (parameterType) => {
+    setParameterTypeSoap(parameterType);
     setShowAddParameterSoap(true);
   };
 
-  const handleCloseClickSoap = () => {
+  const handleCloseClick = () => {
     setShowModalSoap(false);
   };
 
-  const handleTestRequestSoapClick = () => {
-    setShowPopupSoap(() => true);
+  const handleTestRequestClick = () => {
+    setShowPopupSoap(true);
   };
 
-  const handlePopupCloseSoap = () => {
+  const handlePopupClose = () => {
     setShowPopupSoap(false);
   };
 
-  const closeHandlerSoapParameter = () => {
-    setShowAddParameterSoap(() => false);
+  const handleAddRequestModal = () => {
+    setShowRequestModalSoap(true);
   };
 
-  const handleRequestParameterSoap = (parameter) => {
+  const closeHandlerParameter = () => {
+    setShowAddParameterSoap(false);
+  };
+
+  const handleRequestParameterRest = (parameter) => {
     setRequestParametersSoap((prevParameters) => [
       ...prevParameters,
       parameter,
@@ -102,7 +115,7 @@ const WebServicesSoap = (props) => {
     setShowAddParameterSoap(false);
   };
 
-  const handleResponsetParameterSoap = (parameter) => {
+  const handleResponseParameterRest = (parameter) => {
     setResponseParametersSoap((prevParameters) => [
       ...prevParameters,
       parameter,
@@ -113,171 +126,208 @@ const WebServicesSoap = (props) => {
   return (
     <>
       {showModalSoap && (
-        <div className="webSoap">
-          <div className="container0Soap">
-            <button
-              className="OK-webSoap"
-              type="submit"
-              onClick={handleSubmitSoap}
-            >
+        <div className="web">
+          <div className="container0">
+            <button className="OK-web" type="submit" onClick={handleSubmit}>
               OK
             </button>
             <button
-              className="cancel-webSoap"
-              onClick={handleCloseClickSoap}
+              className="cancel-web"
+              onClick={handleCloseClick}
               type="button"
             >
               Cancel
             </button>
             <button
-              className="testRequestSoap"
-              onClick={handleTestRequestSoapClick}
+              className="testRequest"
+              onClick={handleTestRequestClick}
               type="button"
             >
               Send Test Request
             </button>
           </div>
-          <div className="container1Soap">
-            <form className="form1Soap">
-              <label htmlFor="fnameSoap">Name:</label>
+          <div className="container1">
+            <form className="form1">
+              <label htmlFor="snameSoap">Name:</label>
               <input
                 type="text"
-                id="fnameSoap"
-                name="fnameSoap"
-                value={fnameSoap}
-                onChange={(event) => setFnameSoap(event.target.value)}
+                id="snameSoap"
+                name="snameSoap"
+                value={snameSoap}
+                onChange={(event) => setSnameSoap(event.target.value)}
               />
               <br />
             </form>
 
-            <form className="form3Soap">
-              <label htmlFor="codeSoap">Code:</label>
+            <form className="form5">
+              <label htmlFor="action">SOAP Action:</label>
               <input
-                type="number"
-                id="codeSoap"
-                name="codeSoap"
-                value={codeSoap}
-                onChange={(event) => setCodeSoap(event.target.value)}
+                type="text"
+                id="action"
+                name="action"
+                value={action}
+                onChange={(event) => setAction(event.target.value)}
               />
               <br />
             </form>
-            <form className="form3Soap">
-              <label htmlFor="codeMessage">Message Element Code:</label>
+            <form className="form6">
+              <label htmlFor="quantity">Response timeout, ms:</label>
               <input
                 type="number"
-                id="codeMessage"
-                name="codeMessage"
-                value={codeMessage}
-                onChange={(event) => setCodeMessage(event.target.value)}
-              />
-              <br />
-            </form>
-            <form className="form6Soap">
-              <label htmlFor="quantitySoap">Response timeout, ms:</label>
-              <input
-                type="number"
-                id="quantitySoap"
-                name="quantitySoap"
+                id="quantity"
+                name="quantity"
                 value={quantitySoap}
                 onChange={(event) => setQuantitySoap(event.target.value)}
               />
               <br />
             </form>
-            <form className="form7Soap">
-              <label htmlFor="soapAction">Soap Action:</label>
+            <form className="form7">
+              <label htmlFor="messageSoap">Message Element Code:</label>
               <input
                 type="text"
-                id="soapAction"
-                name="soapAction"
-                value={soapAction}
-                onChange={(event) => setSoapAction(event.target.value)}
+                id="messageSoap"
+                name="messageSoap"
+                value={messageSoap}
+                onChange={(event) => setMessageSoap(event.target.value)}
               />
               <br />
             </form>
-            <form className="form8Soap">
-              <label htmlFor="authenticationSoap">Use authentication</label>
-              <input
-                type="checkbox"
-                id="authenticationSoap"
-                name="authenticationSoap"
-                value="authenticationSoap"
-              />
-              <br />
-            </form>
-            <div className="container2Soap">
-              <div className="parameter-containerSoap">
-                <div className="request-parametersSoap">
-                  <button
-                    className="requestSoap"
-                    onClick={handleRequestSoapClick}
-                  >
-                    Request Parameters
-                  </button>
-                  <hr />
-                </div>
-                <div className="response-parametersSoap">
-                  <button
-                    className="responseSoap"
-                    onClick={handleResponseSoapClick}
-                  >
-                    Response Parameters
-                  </button>
-                  <hr />
-                </div>
+          </div>
+          <div className="container2">
+            <div className="parameter-container">
+              <div className="request-parameters">
+                <button className="request" onClick={handleRequestClick}>
+                  Request Parameters
+                </button>
+                <hr />
               </div>
+              <div className="response-parameters">
+                <button className="response" onClick={handleResponseClick}>
+                  Response Parameters
+                </button>
+                <hr />
+              </div>
+            </div>
 
-              {(showRequestSoapContent || showResponseSoapContent) && (
-                <>
-                  <button
-                    className="add-parameterSoap"
-                    onClick={() =>
-                      handleAddSoapParameter(
-                        showRequestSoapContent ? "request" : "response"
-                      )
-                    }
-                  >
-                    Add Parameter
-                  </button>
-                  {showAddParameterSoap && (
-                    <div className="request-modalSoap">
-                      <div className="request-modal-contentSoap">
-                        {parameterType === "request" ? (
-                          <RequestParameterSoap
-                            toClose={closeHandlerSoapParameter}
-                            onAdd={handleRequestParameterSoap}
-                          />
-                        ) : (
-                          <ResponseParameterSoap
-                            toClose={closeHandlerSoapParameter}
-                            onAdd={handleResponsetParameterSoap}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </>
-              )}
+            {(showRequestContentSoap || showResponseContentSoap) && (
+              <>
+                <button
+                  className="add-parameter"
+                  onClick={() =>
+                    handleAddRestParameter(
+                      showRequestContentSoap ? "request" : "response"
+                    )
+                  }
+                >
+                  Add Parameter
+                </button>
 
-              {showPopupSoap && (
-                <div className="popupSoap">
-                  <div className="popup-contentSoap">
-                    The web service was modified. You must save the web service
-                    to run it up-to-date. Save now?
-                    <br />
-                    <div className="button-containerSoap">
-                      <button className="yesSoap">Yes</button>
-                      <button className="noSoap" onClick={handlePopupCloseSoap}>
-                        No
-                      </button>
+                {showAddParameterSoap && (
+                  <div className="request-modal">
+                    <div className="request-modal-content">
+                      {parameterTypeSoap === "request" ? (
+                        <RequestParameterSoap
+                          toClose={closeHandlerParameter}
+                          onAdd={handleRequestParameterRest}
+                        />
+                      ) : (
+                        <ResponseParameterSoap
+                          toClose={closeHandlerParameter}
+                          onAdd={handleResponseParameterRest}
+                        />
+                      )}
                     </div>
                   </div>
+                )}
+              </>
+            )}
+
+            <div>
+              <button
+                className="showRequestButton"
+                onClick={handleShowRequestTableClick}
+              >
+                Show Saved Request
+              </button>
+              {!showResponseTableSoap && showRequestTableSoap && (
+                <div className="savedRequestRestParameters">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th className="requestRestHeading1">Name</th>
+                        <th className="requestRestHeading2">Type</th>
+                      </tr>
+                    </thead>
+                    <tr className="r">
+                      {requestParametersSoap.map((service, index) => (
+                        <tr key={index}>
+                          <td className="requestRestData1">
+                            {service.lnameSoap}
+                          </td>
+                          <td className="requestRestData2">
+                            {service.selectedTypeSoap}
+                          </td>
+                        </tr>
+                      ))}
+                    </tr>
+                  </table>
                 </div>
               )}
             </div>
+
+            <div>
+              <button
+                className="showResponseButton"
+                onClick={handleShowResponseTableClick}
+              >
+                Show Saved Response
+              </button>
+              {!showRequestTableSoap && showResponseTableSoap && (
+                <div className="savedResponseRestParameters">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th className="responseRestHeading1Soap">Name</th>
+                        <th className="responseRestHeading2Soap">Type</th>
+                      </tr>
+                    </thead>
+                    <tr className="s">
+                      {responseParametersSoap.map((service, index) => (
+                        <tr key={index}>
+                          <td className="responseRestData1Soap">
+                            {service.nameSoap}
+                          </td>
+                          <td className="responseRestData2Soap">
+                            {service.parameterTypeSoap}
+                          </td>
+                        </tr>
+                      ))}
+                    </tr>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            {showPopupSoap && (
+              <div className="popup">
+                <div className="popup-content">
+                  The web service was modified. You must save the web service to
+                  run it up-to-date. Save now?
+                  <br />
+                  <div className="button-container">
+                    <button className="yes">Yes</button>
+                    <button className="no" onClick={handlePopupClose}>
+                      No
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
     </>
   );
 };
+
 export default WebServicesSoap;

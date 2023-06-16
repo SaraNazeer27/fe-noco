@@ -231,18 +231,18 @@ hr {
 .requestRestHeading1 {
   left: 350px;
   position: fixed;
-  top: 430px;
+  top: 470px;
 }
 
 .requestRestHeading2 {
   left: 100px;
   position: fixed;
-  top: 430px;
+  top: 470px;
 }
 
 .savedRequestRestParameter {
   position: fixed;
-  top: 400px;
+  top: 1000px;
   left: 20px;
 }
 
@@ -255,47 +255,55 @@ hr {
 .showResponseButton {
   position: fixed;
   left: 120px;
-  top: 400px;
+  top: 430px;
 }
 
 .requestRestData1 {
-  left: 100px;
   position: fixed;
-  top: 450px;
+  left: 120px;
 }
 
 .requestRestData2 {
-  left: 350px;
   position: fixed;
-  top: 450px;
+  left: 300px;
 }
 
-.responseRestData1 {
-  left: 100px;
-  position: fixed;
-  top: 450px;
-}
-
-.responseRestData2 {
+.r {
   left: 350px;
   position: fixed;
-  top: 450px;
+  top: 490px;
+}
+
+.s {
+  left: 350px;
+  position: fixed;
+  top: 490px;
 }
 
 .savedResponseRestParameters {
   position: fixed;
-  top: 400px;
+  top: 200px;
   left: 20px;
 }
 
 .responseRestHeading1 {
   left: 350px;
   position: fixed;
-  top: 430px;
+  top: 470px;
 }
 
 .responseRestHeading2 {
   left: 100px;
   position: fixed;
-  top: 430px;
+  top: 470px;
+}
+.responseRestData1 {
+  position: fixed;
+  left: 120px;
+  /* padding: auto; */
+}
+.responseRestData2 {
+  position: fixed;
+  left: 300px;
+  /* padding: auto; */
 }

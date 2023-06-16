@@ -36,7 +36,8 @@ const EventConfiguration = (props) => {
       <button className="closeButton" onClick={handleClose}>
         X
       </button>
-      <h3>Event : {selectedType.name}</h3>
+
+      <h3>Event: {selectedType.name}</h3>
 
       {selectedType.configurationFields &&
         selectedType.configurationFields.map((configurationField) => (
@@ -60,8 +61,9 @@ const EventConfiguration = (props) => {
             )}
           </div>
         ))}
+
       <div>
-        <label>Only when:</label>
+        <label>Event Color:</label>
         <Select
           options={optionList}
           placeholder="Select color"
@@ -70,8 +72,8 @@ const EventConfiguration = (props) => {
           isSearchable={true}
           isMulti
         />
-        &nbsp;&nbsp;&nbsp;
       </div>
+
       <div>
         <label>Disable workflow:</label> &nbsp;&nbsp;&nbsp;
         <input type="checkbox" className="breakB" />
