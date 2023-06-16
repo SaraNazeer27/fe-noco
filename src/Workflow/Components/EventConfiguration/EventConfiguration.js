@@ -38,7 +38,7 @@ const EventConfiguration = (props) => {
 
   const eventData = {
     selectedOptionEvent,
-    selectedOptionMultiSelect,
+    selectedOptionMultiSelect, 
    false, // Assuming this value comes from an input or state
   };
 
