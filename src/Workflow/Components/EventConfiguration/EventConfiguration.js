@@ -10,13 +10,37 @@ const optionList = [
   { value: "white", label: "White" },
 ];
 
+const optionListS = [
+  { value: "ocean1", label: "Ocean" },
+  { value: "blue", label: "Blue" },
+  { value: "purple", label: "Purple" },
+  { value: "red", label: "Red" },
+  { value: "orange", label: "Orange" },
+  { value: "yellow", label: "Yellow" },
+  { value: "green", label: "Green" },
+  { value: "forest", label: "Forest" },
+  { value: "slate", label: "Slate" },
+  { value: "silver", label: "Silver" },
+];
+
+
+
 const EventConfiguration = (props) => {
   const selectedType = props.selectedType;
-  const [selectedOptions, setSelectedOptions] = useState();
+  const [selectedOptionEvent, setSelectedOptionEvent] = useState(null);
+  const [selectedOptionMultiSelect, setSelectedOptionMultiSelect] = useState(
+    []
+  );
   const [isDropdownSelected, setIsDropdownSelected] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   console.log(selectedType);
+
+  const eventData = {
+    selectedOptionEvent,
+    selectedOptionMultiSelect,
+   false, // Assuming this value comes from an input or state
+  };
 
   const handleClose = () => {
     props.onChangeConfigurationPopup(false);
@@ -27,8 +51,51 @@ const EventConfiguration = (props) => {
     setIsModalOpen(true);
   };
 
-  function handleSelect(data) {
-    setSelectedOptions(data);
+  function handleSelect(selectedOption) {
+    setSelectedOption(selectedOption);
+  }
+
+  function handleMultiSelect(event) {
+    const selectedValues = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
+    setSelectedOptionMultiSelect(selectedValues);
+  }
+
+  function handleMultiSelect(selectedOptions) {
+    const selectedValues = selectedOptions.map((option) => option.value);
+    setSelectedOptionMultiSelect(selectedValues);
+  }
+
+  function handleSubmit() {
+    // // Prepare the data to be saved
+    // const eventData = {
+    //   eventColor: selectedOption,
+    //   onlyWhen: selectedOptionMultiSelect,
+    //   disableWorkflow: false, // Assuming this value comes from an input or state
+    // };
+
+    // Send the data to the server
+    fetch("/api/eventconfigure", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(eventData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Handle the server response if needed
+          console.log("Event data saved successfully!");
+        } else {
+          throw new Error("Failed to save event data");
+        }
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the request
+        console.error("Error saving event data:", error);
+      });
   }
 
   return (
@@ -42,11 +109,13 @@ const EventConfiguration = (props) => {
       {selectedType.configurationFields &&
         selectedType.configurationFields.map((configurationField) => (
           <div key={configurationField.key}>
-            <label htmlFor="options">{configurationField.label}:</label>{" "}
+            {/* <label htmlFor={configurationField.key}>
+              {configurationField.label}:
+            </label>{" "} */}
             &nbsp;&nbsp;&nbsp;
             {configurationField.fieldType === "dropdown" && (
               <select
-                id="options"
+                id={configurationField.key}
                 value={isDropdownSelected ? "" : undefined}
                 onChange={handleSelectOption}
               >
@@ -63,11 +132,24 @@ const EventConfiguration = (props) => {
         ))}
 
       <div>
-        <label>Event Color:</label>
+        <label htmlFor="eventColor">Event Color:</label>
+        <select id="eventColor" value={selectedOption} onChange={handleSelect}>
+          <option value=""></option>
+          {optionList.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label htmlFor="onlyWhen">Only when:</label>
         <Select
-          options={optionList}
+          id="eventColor"
+          options={optionListS}
           placeholder="Select color"
-          value={selectedOptions}
+          value={selectedOption}
           onChange={handleSelect}
           isSearchable={true}
           isMulti
@@ -78,6 +160,8 @@ const EventConfiguration = (props) => {
         <label>Disable workflow:</label> &nbsp;&nbsp;&nbsp;
         <input type="checkbox" className="breakB" />
       </div>
+
+      <button onClick={handleSubmit}>OK</button>
     </div>
   );
 };

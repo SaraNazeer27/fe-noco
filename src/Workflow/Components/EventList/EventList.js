@@ -7,6 +7,10 @@ const EventList = (props) => {
     props.onEventClick(addedEvent);
   };
 
+  const handleElement = (addedElement) => {
+    props.onElementClick(addedElement);
+  };
+
   return (
     <div className="token-flex-container">
       {props.addedEvents &&
@@ -19,6 +23,7 @@ const EventList = (props) => {
             <div className="token-boxSaved position-relative">
               <h3>When</h3>
               {addedEvent.name.toString()}
+
               <FaRegTrashAlt className="faReg" />
             </div>
           </div>
