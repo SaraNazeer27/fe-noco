@@ -103,6 +103,29 @@ const RestApi = (props) => {
     }
   };
 
+  const fetchApi = () => {
+    params &&
+      params.id &&
+      fetch("/api/apiintegration/" + params.id)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch data");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Fetched data:", data);
+          setData(data);
+        })
+        .catch((error) => {
+          console.log("Error in fetching data:", error);
+        });
+  };
+
+  useEffect(() => {
+    fetchApi();
+  }, [params.id]);
+
   const validateForm = () => {
     // Check if the required fields are filled in
     if (!fname || !webURI || !tries || !description) {
@@ -154,28 +177,7 @@ const RestApi = (props) => {
     setBasicAuthentication((prevParameters) => [...prevParameters, parameter]);
     setShowAuthentication(() => false);
   };
-  const fetchApi = () => {
-    params &&
-      params.id &&
-      fetch("/api/apiintegration/" + params.id)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to fetch data");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log("Fetched data:", data);
-          setData(data);
-        })
-        .catch((error) => {
-          console.log("Error in fetching data:", error);
-        });
-  };
 
-  useEffect(() => {
-    fetchApi();
-  }, [params.id]);
   return (
     <div>
       <div className="container_0">

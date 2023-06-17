@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./WebServices.css";
 import RequestParameter from "../RestApi/RequestParameter";
 import ResponseParameter from "../RestApi/ResponseParameter";
+import { useNavigate, useParams } from "react-router-dom";
 
 const WebServices = (props) => {
+  const params = useParams();
   const [selectedOptionRestType, setSelectedOptionRestType] = useState("GET");
   const [selectedOptionContentType, setSelectedOptionContentType] =
     useState("JSON");
@@ -45,6 +47,16 @@ const WebServices = (props) => {
     setShowRequestContentRest(false);
     setShowResponseContentRest(false);
     setShowModalRest(true);
+  };
+
+  const setData = (data) => {
+    setSelectedOptionRestType(data.selectedOptionRestType);
+    setSelectedOptionContentType(data.selectedOptionContentType);
+    setWebServiceName(data.webServiceName);
+    setCompleteAddress(data.completeAddress);
+    setMethodAddress(data.methodAddress);
+    setResponseTime(data.responseTime);
+    setWebServiceDescription(data.webServiceDescription);
   };
 
   const handleRequestClick = () => {

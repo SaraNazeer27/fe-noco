@@ -88,13 +88,16 @@ const ApiHome = () => {
               // <li key={item.value} onClick={() => handleItemClick(item)}>
 
               // </li>
-              <Link
-                className="link-menu"
-                key={item.value}
-                to={`/ApiBinding/create/${item.value}`}
-              >
-                {item.label}
-              </Link>
+              <li>
+                <Link
+                  className="link-menu"
+                  key={item.value}
+                  to={`/ApiBinding/create/${item.value}`}
+                >
+                  <span className="option-label">{item.label}</span>
+                  <br />
+                </Link>
+              </li>
             ))}
           </ul>
         )}
