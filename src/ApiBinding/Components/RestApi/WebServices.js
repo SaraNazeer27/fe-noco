@@ -29,7 +29,6 @@ const WebServices = (props) => {
     selectedOptionRestContent,
     selectedOptionRestType,
     fnameRest,
-    webURIRestMethod,
     webURIRestComplete,
     quantityRest,
     descriptionRest,
@@ -272,6 +271,7 @@ const WebServices = (props) => {
                     <div className="request-modal-content">
                       {parameterTypeRest === "request" ? (
                         <RequestParameter
+                          requestType={selectedOptionRestType}
                           toClose={closeHandlerParameter}
                           onAdd={handleRequestParameterRest}
                         />

@@ -3,8 +3,11 @@ import "./RestApi.css";
 import WebServices from "./WebServices";
 import Authentication from "../RestApi/Authentication";
 import ModalAuthentication from "../RestApi/ModalAuthentication";
+import { useNavigate, useParams } from "react-router-dom";
 
 const RestApi = (props) => {
+  const navigate = useNavigate();
+  const params = useParams();
   const [selectedOption, setSelectedOption] = useState("option1");
   const [fname, setFname] = useState("");
   const [webURI, setWebURI] = useState("");
@@ -23,7 +26,6 @@ const RestApi = (props) => {
   const [showWebServiceTable, setShowWebServiceTable] = useState(false);
   const [showRestServiceTable, setShowRestServiceTable] = useState(false);
   const [savedRest, setSavedRest] = useState(false);
-
   const resetState = () => {
     setSelectedOption("option1");
     setFname("");
@@ -51,6 +53,15 @@ const RestApi = (props) => {
     basicAuthenticationRest,
   };
 
+  const setData = (data) => {
+    setSelectedOption(data.selectedOption);
+    setFname(data.fname);
+    setWebURI(data.webURI);
+    setQuantity(data.quantity);
+    setDescription(data.description);
+    setType(data.type);
+  };
+
   const handleMethodButtonClick = () => {
     setShowContent(true);
     setShowWebServices(true); // Show Web Services button
@@ -68,9 +79,11 @@ const RestApi = (props) => {
     if (!validateForm()) {
       return;
     }
+    const url =
+      "/api/apiintegration" + (params && params.id ? "/" + params.id : "");
     try {
-      const response = await fetch("/api/apiintegration", {
-        method: "POST",
+      const response = await fetch(url, {
+        method: params && params.id ? "PUT" : "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -79,6 +92,7 @@ const RestApi = (props) => {
 
       if (response.ok) {
         alert("Data saved successfully");
+        handleCloseClickRest();
         // resetState();
       } else {
         console.error("Failed to save data");
@@ -86,11 +100,6 @@ const RestApi = (props) => {
     } catch (error) {
       console.error("Error:", error);
     }
-    const formDataJson = JSON.stringify(formDataRestApi);
-    console.log(formDataJson);
-    console.log(webServices);
-
-    props.toAdd();
   };
 
   const validateForm = () => {
@@ -131,7 +140,7 @@ const RestApi = (props) => {
   }
 
   const handleCloseClickRest = () => {
-    props.toCancel();
+    navigate("/ApiBinding", { replace: true });
   };
 
   const handleAddWebServiceRest = (parameter) => {
@@ -147,7 +156,28 @@ const RestApi = (props) => {
     ]);
     setShowAuthentication(() => false);
   };
+  const fetchApi = () => {
+    params &&
+      params.id &&
+      fetch("/api/apiintegration/" + params.id)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch data");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Fetched data:", data);
+          setData(data);
+        })
+        .catch((error) => {
+          console.log("Error in fetching data:", error);
+        });
+  };
 
+  useEffect(() => {
+    fetchApi();
+  }, [params.id]);
   return (
     <div>
       <div className="container_0">

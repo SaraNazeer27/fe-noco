@@ -3,8 +3,10 @@ import "./SoapApi.css";
 import WebServicesSoap from "../SoapApi/WebServicesSoap";
 import AuthenticationSoap from "../SoapApi/AuthenticationSoap";
 import ModalAuthenticationSoap from "../SoapApi/ModalAuthenticationSoap";
+import { useNavigate } from "react-router-dom";
 
 const SoapApi = (props) => {
+  const navigate = useNavigate();
   const [sname, setSname] = useState("");
   const [swebURI, setSWebURI] = useState("");
   const [squantity, setSQuantity] = useState("");
@@ -29,7 +31,7 @@ const SoapApi = (props) => {
     setSWebURI("");
     setSQuantity("");
     setSDescription("");
-    setSType("REST");
+    setSType("SOAP");
 
     setShowSContent(false);
     setModal(false);
@@ -125,7 +127,7 @@ const SoapApi = (props) => {
   }
 
   const handleCloseClick = () => {
-    props.toCancel();
+    navigate("/ApiBinding", { replace: true });
   };
 
   const handleAddWebService = (parameter) => {

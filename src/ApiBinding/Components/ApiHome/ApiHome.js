@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./ApiHome.css";
 import RestApi from "../RestApi/RestApi";
 import SoapApi from "../SoapApi/SoapApi";
+import { Link, useNavigate } from "react-router-dom";
 
 const ApiHome = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const menuItems = [
-    { label: "Rest Service", value: "item1" },
-    { label: "Soap Service", value: "item2" },
+    { label: "Rest Service", value: "REST" },
+    { label: "Soap Service", value: "SOAP" },
   ];
   const [savedApi, setSavedApi] = useState([]);
   const [showApiServiceTable, setShowApiServiceTable] = useState(false);
@@ -24,8 +26,9 @@ const ApiHome = () => {
   };
 
   const handleServiceClick = (service) => {
-    setSelectedItem({ label: service.fname, value: "item1" }); // Set the selected item with the service details
-    setShowApiServiceTable(false); // Hide the service list
+    //setSelectedItem({ label: service.fname, value: "item1" }); // Set the selected item with the service details
+    //setShowApiServiceTable(false); // Hide the service list
+    navigate(`/ApiBinding/${service.type}/${service._id}`, { replace: true });
   };
 
   const cancelHandler = () => {
@@ -82,9 +85,16 @@ const ApiHome = () => {
         {isOpen && (
           <ul className="dropdown-menu">
             {menuItems.map((item) => (
-              <li key={item.value} onClick={() => handleItemClick(item)}>
+              // <li key={item.value} onClick={() => handleItemClick(item)}>
+
+              // </li>
+              <Link
+                className="link-menu"
+                key={item.value}
+                to={`/ApiBinding/create/${item.value}`}
+              >
                 {item.label}
-              </li>
+              </Link>
             ))}
           </ul>
         )}

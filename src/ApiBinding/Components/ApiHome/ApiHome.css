@@ -38,7 +38,8 @@
   border: 5px solid rgb(214, 214, 221);
 }
 
-li {
+li,
+.link-menu {
   list-style-type: none;
   height: 8vh;
   background-color: rgb(252, 252, 252);

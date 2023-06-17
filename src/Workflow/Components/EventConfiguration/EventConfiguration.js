@@ -23,8 +23,6 @@ const optionListS = [
   { value: "silver", label: "Silver" },
 ];
 
-
-
 const EventConfiguration = (props) => {
   const selectedType = props.selectedType;
   const [selectedOptionEvent, setSelectedOptionEvent] = useState(null);
@@ -38,8 +36,8 @@ const EventConfiguration = (props) => {
 
   const eventData = {
     selectedOptionEvent,
-    selectedOptionMultiSelect, 
-   false, // Assuming this value comes from an input or state
+    selectedOptionMultiSelect,
+    // Assuming this value comes from an input or state
   };
 
   const handleClose = () => {
@@ -52,7 +50,7 @@ const EventConfiguration = (props) => {
   };
 
   function handleSelect(selectedOption) {
-    setSelectedOption(selectedOption);
+    setSelectedOptionEvent(selectedOption);
   }
 
   function handleMultiSelect(event) {
@@ -133,7 +131,11 @@ const EventConfiguration = (props) => {
 
       <div>
         <label htmlFor="eventColor">Event Color:</label>
-        <select id="eventColor" value={selectedOption} onChange={handleSelect}>
+        <select
+          id="eventColor"
+          value={selectedOptionEvent}
+          onChange={handleSelect}
+        >
           <option value=""></option>
           {optionList.map((option) => (
             <option key={option.value} value={option.value}>
@@ -149,7 +151,7 @@ const EventConfiguration = (props) => {
           id="eventColor"
           options={optionListS}
           placeholder="Select color"
-          value={selectedOption}
+          value={selectedOptionEvent}
           onChange={handleSelect}
           isSearchable={true}
           isMulti

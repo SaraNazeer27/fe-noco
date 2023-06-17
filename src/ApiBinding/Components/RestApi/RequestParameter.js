@@ -9,7 +9,6 @@ const RequestParameter = (props) => {
   const [codeAddress, setCodeAddress] = useState("");
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [inputRequestArr, setInputRequestArr] = useState({});
-
   const formDataRequestRest = {
     lname,
     selectedType,
@@ -71,6 +70,9 @@ const RequestParameter = (props) => {
             </option>
             <option value="Query Parameter">Query Parameter</option>
             <option value="Header Parameter">Header Parameter</option>
+            {props.requestType == "POST" && (
+              <option value="Body Parameter">Body Parameter</option>
+            )}
             <option value="Cookie Parameter">Cookie Parameter</option>
           </select>
         </div>
