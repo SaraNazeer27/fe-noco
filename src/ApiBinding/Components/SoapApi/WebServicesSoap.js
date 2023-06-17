@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import "./WebServicesSoap.css";
 import RequestParameterSoap from "../SoapApi/RequestParameterSoap";
 import ResponseParameterSoap from "../SoapApi/ResponseParameterSoap";
+import { useNavigate, useParams } from "react-router-dom";
 
 const WebServicesSoap = (props) => {
+  const params = useParams();
   const [selectedOptionSoapType, setSelectedOptionSoapType] = useState("POST");
-  const [webServiceName, setWebServiceName] = useState("");
-  const [responseTime, setResponseTime] = useState("");
-  const [message, setMessage] = useState("");
-  const [action, setAction] = useState("");
+  const [webServiceName, setWebServiceName] = useState(
+    props.webService ? props.webService.webServiceName : ""
+  );
+  const [responseTime, setResponseTime] = useState(
+    props.webService ? props.webService.responseTime : ""
+  );
+  const [message, setMessage] = useState(
+    props.webService ? props.webService.message : ""
+  );
+  const [action, setAction] = useState("HTTP");
   const [showRequestContentSoap, setShowRequestContentSoap] = useState(false);
   const [showResponseContentSoap, setShowResponseContentSoap] = useState(false);
   const [showAddParameterSoap, setShowAddParameterSoap] = useState(false);
@@ -34,10 +42,17 @@ const WebServicesSoap = (props) => {
     setWebServiceName("");
     setResponseTime("");
     setMessage("");
-    setAction("");
+    setAction("HTTP");
     setShowRequestContentSoap(false);
     setShowResponseContentSoap(false);
     setShowModalSoap(true);
+  };
+
+  const setData = (data) => {
+    selectedOptionSoapType(data.selectedOptionSoapType);
+    setWebServiceName(data.webServiceName);
+    setMessage(data.message);
+    setResponseTime(data.responseTime);
   };
 
   const handleRequestClick = () => {
@@ -60,21 +75,26 @@ const WebServicesSoap = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // if (!validateForm()) {
-    //   return;
-    // }
+    if (!validateForm()) {
+      return;
+    }
     console.log(formDataWebServices);
 
     props.onHandleAddWebService(formDataWebServices);
   };
 
-  // const validateForm = () => {
-  //   if (!fnameRest || !codeRest || !quantityRest || !webURIRestComplete) {
-  //     alert("Please fill in all required fields");
-  //     return false;
-  //   }
-  //   return true;
-  // };
+  const validateForm = () => {
+    if (!webServiceName || !isValidUrl(message)) {
+      alert("Please enter a valid URL for the Web Service URI");
+      return false;
+    }
+    return true;
+  };
+
+  const isValidUrl = (url) => {
+    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    return urlPattern.test(url);
+  };
 
   const handleChange = (event) => {
     setSelectedOptionSoapType(event.target.value);
@@ -163,8 +183,9 @@ const WebServicesSoap = (props) => {
                 type="text"
                 id="action"
                 name="action"
-                value={action}
+                value="HTTP"
                 onChange={(event) => setAction(event.target.value)}
+                readOnly={true}
               />
               <br />
             </form>
@@ -180,7 +201,7 @@ const WebServicesSoap = (props) => {
               <br />
             </form>
             <form className="form7">
-              <label htmlFor="message">Message Element Code:</label>
+              <label htmlFor="message">Message Element Address:</label>
               <input
                 type="text"
                 id="message"

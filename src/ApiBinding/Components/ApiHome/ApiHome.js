@@ -26,8 +26,6 @@ const ApiHome = () => {
   };
 
   const handleServiceClick = (service) => {
-    //setSelectedItem({ label: service.fname, value: "item1" }); // Set the selected item with the service details
-    //setShowApiServiceTable(false); // Hide the service list
     navigate(`/ApiBinding/${service.type}/${service._id}`, { replace: true });
   };
 
@@ -61,13 +59,6 @@ const ApiHome = () => {
     fetchApi();
   }, []);
 
-  // const handleShowApiClick = () => {
-  //   if (!showRestServiceTable) {
-  //     fetchRestApi();
-  //   }
-  //   setShowRestServiceTable((prevState) => !prevState);
-  // };
-
   return (
     <div className="container">
       {selectedItem === null && (
@@ -85,9 +76,6 @@ const ApiHome = () => {
         {isOpen && (
           <ul className="dropdown-menu">
             {menuItems.map((item) => (
-              // <li key={item.value} onClick={() => handleItemClick(item)}>
-
-              // </li>
               <li>
                 <Link
                   className="link-menu"
@@ -124,24 +112,6 @@ const ApiHome = () => {
               </div>
             ))}
           </div>
-          {/* <div className="grid-container2">
-            {savedApi.map((service, index) => (
-              <div
-                className="grid-item2"
-                key={index}
-                onClick={() => handleServiceClick(service)}
-              >
-                <div className="savedApi2">
-                  <h2>{service.sname}</h2>
-                  <h5>{service.sType}</h5>
-                </div>
-                <div className="detail2">
-                  <p>{service.sname}</p>
-                  <p>{service.swebURI}</p>
-                </div>
-              </div>
-            ))}
-          </div> */}
         </div>
       )}
     </div>

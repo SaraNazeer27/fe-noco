@@ -148,3 +148,11 @@
   top: 370px;
   left: 20px;
 }
+
+.editWebservice {
+  position: fixed;
+  left: 350px;
+  top: 425px;
+  height: 18px;
+  font-size: 12px;
+}

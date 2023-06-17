@@ -1,26 +1,27 @@
 import React, { useState } from "react";
 import "./RequestParameter.css";
-import DisplayData from "./DisplayData";
 import WebServices from "./WebServices";
+import { useNavigate, useParams } from "react-router-dom";
 
 const RequestParameter = (props) => {
-  const [parameterName, setParameterName] = useState("");
+  const params = useParams();
+  const [parameterName, setParameterName] = useState(
+    props.requestParameterRest ? props.requestParameterRest.parameterName : ""
+  );
   const [parameterType, setParameterType] = useState(
     "Method Address Parameter"
   );
-  const [codeAddress, setCodeAddress] = useState("");
+
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [inputRequestArr, setInputRequestArr] = useState({});
   const formDataRequestRest = {
     parameterName,
     parameterType,
-    codeAddress,
   };
 
   const resetState = () => {
     setParameterName("");
     setParameterType("Method Address Parameter");
-    setCodeAddress("");
     setShowRequestModal(true);
   };
 
@@ -30,9 +31,9 @@ const RequestParameter = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // if (!validateForm()) {
-    //   return;
-    // }
+    if (!validateForm()) {
+      return;
+    }
     console.log(JSON.stringify(formDataRequestRest));
     props.toClose();
     props.onAdd(formDataRequestRest);
@@ -41,7 +42,7 @@ const RequestParameter = (props) => {
 
   const validateForm = () => {
     // Check if the required fields are filled in
-    if (!parameterName || !parameterType || !codeAddress) {
+    if (!parameterName || !parameterType) {
       alert("Please fill in all required fields");
       return false;
     }
@@ -78,14 +79,6 @@ const RequestParameter = (props) => {
             <option value="Cookie Parameter">Cookie Parameter</option>
           </select>
         </div>
-        <label>
-          Code address:
-          <textarea
-            value={codeAddress}
-            onChange={(e) => setCodeAddress(e.target.value)}
-          />
-        </label>
-        <br />
 
         <br />
         <button className="ok-button" type="submit" onClick={handleSubmit}>

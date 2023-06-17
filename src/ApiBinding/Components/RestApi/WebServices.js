@@ -5,14 +5,20 @@ import ResponseParameter from "../RestApi/ResponseParameter";
 import { useNavigate, useParams } from "react-router-dom";
 
 const WebServices = (props) => {
+  const navigate = useNavigate();
   const params = useParams();
   const [selectedOptionRestType, setSelectedOptionRestType] = useState("GET");
   const [selectedOptionContentType, setSelectedOptionContentType] =
     useState("JSON");
-  const [webServiceName, setWebServiceName] = useState("");
-  const [methodAddress, setMethodAddress] = useState("");
-  const [completeAddress, setCompleteAddress] = useState("");
-  const [responseTime, setResponseTime] = useState("");
+  const [webServiceName, setWebServiceName] = useState(
+    props.webService ? props.webService.webServiceName : ""
+  );
+  const [methodAddress, setMethodAddress] = useState(
+    props.webService ? props.webService.methodAddress : ""
+  );
+  const [responseTime, setResponseTime] = useState(
+    props.webService ? props.webService.responseTime : ""
+  );
   const [webServiceDescription, setWebServiceDescription] = useState("");
   const [showRequestContentRest, setShowRequestContentRest] = useState(false);
   const [showResponseContentRest, setShowResponseContentRest] = useState(false);
@@ -25,22 +31,24 @@ const WebServices = (props) => {
   const [responseParametersRest, setResponseParametersRest] = useState([]);
   const [showRequestTable, setShowRequestTable] = useState(false);
   const [showResponseTable, setShowResponseTable] = useState(false);
+  const [testRequestResult, setTestRequestResult] = useState("");
+  const [editData, setEditData] = useState(null);
 
   const formDataWebServices = {
     selectedOptionContentType,
     selectedOptionRestType,
     webServiceName,
-    completeAddress,
     responseTime,
     methodAddress,
     webServiceDescription,
+    requestParametersRest,
+    responseParametersRest,
   };
 
   const resetState = () => {
     setSelectedOptionRestType("GET");
     setSelectedOptionContentType("JSON");
     setWebServiceName("");
-    setCompleteAddress("");
     setMethodAddress("");
     setResponseTime("");
     setWebServiceDescription("");
@@ -53,10 +61,13 @@ const WebServices = (props) => {
     setSelectedOptionRestType(data.selectedOptionRestType);
     setSelectedOptionContentType(data.selectedOptionContentType);
     setWebServiceName(data.webServiceName);
-    setCompleteAddress(data.completeAddress);
     setMethodAddress(data.methodAddress);
     setResponseTime(data.responseTime);
     setWebServiceDescription(data.webServiceDescription);
+    setRequestParametersRest(data.requestParametersRest);
+    setResponseParametersRest(data.responseParametersRest);
+    setShowRequestTable(() => true);
+    setShowResponseTable(() => true);
   };
 
   const handleRequestClick = () => {
@@ -79,19 +90,47 @@ const WebServices = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // if (!validateForm()) {
-    //   return;
-    // }
+    if (!validateForm()) {
+      return;
+    }
+
     props.onHandleAddWebService(formDataWebServices);
   };
 
-  // const validateForm = () => {
-  //   if (!fnameRest || !codeRest || !quantityRest || !webURIRestComplete) {
-  //     alert("Please fill in all required fields");
-  //     return false;
-  //   }
-  //   return true;
-  // };
+  const validateForm = async () => {
+    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    if (!urlPattern.test(methodAddress)) {
+      alert("Please enter a valid URL for the Web Service URI");
+      return false;
+    }
+
+    const url =
+      "/api/apiintegration" + (params && params.id ? "/" + params.id : "");
+    try {
+      const response = await fetch(url, {
+        method: params && params.id ? "PUT" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataWebServices),
+      });
+
+      if (response.ok) {
+        alert("Data saved successfully");
+        handleCloseClickRest();
+      } else {
+        console.error("Failed to save data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    return true;
+  };
+
+  const handleCloseClickRest = () => {
+    navigate("/ApiBinding", { replace: true });
+  };
 
   const handleChange = (event) => {
     setSelectedOptionContentType(event.target.value);
@@ -137,6 +176,11 @@ const WebServices = (props) => {
       parameter,
     ]);
     setShowAddParameterRest(false);
+  };
+
+  const setForEdit = (editData) => {
+    setEditData(() => editData);
+    setShowAddParameterRest(() => true);
   };
 
   return (
@@ -223,17 +267,6 @@ const WebServices = (props) => {
               />
               <br />
             </form>
-            <form className="form7">
-              <label htmlFor="completeAddress">Complete Address:</label>
-              <input
-                type="text"
-                id="completeAddress"
-                name="completeAddress"
-                value={completeAddress}
-                onChange={(event) => setCompleteAddress(event.target.value)}
-              />
-              <br />
-            </form>
           </div>
           <div className="container2">
             <div className="parameter-container">
@@ -272,11 +305,13 @@ const WebServices = (props) => {
                           requestType={selectedOptionRestType}
                           toClose={closeHandlerParameter}
                           onAdd={handleRequestParameterRest}
+                          requestParametersRest={editData}
                         />
                       ) : (
                         <ResponseParameter
                           toClose={closeHandlerParameter}
                           onAdd={handleResponseParameterRest}
+                          responseParametersRest={editData}
                         />
                       )}
                     </div>
@@ -309,6 +344,13 @@ const WebServices = (props) => {
                           </td>
                           <td className="requestRestData2">
                             {service.parameterType}
+                          </td>
+                          <td
+                            onClick={() => {
+                              setForEdit(service);
+                            }}
+                          >
+                            Edit
                           </td>
                         </tr>
                       ))}
@@ -343,6 +385,13 @@ const WebServices = (props) => {
                           <td className="responseRestData2">
                             {service.responseParameterType}
                           </td>
+                          <td
+                            onClick={() => {
+                              setForEdit(service);
+                            }}
+                          >
+                            Edit
+                          </td>
                         </tr>
                       ))}
                     </tr>
@@ -355,14 +404,14 @@ const WebServices = (props) => {
               <div className="popup">
                 <div className="popup-content">
                   The web service was modified. You must save the web service to
-                  run it up-to-date. Save now?
-                  <br />
-                  <div className="button-container">
-                    <button className="yes">Yes</button>
-                    <button className="no" onClick={handlePopupClose}>
-                      No
-                    </button>
-                  </div>
+                  send a test request.
+                  <button
+                    className="popup-button"
+                    onClick={handlePopupClose}
+                    type="button"
+                  >
+                    OK
+                  </button>
                 </div>
               </div>
             )}

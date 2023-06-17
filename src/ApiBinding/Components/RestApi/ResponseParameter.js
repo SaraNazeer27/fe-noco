@@ -14,7 +14,6 @@ function RequestParameter(props) {
     responseParameterName,
     responseParameterType,
     responseElementPath,
-    codeResponse,
     dataTypeResponse,
   };
 
@@ -37,7 +36,6 @@ function RequestParameter(props) {
       !responseParameterName ||
       !responseParameterType ||
       !responseElementPath ||
-      !codeResponse ||
       !dataTypeResponse
     ) {
       alert("Please fill in all required fields");
@@ -48,9 +46,6 @@ function RequestParameter(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // if (!validateForm()) {
-    //   return;
-    // }
     console.log(JSON.stringify(formDataResponseRest));
     setShowResponseModal(true);
     props.toClose();

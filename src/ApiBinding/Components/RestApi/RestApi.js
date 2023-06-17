@@ -20,12 +20,13 @@ const RestApi = (props) => {
   const [showWebServiceConfiguration, setShowWebServiceConfiguration] =
     useState(false);
   const [showAuthentication, setShowAuthentication] = useState(false);
-  const [showWebServices, setShowWebServices] = useState(false); // Updated state
+  const [showWebServices, setShowWebServices] = useState(false);
   const [webServices, setWebServices] = useState([]);
   const [basicAuthentication, setBasicAuthentication] = useState([]);
   const [showWebServiceTable, setShowWebServiceTable] = useState(false);
   const [showRestServiceTable, setShowRestServiceTable] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [editData, setEditData] = useState(null);
 
   const resetState = () => {
     setSelectedOption("option1");
@@ -61,11 +62,13 @@ const RestApi = (props) => {
     setTries(data.tries);
     setDescription(data.description);
     setType(data.type);
+    setWebServices(data.webServices);
+    setShowWebServiceTable(() => true);
   };
 
   const handleMethodButtonClick = () => {
     setShowContent(true);
-    setShowWebServices(true); // Show Web Services button
+    setShowWebServices(true);
   };
 
   const handleChange = (event) => {
@@ -76,7 +79,6 @@ const RestApi = (props) => {
     event.preventDefault();
     console.log(formDataRestApi);
 
-    // Validate the form data
     if (!validateForm()) {
       return;
     }
@@ -94,7 +96,6 @@ const RestApi = (props) => {
       if (response.ok) {
         alert("Data saved successfully");
         handleCloseClickRest();
-        // resetState();
       } else {
         console.error("Failed to save data");
       }
@@ -127,9 +128,14 @@ const RestApi = (props) => {
   }, [params.id]);
 
   const validateForm = () => {
-    // Check if the required fields are filled in
     if (!fname || !webURI || !tries || !description) {
       alert("Please fill in all required fields");
+      return false;
+    }
+
+    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    if (!urlPattern.test(webURI)) {
+      alert("Please enter a valid URL for the Web Service URI");
       return false;
     }
 
@@ -141,8 +147,8 @@ const RestApi = (props) => {
   };
 
   const handleOpenClick = () => {
-    setShowAuthentication(() => true);
-    setShowWebServices(false); // Hide Web Services button
+    setShowAuthentication(true);
+    setShowWebServices(false);
   };
 
   const handleWebServicesClick = () => {
@@ -151,10 +157,6 @@ const RestApi = (props) => {
 
   const handleShowWebServicesClick = () => {
     setShowWebServiceTable((prevState) => !prevState);
-  };
-
-  const handleAuthenticationClick = (newChange) => {
-    setShowAuthentication(() => newChange);
   };
 
   if (modal) {
@@ -169,13 +171,21 @@ const RestApi = (props) => {
 
   const handleAddWebServiceRest = (parameter) => {
     setWebServices((prevParameters) => [...prevParameters, parameter]);
-    setShowWebServiceConfiguration(() => false);
-    // setShowAddParameterRest(false);
+    setShowWebServiceConfiguration(false);
   };
 
   const handleAuthenticationRest = (parameter) => {
     setBasicAuthentication((prevParameters) => [...prevParameters, parameter]);
-    setShowAuthentication(() => false);
+    setShowAuthentication(false);
+  };
+
+  const handleAuthenticationClick = (newChange) => {
+    setShowAuthentication(newChange);
+  };
+
+  const setForEdit = (editData) => {
+    setEditData(() => editData);
+    setShowWebServiceConfiguration(() => true);
   };
 
   return (
@@ -255,7 +265,6 @@ const RestApi = (props) => {
             value="REST"
             readOnly={true}
           />
-
           <br />
         </div>
       </div>
@@ -288,23 +297,42 @@ const RestApi = (props) => {
           Show
         </button>
 
-        {showWebServiceTable && ( // Render the table only when showWebServiceTable is true
+        {showWebServiceTable && (
           <div className="savedRestWebservice">
             <table>
-              <tr>
-                <th>Name</th>
-                <th className="webServiceRestHeading">Type</th>
-              </tr>
-              {webServices.map((service, index) => (
-                <div key={index}>
-                  <tr>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th className="webServiceRestHeading">Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                {webServices.map((service, index) => (
+                  <tr key={index}>
                     <td>{service.webServiceName}</td>
                     <td className="webServiceRestHeading">
                       {service.selectedOptionRestType}
                     </td>
+                    {/* <td
+                      onClick={() => {
+                        setForEdit(service);
+                      }}
+                    >
+                      Edit
+                    </td> */}
+                    <td>
+                      <button
+                        className="editWebservice"
+                        onClick={() => {
+                          setForEdit(service);
+                        }}
+                      >
+                        Edit
+                      </button>
+                    </td>
                   </tr>
-                </div>
-              ))}
+                ))}
+              </tbody>
             </table>
           </div>
         )}
@@ -317,7 +345,10 @@ const RestApi = (props) => {
       )}
 
       {showWebServiceConfiguration && (
-        <WebServices onHandleAddWebService={handleAddWebServiceRest} />
+        <WebServices
+          onHandleAddWebService={handleAddWebServiceRest}
+          webService={editData}
+        />
       )}
     </div>
   );

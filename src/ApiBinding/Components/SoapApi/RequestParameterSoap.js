@@ -38,9 +38,7 @@ function RequestParameterSoap(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // if (!validateForm()) {
-    //   return;
-    // }
+
     console.log(JSON.stringify(formDataResponseRest));
     setShowRequestModalSoap(true);
     props.toClose();

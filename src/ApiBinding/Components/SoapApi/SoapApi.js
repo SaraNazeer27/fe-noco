@@ -20,12 +20,13 @@ const SoapApi = (props) => {
   const [showWebServiceConfigurationSoap, setShowWebServiceConfigurationSoap] =
     useState(false);
   const [showAuthenticationSoap, setShowAuthenticationSoap] = useState(false);
-  const [showWebServicesSoap, setShowWebServicesSoap] = useState(false); // Updated state
+  const [showWebServicesSoap, setShowWebServicesSoap] = useState(false);
   const [webServices, setWebServices] = useState([]);
   const [basicAuthentication, setBasicAuthentication] = useState([]);
   const [showWebServiceTableSoap, setShowWebServiceTableSoap] = useState(false);
   const [showSoapServiceTable, setShowSoapServiceTable] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [editData, setEditData] = useState(null);
 
   const resetState = () => {
     setFname("");
@@ -33,7 +34,6 @@ const SoapApi = (props) => {
     setTries("");
     setDescription("");
     setType("SOAP");
-
     setShowSContent(false);
     setModal(false);
     setShowModal(true);
@@ -60,11 +60,13 @@ const SoapApi = (props) => {
     setDescription(data.description);
     setType(data.type);
     setNameSpace(data.nameSpace);
+    setWebServices(data.webServices);
+    setShowWebServiceTableSoap(() => true);
   };
 
   const handleMethodButtonClick = () => {
     setShowSContent(true);
-    setShowWebServicesSoap(true); // Show Web Services button
+    setShowWebServicesSoap(true);
   };
 
   const handleCloseClickRest = () => {
@@ -74,7 +76,6 @@ const SoapApi = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(formDataRestApi);
-    // Validate the form data
     if (!validateForm()) {
       return;
     }
@@ -92,7 +93,6 @@ const SoapApi = (props) => {
       if (response.ok) {
         alert("Data saved successfully");
         handleCloseClickRest();
-        // resetState();
       } else {
         console.error("Failed to save data");
       }
@@ -102,12 +102,15 @@ const SoapApi = (props) => {
   };
 
   const validateForm = () => {
-    // Check if the required fields are filled in
     if (!fname || !webURI || !tries || !description) {
       alert("Please fill in all required fields");
       return false;
     }
-
+    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    if (!urlPattern.test(webURI)) {
+      alert("Please enter a valid URL for the Web Service URI");
+      return false;
+    }
     return true;
   };
 
@@ -116,20 +119,8 @@ const SoapApi = (props) => {
   };
 
   const handleOpenClick = () => {
-    setShowAuthenticationSoap(() => true);
-    setShowWebServicesSoap(false); // Hide Web Services button
-  };
-
-  const handleWebServicesClick = () => {
-    setShowWebServiceConfigurationSoap((prevState) => !prevState);
-  };
-
-  const handleShowWebServicesClick = () => {
-    setShowWebServiceTableSoap((prevState) => !prevState);
-  };
-
-  const handleAuthenticationClick = (newChange) => {
-    setShowAuthenticationSoap(() => newChange);
+    setShowAuthenticationSoap(true);
+    setShowWebServicesSoap(false);
   };
 
   if (modal) {
@@ -144,13 +135,12 @@ const SoapApi = (props) => {
 
   const handleAddWebService = (parameter) => {
     setWebServices((prevParameters) => [...prevParameters, parameter]);
-    setShowWebServiceConfigurationSoap(() => false);
-    // setShowAddParameterRest(false);
+    setShowWebServiceConfigurationSoap(false);
   };
 
   const handleAuthentication = (parameter) => {
     setBasicAuthentication((prevParameters) => [...prevParameters, parameter]);
-    setShowAuthenticationSoap(() => false);
+    setShowAuthenticationSoap(false);
   };
 
   const fetchApi = () => {
@@ -175,6 +165,23 @@ const SoapApi = (props) => {
   useEffect(() => {
     fetchApi();
   }, [params.id]);
+
+  const handleWebServicesClick = () => {
+    setShowWebServiceConfigurationSoap((prevState) => !prevState);
+  };
+
+  const handleShowWebServicesClick = () => {
+    setShowWebServiceTableSoap((prevState) => !prevState);
+  };
+
+  const handleAuthenticationClick = (newChange) => {
+    setShowAuthenticationSoap(newChange);
+  };
+
+  const setForEdit = (editData) => {
+    setEditData(() => editData);
+    setShowWebServiceConfigurationSoap(() => true);
+  };
 
   return (
     <div>
@@ -294,23 +301,32 @@ const SoapApi = (props) => {
           Show
         </button>
 
-        {showWebServiceTableSoap && ( // Render the table only when showWebServiceTable is true
+        {showWebServiceTableSoap && (
           <div className="savedRestWebservice">
             <table>
-              <tr>
-                <th>Name</th>
-                <th className="webServiceRestHeading">Type</th>
-              </tr>
-              {webServices.map((service, index) => (
-                <div key={index}>
-                  <tr>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th className="webServiceRestHeading">Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                {webServices.map((service, index) => (
+                  <tr key={index}>
                     <td>{service.webServiceName}</td>
                     <td className="webServiceRestHeading">
                       {service.selectedOptionSoapType}
                     </td>
+                    <td
+                      onClick={() => {
+                        setForEdit(service);
+                      }}
+                    >
+                      Edit
+                    </td>
                   </tr>
-                </div>
-              ))}
+                ))}
+              </tbody>
             </table>
           </div>
         )}
@@ -323,7 +339,10 @@ const SoapApi = (props) => {
       )}
 
       {showWebServiceConfigurationSoap && (
-        <WebServicesSoap onHandleAddWebService={handleAddWebService} />
+        <WebServicesSoap
+          onHandleAddWebService={handleAddWebService}
+          webService={editData}
+        />
       )}
     </div>
   );
