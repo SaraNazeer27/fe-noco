@@ -2,34 +2,34 @@ import React, { useState } from "react";
 import "./RequestParameterSoap.css";
 
 function RequestParameterSoap(props) {
-  const [lnameSoap, setLNameSoap] = useState("");
-  const [parameterTypeSoap, setParameterTypeSoap] = useState("Body Parameter");
-  const [elementPathSoap, setElementPathSoap] = useState("");
-  const [dataTypeSoap, setDataTypeSoap] = useState("Text");
+  const [parameterName, setParameterName] = useState("");
+  const [parameterType, setParameterType] = useState("Body Parameter");
+  const [elementPath, setElementPath] = useState("");
+  const [dataType, setDataType] = useState("Text");
   const [showRequestModalSoap, setShowRequestModalSoap] = useState(false);
 
   const formDataResponseRest = {
-    lnameSoap,
-    parameterTypeSoap,
-    elementPathSoap,
-    dataTypeSoap,
+    parameterName,
+    parameterType,
+    elementPath,
+    dataType,
   };
 
   const resetState = () => {
-    setLNameSoap("");
-    setDataTypeSoap("");
-    setElementPathSoap("");
-    setParameterTypeSoap("Body Parameter");
+    setParameterName("");
+    setDataType("");
+    setElementPath("");
+    setParameterType("Body Parameter");
     setShowRequestModalSoap(true);
   };
 
   const handleChange = (event) => {
-    setParameterTypeSoap(event.target.value);
+    setParameterType(event.target.value);
   };
 
   const validateForm = () => {
     // Check if the required fields are filled in
-    if (!lnameSoap || !parameterTypeSoap || !elementPathSoap || !dataTypeSoap) {
+    if (!parameterName || !parameterType || !elementPath || !dataType) {
       alert("Please fill in all required fields");
       return false;
     }
@@ -58,18 +58,14 @@ function RequestParameterSoap(props) {
           Name:
           <input
             type="text"
-            value={lnameSoap}
-            onChange={(e) => setLNameSoap(e.target.value)}
+            value={parameterName}
+            onChange={(e) => setParameterName(e.target.value)}
           />
         </label>
         <br />
         <div>
           <label htmlFor="dropdown">Parameter Type:</label>
-          <select
-            id="dropdown"
-            value={parameterTypeSoap}
-            onChange={handleChange}
-          >
+          <select id="dropdown" value={parameterType} onChange={handleChange}>
             <option value="Body Parameter">Body Parameter</option>
             <option value="Header Parameter">Header Parameter</option>
             <option value="Cookie Parameter">Cookie Parameter</option>
@@ -79,8 +75,8 @@ function RequestParameterSoap(props) {
         <label>
           Path to element (JSON path):
           <textarea
-            value={elementPathSoap}
-            onChange={(e) => setElementPathSoap(e.target.value)}
+            value={elementPath}
+            onChange={(e) => setElementPath(e.target.value)}
           />
         </label>
         <br />
@@ -89,8 +85,8 @@ function RequestParameterSoap(props) {
           <label htmlFor="dataTypeDropdown">DataType:</label>
           <select
             id="dataTypeDropdown"
-            value={dataTypeSoap}
-            onChange={(e) => setDataTypeSoap(e.target.value)}
+            value={dataType}
+            onChange={(e) => setDataType(e.target.value)}
           >
             <option value="Text">Text</option>
             <option value="Integer">Integer</option>

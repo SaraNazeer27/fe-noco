@@ -4,26 +4,28 @@ import DisplayData from "./DisplayData";
 import WebServices from "./WebServices";
 
 const RequestParameter = (props) => {
-  const [lname, setLname] = useState("");
-  const [selectedType, setSelectedType] = useState("Method Address Parameter");
+  const [parameterName, setParameterName] = useState("");
+  const [parameterType, setParameterType] = useState(
+    "Method Address Parameter"
+  );
   const [codeAddress, setCodeAddress] = useState("");
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [inputRequestArr, setInputRequestArr] = useState({});
   const formDataRequestRest = {
-    lname,
-    selectedType,
+    parameterName,
+    parameterType,
     codeAddress,
   };
 
   const resetState = () => {
-    setLname("");
-    setSelectedType("Method Address Parameter");
+    setParameterName("");
+    setParameterType("Method Address Parameter");
     setCodeAddress("");
     setShowRequestModal(true);
   };
 
   const handleChange = (event) => {
-    setSelectedType(event.target.value);
+    setParameterType(event.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -39,7 +41,7 @@ const RequestParameter = (props) => {
 
   const validateForm = () => {
     // Check if the required fields are filled in
-    if (!lname || !selectedType || !codeAddress) {
+    if (!parameterName || !parameterType || !codeAddress) {
       alert("Please fill in all required fields");
       return false;
     }
@@ -57,14 +59,14 @@ const RequestParameter = (props) => {
           Name:
           <input
             type="text"
-            value={lname}
-            onChange={(e) => setLname(e.target.value)}
+            value={parameterName}
+            onChange={(e) => setParameterName(e.target.value)}
           />
         </label>
         <br />
         <div>
           <label htmlFor="dropdown">Parameter Type:</label>
-          <select id="dropdown" value={selectedType} onChange={handleChange}>
+          <select id="dropdown" value={parameterType} onChange={handleChange}>
             <option value="Method Address Parameter">
               Method Address Parameter
             </option>

@@ -229,18 +229,6 @@ hr {
   left: 100px;
 }
 
-.requestRestHeading1Soap {
-  left: 350px;
-  position: fixed;
-  top: 470px;
-}
-
-.requestRestHeading2Soap {
-  left: 100px;
-  position: fixed;
-  top: 470px;
-}
-
 .savedRequestRestParameter {
   position: fixed;
   top: 1000px;
@@ -259,13 +247,13 @@ hr {
   top: 430px;
 }
 
-.r {
+.parameterDataRequest {
   left: 350px;
   position: fixed;
   top: 490px;
 }
 
-.s {
+.parameterDataResponse {
   left: 350px;
   position: fixed;
   top: 490px;
@@ -277,31 +265,42 @@ hr {
   left: 20px;
 }
 
-.requestRestData1Soap {
+.requestRestHeading1 {
+  left: 100px;
   position: fixed;
-  left: 120px;
+  top: 470px;
 }
 
-.requestRestData2Soap {
-  position: fixed;
-  left: 300px;
-}
-.responseRestHeading1Soap {
+.requestRestHeading2 {
   left: 350px;
   position: fixed;
   top: 470px;
 }
 
-.responseRestHeading2Soap {
+.requestRestData1 {
+  position: fixed;
+  left: 120px;
+}
+
+.requestRestData2 {
+  left: 300px;
+}
+.responseRestHeading1 {
   left: 100px;
   position: fixed;
   top: 470px;
 }
-.responseRestData1Soap {
+
+.responseRestHeading2 {
+  left: 350px;
+  position: fixed;
+  top: 470px;
+}
+.responseRestData1 {
   position: fixed;
   left: 120px;
 }
-.responseRestData2Soap {
+.responseRestData2 {
   position: fixed;
   left: 300px;
 }

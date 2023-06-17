@@ -4,9 +4,7 @@ import ModalAuthentication from "./ModalAuthentication";
 
 const Authentication = (props) => {
   const [selectedAuthentication, setSelectedAuthentication] = useState("None");
-
   const [showBasic, setShowBasic] = useState(false);
-  const [showAuth, setShowAuth] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(props.isModalOpen);
@@ -34,7 +32,6 @@ const Authentication = (props) => {
   const handleChange = (event) => {
     setSelectedAuthentication(event.target.value);
     setShowBasic(event.target.value === "None");
-    setShowAuth(event.target.value === "Basic");
   };
 
   const handleAuthenticationClick = () => {

@@ -258,23 +258,13 @@ hr {
   top: 430px;
 }
 
-.requestRestData1 {
-  position: fixed;
-  left: 120px;
-}
-
-.requestRestData2 {
-  position: fixed;
-  left: 300px;
-}
-
-.r {
+.parameterDataRequest {
   left: 350px;
   position: fixed;
   top: 490px;
 }
 
-.s {
+.parameterDataResponse {
   left: 350px;
   position: fixed;
   top: 490px;
@@ -286,24 +276,42 @@ hr {
   left: 20px;
 }
 
-.responseRestHeading1 {
+.requestRestHeading1 {
+  left: 100px;
+  position: fixed;
+  top: 470px;
+}
+
+.requestRestHeading2 {
   left: 350px;
   position: fixed;
   top: 470px;
 }
 
-.responseRestHeading2 {
+.requestRestData1 {
+  position: fixed;
+  left: 300px;
+}
+
+.requestRestData2 {
+  position: fixed;
+  left: 120px;
+}
+.responseRestHeading1 {
   left: 100px;
   position: fixed;
   top: 470px;
 }
-.responseRestData1 {
+
+.responseRestHeading2 {
+  left: 350px;
   position: fixed;
-  left: 120px;
-  /* padding: auto; */
+  top: 470px;
+}
+.responseRestData1 {
+  left: 300px;
 }
 .responseRestData2 {
   position: fixed;
-  left: 300px;
-  /* padding: auto; */
+  left: 120px;
 }

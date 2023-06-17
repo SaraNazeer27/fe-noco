@@ -3,16 +3,17 @@ import "./SoapApi.css";
 import WebServicesSoap from "../SoapApi/WebServicesSoap";
 import AuthenticationSoap from "../SoapApi/AuthenticationSoap";
 import ModalAuthenticationSoap from "../SoapApi/ModalAuthenticationSoap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SoapApi = (props) => {
   const navigate = useNavigate();
-  const [sname, setSname] = useState("");
-  const [swebURI, setSWebURI] = useState("");
-  const [squantity, setSQuantity] = useState("");
-  const [sdescription, setSDescription] = useState("");
+  const params = useParams();
+  const [fname, setFname] = useState("");
+  const [webURI, setWebURI] = useState("");
+  const [tries, setTries] = useState("");
+  const [description, setDescription] = useState("");
   const [nameSpace, setNameSpace] = useState("");
-  const [stype, setSType] = useState("SOAP");
+  const [type, setType] = useState("SOAP");
   const [showSContent, setShowSContent] = useState(false);
   const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(true);
@@ -20,18 +21,18 @@ const SoapApi = (props) => {
     useState(false);
   const [showAuthenticationSoap, setShowAuthenticationSoap] = useState(false);
   const [showWebServicesSoap, setShowWebServicesSoap] = useState(false); // Updated state
-  const [webServicesSoap, setWebServicesSoap] = useState([]);
-  const [basicAuthenticationSoap, setBasicAuthenticationSoap] = useState([]);
+  const [webServices, setWebServices] = useState([]);
+  const [basicAuthentication, setBasicAuthentication] = useState([]);
   const [showWebServiceTableSoap, setShowWebServiceTableSoap] = useState(false);
   const [showSoapServiceTable, setShowSoapServiceTable] = useState(false);
-  const [savedSoap, setSavedSoap] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   const resetState = () => {
-    setSname("");
-    setSWebURI("");
-    setSQuantity("");
-    setSDescription("");
-    setSType("SOAP");
+    setFname("");
+    setWebURI("");
+    setTries("");
+    setDescription("");
+    setType("SOAP");
 
     setShowSContent(false);
     setModal(false);
@@ -42,13 +43,23 @@ const SoapApi = (props) => {
   };
 
   const formDataRestApi = {
-    sname,
-    swebURI,
-    squantity,
-    sdescription,
-    webServicesSoap,
-    stype,
-    basicAuthenticationSoap,
+    fname,
+    webURI,
+    tries,
+    description,
+    webServices,
+    type,
+    nameSpace,
+    basicAuthentication,
+  };
+
+  const setData = (data) => {
+    setFname(data.fname);
+    setWebURI(data.webURI);
+    setTries(data.tries);
+    setDescription(data.description);
+    setType(data.type);
+    setNameSpace(data.nameSpace);
   };
 
   const handleMethodButtonClick = () => {
@@ -56,17 +67,22 @@ const SoapApi = (props) => {
     setShowWebServicesSoap(true); // Show Web Services button
   };
 
+  const handleCloseClickRest = () => {
+    navigate("/ApiBinding", { replace: true });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(formDataRestApi);
-
     // Validate the form data
     if (!validateForm()) {
       return;
     }
+    const url =
+      "/api/apiintegration" + (params && params.id ? "/" + params.id : "");
     try {
-      const response = await fetch("/api/apiintegration", {
-        method: "POST",
+      const response = await fetch(url, {
+        method: params && params.id ? "PUT" : "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -75,6 +91,7 @@ const SoapApi = (props) => {
 
       if (response.ok) {
         alert("Data saved successfully");
+        handleCloseClickRest();
         // resetState();
       } else {
         console.error("Failed to save data");
@@ -82,16 +99,11 @@ const SoapApi = (props) => {
     } catch (error) {
       console.error("Error:", error);
     }
-    const formDataJson = JSON.stringify(formDataRestApi);
-    console.log(formDataJson);
-    console.log(webServicesSoap);
-
-    props.toAdd();
   };
 
   const validateForm = () => {
     // Check if the required fields are filled in
-    if (!sname || !swebURI || !squantity || !sdescription) {
+    if (!fname || !webURI || !tries || !description) {
       alert("Please fill in all required fields");
       return false;
     }
@@ -131,18 +143,38 @@ const SoapApi = (props) => {
   };
 
   const handleAddWebService = (parameter) => {
-    setWebServicesSoap((prevParameters) => [...prevParameters, parameter]);
+    setWebServices((prevParameters) => [...prevParameters, parameter]);
     setShowWebServiceConfigurationSoap(() => false);
     // setShowAddParameterRest(false);
   };
 
   const handleAuthentication = (parameter) => {
-    setBasicAuthenticationSoap((prevParameters) => [
-      ...prevParameters,
-      parameter,
-    ]);
+    setBasicAuthentication((prevParameters) => [...prevParameters, parameter]);
     setShowAuthenticationSoap(() => false);
   };
+
+  const fetchApi = () => {
+    params &&
+      params.id &&
+      fetch("/api/apiintegration/" + params.id)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch data");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Fetched data:", data);
+          setData(data);
+        })
+        .catch((error) => {
+          console.log("Error in fetching data:", error);
+        });
+  };
+
+  useEffect(() => {
+    fetchApi();
+  }, [params.id]);
 
   return (
     <div>
@@ -161,59 +193,59 @@ const SoapApi = (props) => {
 
       <div className="container_1">
         <div className="form1">
-          <label htmlFor="sname">Name:</label>
+          <label htmlFor="fname">Name:</label>
           <input
             type="text"
-            id="sname"
-            name="sname"
-            value={sname}
-            onChange={(event) => setSname(event.target.value)}
+            id="fname"
+            name="fname"
+            value={fname}
+            onChange={(event) => setFname(event.target.value)}
           />
           <br />
         </div>
 
         <div className="form2">
-          <label htmlFor="swebURL">Web service URI:</label>
+          <label htmlFor="webURL">Web service URI:</label>
           <input
             type="url"
-            id="swebURI"
-            name="swebURI"
-            value={swebURI}
-            onChange={(event) => setSWebURI(event.target.value)}
+            id="webURI"
+            name="webURI"
+            value={webURI}
+            onChange={(event) => setWebURI(event.target.value)}
           />
           <br />
         </div>
 
         <div className="form4">
-          <label htmlFor="squantity">Retries on call failure:</label>
+          <label htmlFor="tries">Retries on call failure:</label>
           <input
             type="number"
-            id="squantity"
-            name="squantity"
-            value={squantity}
-            onChange={(event) => setSQuantity(event.target.value)}
+            id="tries"
+            name="tries"
+            value={tries}
+            onChange={(event) => setTries(event.target.value)}
           />
           <br />
         </div>
 
         <div className="form5">
-          <label htmlFor="sdescription">Description:</label>
+          <label htmlFor="description">Description:</label>
           <input
             type="text"
-            id="sdescription"
-            name="sdescription"
-            value={sdescription}
-            onChange={(event) => setSDescription(event.target.value)}
+            id="description"
+            name="description"
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
           />
           <br />
         </div>
 
         <div className="form6">
-          <label htmlFor="stype">Type:</label>
+          <label htmlFor="type">Type:</label>
           <input
             type="text"
-            id="stype"
-            name="stype"
+            id="type"
+            name="type"
             value="SOAP"
             readOnly={true}
           />
@@ -269,10 +301,10 @@ const SoapApi = (props) => {
                 <th>Name</th>
                 <th className="webServiceRestHeading">Type</th>
               </tr>
-              {webServicesSoap.map((service, index) => (
+              {webServices.map((service, index) => (
                 <div key={index}>
                   <tr>
-                    <td>{service.snameSoap}</td>
+                    <td>{service.webServiceName}</td>
                     <td className="webServiceRestHeading">
                       {service.selectedOptionSoapType}
                     </td>

@@ -5,14 +5,13 @@ import ResponseParameter from "../RestApi/ResponseParameter";
 
 const WebServices = (props) => {
   const [selectedOptionRestType, setSelectedOptionRestType] = useState("GET");
-  const [selectedOptionRestContent, setSelectedOptionRestContent] =
+  const [selectedOptionContentType, setSelectedOptionContentType] =
     useState("JSON");
-  const [fnameRest, setFnameRest] = useState("");
-  const [webURIRestMethod, setWebURIRestMethod] = useState("");
-  const [webURIRestComplete, setWebURIRestComplete] = useState("");
-  const [quantityRest, setQuantityRest] = useState("");
-  const [descriptionRest, setDescriptionRest] = useState("");
-  const [typeRest, setTypeRest] = useState("");
+  const [webServiceName, setWebServiceName] = useState("");
+  const [methodAddress, setMethodAddress] = useState("");
+  const [completeAddress, setCompleteAddress] = useState("");
+  const [responseTime, setResponseTime] = useState("");
+  const [webServiceDescription, setWebServiceDescription] = useState("");
   const [showRequestContentRest, setShowRequestContentRest] = useState(false);
   const [showResponseContentRest, setShowResponseContentRest] = useState(false);
   const [showAddParameterRest, setShowAddParameterRest] = useState(false);
@@ -26,26 +25,23 @@ const WebServices = (props) => {
   const [showResponseTable, setShowResponseTable] = useState(false);
 
   const formDataWebServices = {
-    selectedOptionRestContent,
+    selectedOptionContentType,
     selectedOptionRestType,
-    fnameRest,
-    webURIRestComplete,
-    quantityRest,
-    descriptionRest,
-    typeRest,
-    requestParametersRest,
-    responseParametersRest,
+    webServiceName,
+    completeAddress,
+    responseTime,
+    methodAddress,
+    webServiceDescription,
   };
 
   const resetState = () => {
     setSelectedOptionRestType("GET");
-    setSelectedOptionRestContent("JSON");
-    setFnameRest("");
-    setWebURIRestComplete("");
-    setWebURIRestMethod("");
-    setQuantityRest("");
-    setDescriptionRest("");
-    setTypeRest("REST");
+    setSelectedOptionContentType("JSON");
+    setWebServiceName("");
+    setCompleteAddress("");
+    setMethodAddress("");
+    setResponseTime("");
+    setWebServiceDescription("");
     setShowRequestContentRest(false);
     setShowResponseContentRest(false);
     setShowModalRest(true);
@@ -86,7 +82,7 @@ const WebServices = (props) => {
   // };
 
   const handleChange = (event) => {
-    setSelectedOptionRestContent(event.target.value);
+    setSelectedOptionContentType(event.target.value);
     setSelectedOptionRestType(event.target.value);
   };
 
@@ -156,20 +152,20 @@ const WebServices = (props) => {
           </div>
           <div className="container1">
             <form className="form1">
-              <label htmlFor="fname">Name:</label>
+              <label htmlFor="webServiceName">Name:</label>
               <input
                 type="text"
-                id="fname"
-                name="fname"
-                value={fnameRest}
-                onChange={(event) => setFnameRest(event.target.value)}
+                id="webServiceName"
+                name="webServiceName"
+                value={webServiceName}
+                onChange={(event) => setWebServiceName(event.target.value)}
               />
               <br />
             </form>
             <form className="form2">
-              <label htmlFor="dropdownModal">Request type:</label>
+              <label htmlFor="selectedOptionRestType">Request type:</label>
               <select
-                id="dropdownModal"
+                id="selectedOptionRestType"
                 value={selectedOptionRestType}
                 onChange={handleChange}
               >
@@ -185,7 +181,7 @@ const WebServices = (props) => {
               <label htmlFor="dropdownType">Content type:</label>
               <select
                 id="dropdownType"
-                value={selectedOptionRestContent}
+                value={selectedOptionContentType}
                 onChange={handleChange}
               >
                 <option value="JSON">JSON</option>
@@ -194,48 +190,38 @@ const WebServices = (props) => {
               <br />
             </form>
             <form className="form5">
-              <label htmlFor="webURI">Method Address:</label>
+              <label htmlFor="methodAddress">Method Address:</label>
               <input
                 type="text"
-                id="webURI"
-                name="webURI"
-                value={webURIRestMethod}
-                onChange={(event) => setWebURIRestMethod(event.target.value)}
+                id="methodAddress"
+                name="methodAddress"
+                value={methodAddress}
+                onChange={(event) => setMethodAddress(event.target.value)}
               />
               <br />
             </form>
             <form className="form6">
-              <label htmlFor="quantity">Response timeout, ms:</label>
+              <label htmlFor="responseTime">Response timeout, ms:</label>
               <input
                 type="number"
-                id="quantity"
-                name="quantity"
-                value={quantityRest}
-                onChange={(event) => setQuantityRest(event.target.value)}
+                id="responseTime"
+                name="responseTime"
+                value={responseTime}
+                onChange={(event) => setResponseTime(event.target.value)}
               />
               <br />
             </form>
             <form className="form7">
-              <label htmlFor="webURL">Complete Address:</label>
+              <label htmlFor="completeAddress">Complete Address:</label>
               <input
                 type="text"
-                id="webURI"
-                name="webURI"
-                value={webURIRestComplete}
-                onChange={(event) => setWebURIRestComplete(event.target.value)}
+                id="completeAddress"
+                name="completeAddress"
+                value={completeAddress}
+                onChange={(event) => setCompleteAddress(event.target.value)}
               />
               <br />
             </form>
-            {/* <div className="form8">
-              <label htmlFor="authentication">Use authentication</label>
-              <input
-                type="checkbox"
-                id="authentication"
-                name="authentication"
-                value="authentication"
-              />
-              <br />
-            </div> */}
           </div>
           <div className="container2">
             <div className="parameter-container">
@@ -303,12 +289,14 @@ const WebServices = (props) => {
                         <th className="requestRestHeading2">Type</th>
                       </tr>
                     </thead>
-                    <tr className="r">
+                    <tr className="parameterDataRequest">
                       {requestParametersRest.map((service, index) => (
                         <tr key={index}>
-                          <td className="requestRestData1">{service.lname}</td>
+                          <td className="requestRestData1">
+                            {service.parameterName}
+                          </td>
                           <td className="requestRestData2">
-                            {service.selectedType}
+                            {service.parameterType}
                           </td>
                         </tr>
                       ))}
@@ -334,12 +322,14 @@ const WebServices = (props) => {
                         <th className="responseRestHeading2">Type</th>
                       </tr>
                     </thead>
-                    <tr className="s">
+                    <tr className="parameterDataResponse">
                       {responseParametersRest.map((service, index) => (
                         <tr key={index}>
-                          <td className="responseRestData1">{service.name}</td>
+                          <td className="responseRestData1">
+                            {service.responseParameterName}
+                          </td>
                           <td className="responseRestData2">
-                            {service.parameterType}
+                            {service.responseParameterType}
                           </td>
                         </tr>
                       ))}

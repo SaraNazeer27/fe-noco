@@ -2,37 +2,44 @@ import React, { useState } from "react";
 import "./ResponseParameter.css";
 
 function RequestParameter(props) {
-  const [name, setName] = useState("");
-  const [parameterType, setParameterType] = useState("Body Parameter");
-  const [elementPath, setElementPath] = useState("");
+  const [responseParameterName, setResponseParameterName] = useState("");
+  const [responseParameterType, setResponseParameterType] =
+    useState("Body Parameter");
+  const [responseElementPath, setResponseElementPath] = useState("");
   const [codeResponse, setCodeResponse] = useState("");
-  const [dataType, setDataType] = useState("");
+  const [dataTypeResponse, setDataTypeResponse] = useState("Text");
   const [showResponseModal, setShowResponseModal] = useState(false);
 
   const formDataResponseRest = {
-    name,
-    parameterType,
-    elementPath,
+    responseParameterName,
+    responseParameterType,
+    responseElementPath,
     codeResponse,
-    dataType,
+    dataTypeResponse,
   };
 
   const resetState = () => {
-    setName("");
+    setResponseParameterName("");
     setCodeResponse("");
-    setDataType("");
-    setElementPath("");
-    setParameterType("Body Parameter");
+    setDataTypeResponse("");
+    setResponseElementPath("");
+    setResponseParameterType("Body Parameter");
     setShowResponseModal(true);
   };
 
   const handleChange = (event) => {
-    setParameterType(event.target.value);
+    setResponseParameterType(event.target.value);
   };
 
   const validateForm = () => {
     // Check if the required fields are filled in
-    if (!name || !parameterType || !elementPath || !codeResponse || !dataType) {
+    if (
+      !responseParameterName ||
+      !responseParameterType ||
+      !responseElementPath ||
+      !codeResponse ||
+      !dataTypeResponse
+    ) {
       alert("Please fill in all required fields");
       return false;
     }
@@ -61,14 +68,18 @@ function RequestParameter(props) {
           Name:
           <input
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={responseParameterName}
+            onChange={(e) => setResponseParameterName(e.target.value)}
           />
         </label>
         <br />
         <div>
           <label htmlFor="dropdown">Parameter Type:</label>
-          <select id="dropdown" value={parameterType} onChange={handleChange}>
+          <select
+            id="dropdown"
+            value={responseParameterType}
+            onChange={handleChange}
+          >
             <option value="Body Parameter">Body Parameter</option>
             <option value="Header Parameter">Header Parameter</option>
             <option value="Cookie Parameter">Cookie Parameter</option>
@@ -78,8 +89,8 @@ function RequestParameter(props) {
         <label>
           Path to element (JSON path):
           <textarea
-            value={elementPath}
-            onChange={(e) => setElementPath(e.target.value)}
+            value={responseElementPath}
+            onChange={(e) => setResponseElementPath(e.target.value)}
           />
         </label>
         <br />
@@ -88,8 +99,8 @@ function RequestParameter(props) {
           <label htmlFor="dataTypeDropdown">DataType:</label>
           <select
             id="dataTypeDropdown"
-            value={dataType}
-            onChange={(e) => setDataType(e.target.value)}
+            value={dataTypeResponse}
+            onChange={(e) => setDataTypeResponse(e.target.value)}
           >
             <option value="Text">Text</option>
             <option value="Integer">Integer</option>

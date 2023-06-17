@@ -3,26 +3,23 @@ import "./AuthenticationSoap.css";
 import ModalAuthenticationSoap from "../SoapApi/ModalAuthenticationSoap";
 
 const AuthenticationSoap = (props) => {
-  const [selectedAuthenticationSoap, setSelectedAuthenticationSoap] =
-    useState("None");
-
-  const [showBasicSoap, setShowBasicSoap] = useState(false);
-  const [showAuthSoap, setShowAuthSoap] = useState(false);
-  const [usernameSoap, setUsernameSoap] = useState("");
-  const [passwordSoap, setPasswordSoap] = useState("");
+  const [selectedAuthentication, setSelectedAuthentication] = useState("None");
+  const [showBasic, setShowBasic] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [isModalOpenSoap, setIsModalOpenSoap] = useState(props.isModalOpen);
   const [authenticationSoap, setAuthenticationSoap] = useState({});
 
   const formDataAuthentication = {
-    selectedAuthenticationSoap,
-    usernameSoap,
-    passwordSoap,
+    selectedAuthentication,
+    username,
+    password,
   };
 
   const resetState = () => {
-    setSelectedAuthenticationSoap("None");
-    setUsernameSoap("");
-    setPasswordSoap("");
+    setSelectedAuthentication("None");
+    setUsername("");
+    setPassword("");
   };
 
   const handleSubmit = async (event) => {
@@ -33,9 +30,8 @@ const AuthenticationSoap = (props) => {
   };
 
   const handleChange = (event) => {
-    setSelectedAuthenticationSoap(event.target.value);
-    setShowBasicSoap(event.target.value === "None");
-    setShowAuthSoap(event.target.value === "Basic");
+    setSelectedAuthentication(event.target.value);
+    setShowBasic(event.target.value === "None");
   };
 
   const handleAuthenticationClick = () => {

@@ -5,9 +5,9 @@ import ResponseParameterSoap from "../SoapApi/ResponseParameterSoap";
 
 const WebServicesSoap = (props) => {
   const [selectedOptionSoapType, setSelectedOptionSoapType] = useState("POST");
-  const [snameSoap, setSnameSoap] = useState("");
-  const [quantitySoap, setQuantitySoap] = useState("");
-  const [messageSoap, setMessageSoap] = useState("");
+  const [webServiceName, setWebServiceName] = useState("");
+  const [responseTime, setResponseTime] = useState("");
+  const [message, setMessage] = useState("");
   const [action, setAction] = useState("");
   const [showRequestContentSoap, setShowRequestContentSoap] = useState(false);
   const [showResponseContentSoap, setShowResponseContentSoap] = useState(false);
@@ -23,19 +23,17 @@ const WebServicesSoap = (props) => {
 
   const formDataWebServices = {
     selectedOptionSoapType,
-    snameSoap,
-    quantitySoap,
-    messageSoap,
+    webServiceName,
+    responseTime,
+    message,
     action,
-    requestParametersSoap,
-    responseParametersSoap,
   };
 
   const resetState = () => {
     setSelectedOptionSoapType("POST");
-    setSnameSoap("");
-    setQuantitySoap("");
-    setMessageSoap("");
+    setWebServiceName("");
+    setResponseTime("");
+    setMessage("");
     setAction("");
     setShowRequestContentSoap(false);
     setShowResponseContentSoap(false);
@@ -148,13 +146,13 @@ const WebServicesSoap = (props) => {
           </div>
           <div className="container1">
             <form className="form1">
-              <label htmlFor="snameSoap">Name:</label>
+              <label htmlFor="webServiceName">Name:</label>
               <input
                 type="text"
-                id="snameSoap"
-                name="snameSoap"
-                value={snameSoap}
-                onChange={(event) => setSnameSoap(event.target.value)}
+                id="webServiceName"
+                name="webServiceName"
+                value={webServiceName}
+                onChange={(event) => setWebServiceName(event.target.value)}
               />
               <br />
             </form>
@@ -171,24 +169,24 @@ const WebServicesSoap = (props) => {
               <br />
             </form>
             <form className="form6">
-              <label htmlFor="quantity">Response timeout, ms:</label>
+              <label htmlFor="responseTime">Response timeout, ms:</label>
               <input
-                type="number"
-                id="quantity"
-                name="quantity"
-                value={quantitySoap}
-                onChange={(event) => setQuantitySoap(event.target.value)}
+                type="responseTime"
+                id="responseTime"
+                name="responseTime"
+                value={responseTime}
+                onChange={(event) => setResponseTime(event.target.value)}
               />
               <br />
             </form>
             <form className="form7">
-              <label htmlFor="messageSoap">Message Element Code:</label>
+              <label htmlFor="message">Message Element Code:</label>
               <input
                 type="text"
-                id="messageSoap"
-                name="messageSoap"
-                value={messageSoap}
-                onChange={(event) => setMessageSoap(event.target.value)}
+                id="message"
+                name="message"
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
               />
               <br />
             </form>
@@ -258,14 +256,14 @@ const WebServicesSoap = (props) => {
                         <th className="requestRestHeading2">Type</th>
                       </tr>
                     </thead>
-                    <tr className="r">
+                    <tr className="parameterDataRequest">
                       {requestParametersSoap.map((service, index) => (
                         <tr key={index}>
                           <td className="requestRestData1">
-                            {service.lnameSoap}
+                            {service.parameterName}
                           </td>
                           <td className="requestRestData2">
-                            {service.selectedTypeSoap}
+                            {service.parameterType}
                           </td>
                         </tr>
                       ))}
@@ -287,18 +285,18 @@ const WebServicesSoap = (props) => {
                   <table>
                     <thead>
                       <tr>
-                        <th className="responseRestHeading1Soap">Name</th>
-                        <th className="responseRestHeading2Soap">Type</th>
+                        <th className="responseRestHeading1">Name</th>
+                        <th className="responseRestHeading2">Type</th>
                       </tr>
                     </thead>
-                    <tr className="s">
+                    <tr className="parameterDataResponse">
                       {responseParametersSoap.map((service, index) => (
                         <tr key={index}>
-                          <td className="responseRestData1Soap">
-                            {service.nameSoap}
+                          <td className="responseRestData1">
+                            {service.responseParameterName}
                           </td>
-                          <td className="responseRestData2Soap">
-                            {service.parameterTypeSoap}
+                          <td className="responseRestData2">
+                            {service.responseParameterType}
                           </td>
                         </tr>
                       ))}

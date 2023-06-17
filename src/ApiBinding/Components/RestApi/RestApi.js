@@ -11,7 +11,7 @@ const RestApi = (props) => {
   const [selectedOption, setSelectedOption] = useState("option1");
   const [fname, setFname] = useState("");
   const [webURI, setWebURI] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [tries, setTries] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("REST");
   const [showContent, setShowContent] = useState(false);
@@ -22,15 +22,16 @@ const RestApi = (props) => {
   const [showAuthentication, setShowAuthentication] = useState(false);
   const [showWebServices, setShowWebServices] = useState(false); // Updated state
   const [webServices, setWebServices] = useState([]);
-  const [basicAuthenticationRest, setBasicAuthenticationRest] = useState([]);
+  const [basicAuthentication, setBasicAuthentication] = useState([]);
   const [showWebServiceTable, setShowWebServiceTable] = useState(false);
   const [showRestServiceTable, setShowRestServiceTable] = useState(false);
-  const [savedRest, setSavedRest] = useState(false);
+  const [saved, setSaved] = useState(false);
+
   const resetState = () => {
     setSelectedOption("option1");
     setFname("");
     setWebURI("");
-    setQuantity("");
+    setTries("");
     setDescription("");
     setType("REST");
 
@@ -46,18 +47,18 @@ const RestApi = (props) => {
     fname,
     selectedOption,
     webURI,
-    quantity,
+    tries,
     description,
     webServices,
     type,
-    basicAuthenticationRest,
+    basicAuthentication,
   };
 
   const setData = (data) => {
     setSelectedOption(data.selectedOption);
     setFname(data.fname);
     setWebURI(data.webURI);
-    setQuantity(data.quantity);
+    setTries(data.tries);
     setDescription(data.description);
     setType(data.type);
   };
@@ -104,7 +105,7 @@ const RestApi = (props) => {
 
   const validateForm = () => {
     // Check if the required fields are filled in
-    if (!fname || !webURI || !quantity || !description) {
+    if (!fname || !webURI || !tries || !description) {
       alert("Please fill in all required fields");
       return false;
     }
@@ -150,10 +151,7 @@ const RestApi = (props) => {
   };
 
   const handleAuthenticationRest = (parameter) => {
-    setBasicAuthenticationRest((prevParameters) => [
-      ...prevParameters,
-      parameter,
-    ]);
+    setBasicAuthentication((prevParameters) => [...prevParameters, parameter]);
     setShowAuthentication(() => false);
   };
   const fetchApi = () => {
@@ -223,13 +221,13 @@ const RestApi = (props) => {
         </div>
 
         <div className="form4">
-          <label htmlFor="quantity">Retries on call failure:</label>
+          <label htmlFor="tries">Retries on call failure:</label>
           <input
             type="number"
-            id="quantity"
-            name="quantity"
-            value={quantity}
-            onChange={(event) => setQuantity(event.target.value)}
+            id="tries"
+            name="tries"
+            value={tries}
+            onChange={(event) => setTries(event.target.value)}
           />
           <br />
         </div>
@@ -298,7 +296,7 @@ const RestApi = (props) => {
               {webServices.map((service, index) => (
                 <div key={index}>
                   <tr>
-                    <td>{service.fnameRest}</td>
+                    <td>{service.webServiceName}</td>
                     <td className="webServiceRestHeading">
                       {service.selectedOptionRestType}
                     </td>
