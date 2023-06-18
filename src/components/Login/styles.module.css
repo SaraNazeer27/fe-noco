@@ -1,7 +1,7 @@
 .login_container {
 	width: 100%;
 	min-height: 100vh;
-	background-color: #e997d7;
+	background-color: rgb(232, 153, 218);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -26,6 +26,7 @@
 	border-bottom-left-radius: 40px;
 	border-top-right-radius: 40px;
 	border-bottom-right-radius: 40px;
+	border: 2px solid #d4cbcb;
 }
 
 .form_container {
@@ -43,10 +44,10 @@
 	outline: none;
 	border: none;
 	width: 370px;
-	padding: 15px;
+	padding: 18px;
 	border-radius: 10px;
 	background-color: #edf5f3;
-	margin: 5px 0;
+	margin: 7px 0;
 	font-size: 14px;
 }
 
