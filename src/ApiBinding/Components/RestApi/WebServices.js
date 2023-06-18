@@ -5,6 +5,7 @@ import ResponseParameter from "../RestApi/ResponseParameter";
 import { useNavigate, useParams } from "react-router-dom";
 
 const WebServices = (props) => {
+  debugger;
   const navigate = useNavigate();
   const params = useParams();
   const [selectedOptionRestType, setSelectedOptionRestType] = useState("GET");
@@ -40,6 +41,9 @@ const WebServices = (props) => {
   const [showRequestTable, setShowRequestTable] = useState(false);
   const [showResponseTable, setShowResponseTable] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [id, setSerivesId] = useState(
+    props.webService && props.webService.id ? props.webService.id : 0
+  );
 
   const formDataWebServices = {
     selectedOptionContentType,
@@ -50,6 +54,7 @@ const WebServices = (props) => {
     webServiceDescription,
     requestParametersRest,
     responseParametersRest,
+    id,
   };
 
   const resetState = () => {
@@ -147,6 +152,7 @@ const WebServices = (props) => {
   };
 
   const handleAddRestParameter = (parameterType) => {
+    setEditData(() => null);
     setParameterTypeRest(() => parameterType);
     setShowAddParameterRest(true);
   };
@@ -184,17 +190,17 @@ const WebServices = (props) => {
       ]);
     } else {
       let tobeAdded = [...requestParametersRest];
-      tobeAdded = tobeAdded.map((res) => {
+      let changetobeAdded = tobeAdded.map((res) => {
         if (res.id == parameter.id) return { ...parameter };
+        return { ...res };
       });
-      console.log(tobeAdded);
-      setRequestParametersRest((prevParameters) => [...tobeAdded]);
+
+      setRequestParametersRest((prevParameters) => [...changetobeAdded]);
     }
     setShowAddParameterRest(false);
   };
 
   const handleResponseParameterRest = (parameter) => {
-    debugger;
     const count = responseParametersRest.length;
     if (parameter["id"] == 0) {
       parameter["id"] = count + 1;
@@ -205,11 +211,12 @@ const WebServices = (props) => {
       ]);
     } else {
       let tobeAdded = [...responseParametersRest];
-      tobeAdded = tobeAdded.map((res) => {
+      let changetobeAdded = tobeAdded.map((res) => {
         if (res.id == parameter.id) return { ...parameter };
+        return { ...res };
       });
       console.log(tobeAdded);
-      setResponseParametersRest((prevParameters) => [...tobeAdded]);
+      setResponseParametersRest((prevParameters) => [...changetobeAdded]);
     }
     setShowAddParameterRest(false);
   };
@@ -363,33 +370,23 @@ const WebServices = (props) => {
             )}
 
             <div>
-              {/* <button
-                className="showRequestButton"
-                onClick={handleShowRequestTableClick}
-              >
-                Show Saved Request
-              </button> */}
               {showRequestContentRest && (
                 <div className="savedRequestRestParameters">
                   <table>
                     <thead>
                       <tr>
-                        <th className="requestRestHeading1">Name</th>
-                        <th className="requestRestHeading2">Type</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
-                    <tbody className="parameterDataRequest">
+                    <tbody>
                       {requestParametersRest.map((service, index) => (
                         <tr key={service.id}>
-                          <td className="requestRestData1">
-                            {service.parameterName}
-                          </td>
-                          <td className="requestRestData2">
-                            {service.parameterType}
-                          </td>
+                          <td>{service.parameterName}</td>
+                          <td>{service.parameterType}</td>
                           <td>
                             <button
-                              className="editRequestParameter"
                               onClick={() => {
                                 setForEdit(service);
                               }}
@@ -406,32 +403,22 @@ const WebServices = (props) => {
             </div>
 
             <div>
-              {/* <button
-                className="showResponseButton"
-                onClick={handleShowResponseTableClick}
-              >
-                Show Saved Response
-              </button> */}
               {showResponseContentRest && (
-                <div className="savedResponseRestParameters">
+                <div>
                   <table>
                     <thead>
                       <tr>
-                        <th className="responseRestHeading1">Name</th>
-                        <th className="responseRestHeading2">Type</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
-                    <tbody className="parameterDataResponse">
+                    <tbody>
                       {responseParametersRest.map((service, index) => (
                         <tr key={index}>
-                          <td className="responseRestData1">
-                            {service.responseParameterName}
-                          </td>
-                          <td className="responseRestData2">
-                            {service.responseParameterType}
-                          </td>
+                          <td>{service.responseParameterName}</td>
+                          <td>{service.responseParameterType}</td>
                           <button
-                            className="editRequestParameter"
                             onClick={() => {
                               setForEdit(service);
                             }}

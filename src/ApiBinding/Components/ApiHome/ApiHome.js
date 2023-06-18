@@ -7,34 +7,18 @@ import { Link, useNavigate } from "react-router-dom";
 const ApiHome = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
   const menuItems = [
     { label: "Rest Service", value: "REST" },
     { label: "Soap Service", value: "SOAP" },
   ];
   const [savedApi, setSavedApi] = useState([]);
-  const [showApiServiceTable, setShowApiServiceTable] = useState(false);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleItemClick = (item) => {
-    setSelectedItem(item);
-    setIsOpen(false);
-    setShowApiServiceTable(false); // Reset showRestServiceTable to false when a different item is selected
-  };
-
   const handleServiceClick = (service) => {
     navigate(`/ApiBinding/${service.type}/${service._id}`, { replace: true });
-  };
-
-  const cancelHandler = () => {
-    setSelectedItem(null);
-  };
-
-  const saveHandler = () => {
-    setSelectedItem(null);
   };
 
   const fetchApi = () => {
@@ -47,7 +31,6 @@ const ApiHome = () => {
       })
       .then((data) => {
         setSavedApi(data);
-        setShowApiServiceTable(true);
         console.log("Fetched data:", data);
       })
       .catch((error) => {
@@ -61,17 +44,12 @@ const ApiHome = () => {
 
   return (
     <div className="container">
-      {selectedItem === null && (
+      {
         <button className="dropdown-toggle" onClick={toggleDropdown}>
           + New Integration
         </button>
-      )}
-      {selectedItem && selectedItem.value === "item1" && (
-        <RestApi toCancel={cancelHandler} toAdd={saveHandler} />
-      )}
-      {selectedItem && selectedItem.value === "item2" && (
-        <SoapApi toCancel={cancelHandler} toAdd={saveHandler} />
-      )}
+      }
+
       <div className="dropdown">
         {isOpen && (
           <ul className="dropdown-menu">
@@ -90,7 +68,7 @@ const ApiHome = () => {
         )}
       </div>
 
-      {showApiServiceTable && (
+      {
         <div className="savedApiservice">
           <div className="grid-container">
             {savedApi.map((service) => (
@@ -111,7 +89,7 @@ const ApiHome = () => {
             ))}
           </div>
         </div>
-      )}
+      }
     </div>
   );
 };

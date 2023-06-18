@@ -135,9 +135,19 @@ const SoapApi = (props) => {
 
   const handleAddWebService = (parameter) => {
     let count = webServices.length;
-    parameter["id"] = count + 1;
-    setWebServices((prevParameters) => [...prevParameters, parameter]);
-    setShowWebServiceConfigurationSoap(false);
+    if (parameter["id"] == 0) {
+      parameter["id"] = count + 1;
+      setWebServices((prevParameters) => [...prevParameters, parameter]);
+      setShowWebServiceConfigurationSoap(false);
+    } else {
+      let tobeAdded = [...webServices];
+      let changetobeAdded = tobeAdded.map((res) => {
+        if (res.id == parameter.id) return { ...parameter };
+        return { ...res };
+      });
+      setWebServices((prevParameters) => [...changetobeAdded]);
+    }
+    closeWebService();
   };
 
   const handleAuthentication = (parameter) => {
@@ -186,6 +196,7 @@ const SoapApi = (props) => {
   };
 
   const closeWebService = () => {
+    setEditData(() => null);
     setShowWebServiceConfigurationSoap(() => false);
   };
 

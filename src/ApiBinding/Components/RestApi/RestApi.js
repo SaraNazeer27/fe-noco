@@ -170,9 +170,21 @@ const RestApi = (props) => {
   };
 
   const handleAddWebServiceRest = (parameter) => {
-    let count = webServices.length;
-    parameter["id"] = count + 1;
-    setWebServices((prevParameters) => [...prevParameters, parameter]);
+    debugger;
+    const count = webServices.length;
+    if (parameter["id"] == 0) {
+      parameter["id"] = count + 1;
+
+      setWebServices((prevParameters) => [...prevParameters, parameter]);
+    } else {
+      let tobeAdded = [...webServices];
+      tobeAdded = tobeAdded.map((res) => {
+        if (res.id == parameter.id) return { ...parameter };
+        return { ...res };
+      });
+      setWebServices((prevParameters) => [...tobeAdded]);
+    }
+    setEditData(() => {});
     setShowWebServiceConfiguration(false);
   };
 
@@ -192,6 +204,7 @@ const RestApi = (props) => {
     setShowWebServiceConfiguration(() => true);
   };
   const closeWebService = () => {
+    setEditData(() => {});
     setShowWebServiceConfiguration(() => false);
   };
   //alert(editData);
@@ -310,20 +323,18 @@ const RestApi = (props) => {
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th className="webServiceRestHeading">Type</th>
+                  <th>Type</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 {webServices.map((service, index) => (
                   <tr key={index}>
                     <td>{service.webServiceName}</td>
-                    <td className="webServiceRestHeading">
-                      {service.selectedOptionRestType}
-                    </td>
+                    <td>{service.selectedOptionRestType}</td>
 
                     <td>
                       <button
-                        className="editWebservice"
                         onClick={() => {
                           setForEdit(service);
                         }}

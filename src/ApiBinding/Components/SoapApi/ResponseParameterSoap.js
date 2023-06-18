@@ -3,6 +3,11 @@ import "./ResponseParameterSoap.css";
 
 function ResponseParameterSoap(props) {
   console.log(props.responseParametersSoap);
+  const [id, setId] = useState(
+    props.responseParametersSoap && props.responseParametersSoap.id
+      ? props.responseParametersSoap.id
+      : 0
+  );
   const [responseParameterName, setResponseParameterName] = useState(
     props.responseParametersSoap
       ? props.responseParametersSoap.responseParameterName
@@ -22,6 +27,7 @@ function ResponseParameterSoap(props) {
     responseParameterType,
     responseElementPath,
     dataTypeResponse,
+    id,
   };
 
   const resetState = () => {

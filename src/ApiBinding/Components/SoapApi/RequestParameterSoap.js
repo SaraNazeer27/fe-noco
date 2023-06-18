@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "./RequestParameterSoap.css";
+import WebServicesSoap from "../SoapApi/WebServicesSoap";
 
 function RequestParameterSoap(props) {
-  console.log(props.requestParametersSoap);
   const [parameterName, setParameterName] = useState(
     props.requestParametersSoap ? props.requestParametersSoap.parameterName : ""
   );
   const [id, setId] = useState(
-    props.requestParametersRest && props.requestParametersRest.id
-      ? props.requestParametersRest.id
+    props.requestParametersSoap && props.requestParametersSoap.id
+      ? props.requestParametersSoap.id
       : 0
   );
   const [parameterType, setParameterType] = useState(
@@ -27,6 +27,7 @@ function RequestParameterSoap(props) {
     parameterType,
     elementPath,
     dataType,
+    id,
   };
 
   const resetState = () => {

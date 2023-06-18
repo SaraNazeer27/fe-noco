@@ -11,16 +11,16 @@ const optionList = [
 ];
 
 const optionListS = [
-  { value: "ocean1", label: "Ocean" },
-  { value: "blue", label: "Blue" },
-  { value: "purple", label: "Purple" },
-  { value: "red", label: "Red" },
-  { value: "orange", label: "Orange" },
-  { value: "yellow", label: "Yellow" },
-  { value: "green", label: "Green" },
-  { value: "forest", label: "Forest" },
-  { value: "slate", label: "Slate" },
-  { value: "silver", label: "Silver" },
+  { value: "1", label: "Button A" },
+  { value: "2", label: "Text A" },
+  { value: "3", label: "Popup" },
+  { value: "4", label: "isn't clickable" },
+  { value: "5", label: "is Visible" },
+  { value: "6", label: "is 'yes'" },
+  { value: "7", label: "is 'No'" },
+  { value: "8", label: "and" },
+  { value: "9", label: "or" },
+  { value: "10", label: "not in" },
 ];
 
 const EventConfiguration = (props) => {
