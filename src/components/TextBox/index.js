@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import "./TextBox.css";
-import Sidebar from "../../CanvasArea/components/Sidebar";
-import Navbar from "../../CanvasArea/components/Navbar/Nav";
-
 function TextBox() {
   const [text, setText] = useState("");
   const [style, setStyle] = useState({
@@ -70,10 +67,10 @@ function TextBox() {
 
   return (
     <>
-      <Navbar />
+      
       <div className="container">
         <div className="row">
-          <Sidebar />
+          
           <div className="col-sm"></div>
           <div className="col-sm">
             <div

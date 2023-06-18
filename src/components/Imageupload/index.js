@@ -4,6 +4,13 @@ import axios from 'axios';
 const ImageUpload = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [message, setMessage] = useState('');
+  const [showPropertyWindow, setShowPropertyWindow] = useState(false);
+  const [borderWidth, setBorderWidth] = useState(2);
+  const [borderColor, setBorderColor] = useState('gray');
+  const [imageStyles, setImageStyles] = useState({
+    width: '100%',
+    border: `2px solid gray`,
+  });
 
   const handleImageChange = (event) => {
     setSelectedImage(event.target.files[0]);
@@ -44,6 +51,29 @@ const ImageUpload = () => {
       });
   };
 
+  const handlePropertyClick = () => {
+    setShowPropertyWindow(true);
+  };
+
+  const handlePropertyClose = () => {
+    setShowPropertyWindow(false);
+  };
+
+  const handleBorderWidthChange = (event) => {
+    setBorderWidth(Number(event.target.value));
+  };
+
+  const handleBorderColorChange = (event) => {
+    setBorderColor(event.target.value);
+  };
+
+  const handleApplyStyles = () => {
+    setImageStyles((prevStyles) => ({
+      ...prevStyles,
+      border: `${borderWidth}px solid ${borderColor}`,
+    }));
+  };
+
   return (
     <div
       draggable
@@ -66,7 +96,7 @@ const ImageUpload = () => {
           <img
             src={URL.createObjectURL(selectedImage)}
             alt="Selected"
-            style={{ width: '100%' }}
+            style={imageStyles}
           />
         )}
       </div>
@@ -74,8 +104,47 @@ const ImageUpload = () => {
         Submit
       </button>
       <p>{message}</p>
+
+      <button onClick={handlePropertyClick}>Image Properties</button>
+
+      {showPropertyWindow && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            background: 'white',
+            padding: '1rem',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+            zIndex: 9999,
+          }}
+        >
+          <h3>Image Properties</h3>
+          <label htmlFor="borderWidth">Border Width:</label>
+          <input
+            type="number"
+            id="borderWidth"
+            value={borderWidth}
+            onChange={handleBorderWidthChange}
+          />
+          <br />
+          <label htmlFor="borderColor">Border Color:</label>
+          <input
+            type="color"
+            id="borderColor"
+            value={borderColor}
+            onChange={handleBorderColorChange}
+          />
+          <br />
+          <button onClick={handleApplyStyles}>Apply Styles</button>
+          <button onClick={handlePropertyClose}>Close</button>
+        </div>
+      )}
     </div>
   );
 };
 
 export default ImageUpload;
+
+

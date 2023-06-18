@@ -1,13 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../../Navbar/Nav";
 import "./Dashboard.css";
 
 
 const Dashboard = () => {
   return (
     <>
-      <Navbar />
+     
       <div className="container-main">
         <div className="header">New Application</div>
         <div className="page-container">

@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import "./TextEditor.css";
 
 function TextBox() {
   const [text, setText] = useState("");
   const [savedText, setSavedText] = useState("");
+  const [showTextArea, setShowTextArea] = useState(true);
+  const [showProperties, setShowProperties] = useState(false);
+  const [editable, setEditable] = useState(true);
   const [style, setStyle] = useState({
     fontFamily: "",
     fontSize: "",
@@ -13,9 +17,9 @@ function TextBox() {
     width: "200px",
     height: "100px",
   });
-  const [showProperties, setShowProperties] = useState(false);
   const [inputWidth, setInputWidth] = useState("200");
   const [inputHeight, setInputHeight] = useState("100");
+  const textareaRef = useRef(null);
 
   function handleTextChange(e) {
     setText(e.target.value);
@@ -50,36 +54,38 @@ function TextBox() {
     }));
   }
 
-  function handleEdit() {
-    setShowProperties(true);
-  }
-
   function handleSave() {
     setSavedText(text);
+    setShowTextArea(false);
     setShowProperties(false);
+    setEditable(false);
   }
 
   function handleClose() {
+    setShowTextArea(true);
     setShowProperties(false);
     setText(savedText);
+    setEditable(true);
   }
 
   function handleWidthChange(e) {
     setInputWidth(e.target.value);
+    setStyle((prevStyle) => ({
+      ...prevStyle,
+      width: `${e.target.value}px`,
+    }));
   }
 
   function handleHeightChange(e) {
     setInputHeight(e.target.value);
+    setStyle((prevStyle) => ({
+      ...prevStyle,
+      height: `${e.target.value}px`,
+    }));
   }
 
-  function handleSizeUpdate(e) {
-    if (e.key === "Enter") {
-      setStyle((prevStyle) => ({
-        ...prevStyle,
-        width: `${inputWidth}px`,
-        height: `${inputHeight}px`,
-      }));
-    }
+  function handleClick() {
+    setShowProperties(true);
   }
 
   return (
@@ -87,22 +93,42 @@ function TextBox() {
       <div className="row">
         <div className="col-sm"></div>
         <div className="col-sm">
-          {!showProperties && (
-            <button onClick={handleEdit}>Edit</button>
+          {showTextArea ? (
+            editable ? (
+              <textarea
+                style={style}
+                value={text}
+                onChange={handleTextChange}
+                onClick={handleClick}
+                ref={textareaRef}
+              />
+            ) : (
+              <div onClick={handleClick}>{text}</div>
+            )
+          ) : (
+            <div
+              onClick={handleClick}
+              style={{ ...style, cursor: editable ? "move" : "default" }}
+              draggable={editable}
+              onDragStart={(e) => {
+                e.dataTransfer.setData("text", text);
+              }}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault();
+                const droppedText = e.dataTransfer.getData("text");
+                const updatedText = text.replace(droppedText, "") + droppedText;
+                setText(updatedText);
+              }}
+            >
+              {text}
+            </div>
           )}
-          <div className="col-3">
-            <textarea
-              style={style}
-              value={text}
-              onChange={handleTextChange}
-              readOnly={!showProperties}
-              onClick={handleEdit}
-            />
-          </div>
         </div>
         {showProperties && (
-          <div className="col-sm">
-            <div className="col-3">
+          <div className="col-sm properties">
+            <h4>Text Properties</h4>
+            <div className="col" style={{ textAlign: "left" }}>
               <label htmlFor="fontFamily">Font Family:</label>
               <select
                 id="fontFamily"
@@ -117,7 +143,7 @@ function TextBox() {
               </select>
             </div>
 
-            <div className="col-3">
+            <div className="col" style={{ textAlign: "left" }}>
               <label htmlFor="fontSize">Font Size:</label>
             </div>
             <div className="col-3">
@@ -143,7 +169,7 @@ function TextBox() {
               />
             </div>
 
-            <div className="col-3">
+            <div className="col" style={{ textAlign: "left" }}>
               <label htmlFor="textAlign">Text Align:</label>
             </div>
             <div className="col-3">
@@ -174,7 +200,7 @@ function TextBox() {
             <div className="col-1">
               <label htmlFor="italic">Italic:</label>
             </div>
-            <div className="col-3">
+            <div className="col-2">
               <input
                 type="checkbox"
                 id="italic"
@@ -193,7 +219,6 @@ function TextBox() {
                 name="width"
                 value={inputWidth}
                 onChange={handleWidthChange}
-                onKeyPress={handleSizeUpdate}
               />
             </div>
 
@@ -207,13 +232,27 @@ function TextBox() {
                 name="height"
                 value={inputHeight}
                 onChange={handleHeightChange}
-                onKeyPress={handleSizeUpdate}
               />
             </div>
 
-            <div className="col-3">
-              <button onClick={handleSave}>Save</button>
-              <button onClick={handleClose}>Close</button>
+            <div className="row" style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className="col">
+                {editable ? (
+                  <button className="save" onClick={handleSave}>
+                    Save
+                  </button>
+                ) : (
+                  <button className="edit" onClick={() => {
+                    setEditable(true);
+                    setShowTextArea(true);
+                  }}>
+                    Edit
+                  </button>
+                )}
+                <button className="close " onClick={handleClose}>
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -223,3 +262,18 @@ function TextBox() {
 }
 
 export default TextBox;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

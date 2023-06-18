@@ -1,7 +1,7 @@
 .signup_container {
 	width: 100%;
 	min-height: 100vh;
-	background-color: #e997d7;
+	background-color:  rgb(232, 153, 218);
 	display: flex;
 	align-items: center;
 	justify-content: center;
