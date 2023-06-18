@@ -1,16 +1,30 @@
 import React, { useState } from "react";
 import "./ResponseParameter.css";
 
-function RequestParameter(props) {
-  const [responseParameterName, setResponseParameterName] = useState("");
-  const [responseParameterType, setResponseParameterType] =
-    useState("Body Parameter");
+function ResponseParameter(props) {
+  console.log(props.responseParametersRest);
+  const [responseParameterName, setResponseParameterName] = useState(
+    props.responseParametersRest
+      ? props.responseParametersRest.responseParameterName
+      : ""
+  );
+  const [id, setId] = useState(
+    props.responseParametersRest && props.responseParametersRest.id
+      ? props.responseParametersRest.id
+      : 0
+  );
+  const [responseParameterType, setResponseParameterType] = useState(
+    props.responseParametersRest
+      ? props.responseParametersRest.responseParameterType
+      : "Body Parameter"
+  );
   const [responseElementPath, setResponseElementPath] = useState("");
   const [codeResponse, setCodeResponse] = useState("");
   const [dataTypeResponse, setDataTypeResponse] = useState("Text");
   const [showResponseModal, setShowResponseModal] = useState(false);
 
   const formDataResponseRest = {
+    id,
     responseParameterName,
     responseParameterType,
     responseElementPath,
@@ -125,4 +139,4 @@ function RequestParameter(props) {
   );
 }
 
-export default RequestParameter;
+export default ResponseParameter;

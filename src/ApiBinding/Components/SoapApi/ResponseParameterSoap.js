@@ -2,9 +2,17 @@ import React, { useState } from "react";
 import "./ResponseParameterSoap.css";
 
 function ResponseParameterSoap(props) {
-  const [responseParameterName, setResponseParameterName] = useState("");
-  const [responseParameterType, setResponseParameterType] =
-    useState("Body Parameter");
+  console.log(props.responseParametersSoap);
+  const [responseParameterName, setResponseParameterName] = useState(
+    props.responseParametersSoap
+      ? props.responseParametersSoap.responseParameterName
+      : ""
+  );
+  const [responseParameterType, setResponseParameterType] = useState(
+    props.responseParametersSoap
+      ? props.responseParametersSoap.responseParameterType
+      : "Body Parameter"
+  );
   const [responseElementPath, setResponseElementPath] = useState("");
   const [dataTypeResponse, setDataTypeResponse] = useState("Text");
   const [showResponseModalSoap, setShowResponseModalSoap] = useState(false);

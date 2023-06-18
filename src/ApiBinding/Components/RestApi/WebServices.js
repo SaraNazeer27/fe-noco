@@ -39,7 +39,6 @@ const WebServices = (props) => {
   );
   const [showRequestTable, setShowRequestTable] = useState(false);
   const [showResponseTable, setShowResponseTable] = useState(false);
-  const [testRequestResult, setTestRequestResult] = useState("");
   const [editData, setEditData] = useState(null);
 
   const formDataWebServices = {
@@ -79,12 +78,14 @@ const WebServices = (props) => {
   };
 
   const handleRequestClick = () => {
-    setShowRequestContentRest(!showRequestContentRest);
+    setShowResponseContentRest(() => false);
+    setShowRequestContentRest(() => true);
     setShowAddParameterRest(false);
   };
 
   const handleResponseClick = () => {
-    setShowResponseContentRest(!showResponseContentRest);
+    setShowResponseContentRest(() => true);
+    setShowRequestContentRest(() => false);
     setShowAddParameterRest(false);
   };
 
@@ -172,28 +173,54 @@ const WebServices = (props) => {
   };
 
   const handleRequestParameterRest = (parameter) => {
-    let count = requestParametersRest.length;
-    parameter["id"] = count + 1;
-    setRequestParametersRest((prevParameters) => [
-      ...prevParameters,
-      parameter,
-    ]);
-    console.log(requestParametersRest);
+    debugger;
+    const count = requestParametersRest.length;
+    if (parameter["id"] == 0) {
+      parameter["id"] = count + 1;
+
+      setRequestParametersRest((prevParameters) => [
+        ...prevParameters,
+        parameter,
+      ]);
+    } else {
+      let tobeAdded = [...requestParametersRest];
+      tobeAdded = tobeAdded.map((res) => {
+        if (res.id == parameter.id) return { ...parameter };
+      });
+      console.log(tobeAdded);
+      setRequestParametersRest((prevParameters) => [...tobeAdded]);
+    }
     setShowAddParameterRest(false);
   };
 
   const handleResponseParameterRest = (parameter) => {
-    let count = responseParametersRest.length;
-    parameter["id"] = count + 1;
-    setResponseParametersRest((prevParameters) => [
-      ...prevParameters,
-      parameter,
-    ]);
+    debugger;
+    const count = responseParametersRest.length;
+    if (parameter["id"] == 0) {
+      parameter["id"] = count + 1;
+
+      setResponseParametersRest((prevParameters) => [
+        ...prevParameters,
+        parameter,
+      ]);
+    } else {
+      let tobeAdded = [...responseParametersRest];
+      tobeAdded = tobeAdded.map((res) => {
+        if (res.id == parameter.id) return { ...parameter };
+      });
+      console.log(tobeAdded);
+      setResponseParametersRest((prevParameters) => [...tobeAdded]);
+    }
     setShowAddParameterRest(false);
   };
 
   const setForEdit = (editData) => {
+    debugger;
+
     setEditData(() => editData);
+    setParameterTypeRest(() =>
+      showRequestContentRest ? "request" : "response"
+    );
     setShowAddParameterRest(() => true);
   };
 
@@ -308,7 +335,8 @@ const WebServices = (props) => {
                     )
                   }
                 >
-                  Add Parameter
+                  {showRequestContentRest ? "Request" : "Response"} Add
+                  Parameter
                 </button>
 
                 {showAddParameterRest && (
@@ -335,13 +363,13 @@ const WebServices = (props) => {
             )}
 
             <div>
-              <button
+              {/* <button
                 className="showRequestButton"
                 onClick={handleShowRequestTableClick}
               >
                 Show Saved Request
-              </button>
-              {!showResponseTable && showRequestTable && (
+              </button> */}
+              {showRequestContentRest && (
                 <div className="savedRequestRestParameters">
                   <table>
                     <thead>
@@ -350,9 +378,9 @@ const WebServices = (props) => {
                         <th className="requestRestHeading2">Type</th>
                       </tr>
                     </thead>
-                    <tr className="parameterDataRequest">
+                    <tbody className="parameterDataRequest">
                       {requestParametersRest.map((service, index) => (
-                        <tr key={index}>
+                        <tr key={service.id}>
                           <td className="requestRestData1">
                             {service.parameterName}
                           </td>
@@ -371,20 +399,20 @@ const WebServices = (props) => {
                           </td>
                         </tr>
                       ))}
-                    </tr>
+                    </tbody>
                   </table>
                 </div>
               )}
             </div>
 
             <div>
-              <button
+              {/* <button
                 className="showResponseButton"
                 onClick={handleShowResponseTableClick}
               >
                 Show Saved Response
-              </button>
-              {!showRequestTable && showResponseTable && (
+              </button> */}
+              {showResponseContentRest && (
                 <div className="savedResponseRestParameters">
                   <table>
                     <thead>
@@ -393,7 +421,7 @@ const WebServices = (props) => {
                         <th className="responseRestHeading2">Type</th>
                       </tr>
                     </thead>
-                    <tr className="parameterDataResponse">
+                    <tbody className="parameterDataResponse">
                       {responseParametersRest.map((service, index) => (
                         <tr key={index}>
                           <td className="responseRestData1">
@@ -402,16 +430,17 @@ const WebServices = (props) => {
                           <td className="responseRestData2">
                             {service.responseParameterType}
                           </td>
-                          <td
+                          <button
+                            className="editRequestParameter"
                             onClick={() => {
                               setForEdit(service);
                             }}
                           >
                             Edit
-                          </td>
+                          </button>
                         </tr>
                       ))}
-                    </tr>
+                    </tbody>
                   </table>
                 </div>
               )}

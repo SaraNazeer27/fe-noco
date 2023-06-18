@@ -2,9 +2,23 @@ import React, { useState } from "react";
 import "./RequestParameterSoap.css";
 
 function RequestParameterSoap(props) {
-  const [parameterName, setParameterName] = useState("");
-  const [parameterType, setParameterType] = useState("Body Parameter");
-  const [elementPath, setElementPath] = useState("");
+  console.log(props.requestParametersSoap);
+  const [parameterName, setParameterName] = useState(
+    props.requestParametersSoap ? props.requestParametersSoap.parameterName : ""
+  );
+  const [id, setId] = useState(
+    props.requestParametersRest && props.requestParametersRest.id
+      ? props.requestParametersRest.id
+      : 0
+  );
+  const [parameterType, setParameterType] = useState(
+    props.requestParametersSoap
+      ? props.requestParametersSoap.parameterType
+      : "Body Parameter"
+  );
+  const [elementPath, setElementPath] = useState(
+    props.requestParametersSoap ? props.requestParametersSoap.elementPath : ""
+  );
   const [dataType, setDataType] = useState("Text");
   const [showRequestModalSoap, setShowRequestModalSoap] = useState(false);
 

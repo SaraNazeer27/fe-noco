@@ -134,7 +134,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   width: 77%;
-  height: 50px;
+  height: 150px;
 }
 
 .container2 .container1 span {
@@ -295,4 +295,12 @@ hr {
 .responseRestData2 {
   position: fixed;
   left: 300px;
+}
+
+.editRequestParameter {
+  position: fixed;
+  left: 500px;
+  top: 493px;
+  height: 18px;
+  font-size: 12px;
 }

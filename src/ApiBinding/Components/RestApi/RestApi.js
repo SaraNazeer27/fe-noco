@@ -177,8 +177,8 @@ const RestApi = (props) => {
   };
 
   const handleAuthenticationRest = (parameter) => {
-    let count = requestParametersRest.length;
-    parameter["id"] = count + 1;
+    // let count = requestParametersRest.length;
+    // parameter["id"] = count + 1;
     setBasicAuthentication((prevParameters) => [...prevParameters, parameter]);
     setShowAuthentication(false);
   };
@@ -320,13 +320,7 @@ const RestApi = (props) => {
                     <td className="webServiceRestHeading">
                       {service.selectedOptionRestType}
                     </td>
-                    {/* <td
-                      onClick={() => {
-                        setForEdit(service);
-                      }}
-                    >
-                      Edit
-                    </td> */}
+
                     <td>
                       <button
                         className="editWebservice"

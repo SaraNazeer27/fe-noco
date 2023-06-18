@@ -5,6 +5,7 @@ import ResponseParameterSoap from "../SoapApi/ResponseParameterSoap";
 import { useNavigate, useParams } from "react-router-dom";
 
 const WebServicesSoap = (props) => {
+  const navigate = useNavigate();
   const params = useParams();
   const [selectedOptionSoapType, setSelectedOptionSoapType] = useState("POST");
   const [webServiceName, setWebServiceName] = useState(
@@ -24,10 +25,19 @@ const WebServicesSoap = (props) => {
   const [showPopupSoap, setShowPopupSoap] = useState(false);
   const [showRequestModalSoap, setShowRequestModalSoap] = useState(false);
   const [parameterTypeSoap, setParameterTypeSoap] = useState("");
-  const [requestParametersSoap, setRequestParametersSoap] = useState([]);
-  const [responseParametersSoap, setResponseParametersSoap] = useState([]);
+  const [requestParametersSoap, setRequestParametersSoap] = useState(
+    props.webService && props.webService.requestParametersSoap
+      ? props.webService.requestParametersSoap
+      : []
+  );
+  const [responseParametersSoap, setResponseParametersSoap] = useState(
+    props.webService && props.webService.responseParametersSoap
+      ? props.webService.responseParametersSoap
+      : []
+  );
   const [showRequestTableSoap, setShowRequestTableSoap] = useState(false);
   const [showResponseTableSoap, setShowResponseTableSoap] = useState(false);
+  const [editData, setEditData] = useState(null);
 
   const formDataWebServices = {
     selectedOptionSoapType,
@@ -35,6 +45,8 @@ const WebServicesSoap = (props) => {
     responseTime,
     message,
     action,
+    requestParametersSoap,
+    responseParametersSoap,
   };
 
   const resetState = () => {
@@ -53,15 +65,21 @@ const WebServicesSoap = (props) => {
     setWebServiceName(data.webServiceName);
     setMessage(data.message);
     setResponseTime(data.responseTime);
+    setRequestParametersSoap(data.requestParametersSoap);
+    setResponseParametersSoap(data.responseParametersSoap);
+    setShowRequestTableSoap(() => true);
+    setShowResponseTableSoap(() => true);
   };
 
   const handleRequestClick = () => {
-    setShowRequestContentSoap(!showRequestContentSoap);
+    setShowResponseContentSoap(() => false);
+    setShowRequestContentSoap(() => true);
     setShowAddParameterSoap(false);
   };
 
   const handleResponseClick = () => {
-    setShowResponseContentSoap(!showResponseContentSoap);
+    setShowResponseContentSoap(() => true);
+    setShowRequestContentSoap(() => false);
     setShowAddParameterSoap(false);
   };
 
@@ -83,17 +101,44 @@ const WebServicesSoap = (props) => {
     props.onHandleAddWebService(formDataWebServices);
   };
 
-  const validateForm = () => {
-    if (!webServiceName || !isValidUrl(message)) {
+  const validateForm = async () => {
+    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    if (!urlPattern.test(message)) {
       alert("Please enter a valid URL for the Web Service URI");
       return false;
     }
+
+    const url =
+      "/api/apiintegration" + (params && params.id ? "/" + params.id : "");
+    try {
+      const response = await fetch(url, {
+        method: params && params.id ? "PUT" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataWebServices),
+      });
+
+      if (response.ok) {
+        // alert("Data saved successfully");
+        // handleCloseClickRest();
+      } else {
+        console.error("Failed to save data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
     return true;
   };
 
-  const isValidUrl = (url) => {
-    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
-    return urlPattern.test(url);
+  // const isValidUrl = (url) => {
+  //   const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+  //   return urlPattern.test(url);
+  // };
+
+  const handleCloseClickRest = () => {
+    navigate("/ApiBinding", { replace: true });
   };
 
   const handleChange = (event) => {
@@ -101,7 +146,7 @@ const WebServicesSoap = (props) => {
   };
 
   const handleAddRestParameter = (parameterType) => {
-    setParameterTypeSoap(parameterType);
+    setParameterTypeSoap(() => parameterType);
     setShowAddParameterSoap(true);
   };
 
@@ -126,19 +171,55 @@ const WebServicesSoap = (props) => {
   };
 
   const handleRequestParameterRest = (parameter) => {
-    setRequestParametersSoap((prevParameters) => [
-      ...prevParameters,
-      parameter,
-    ]);
+    debugger;
+    const count = requestParametersSoap.length;
+    if (parameter["id"] == 0) {
+      parameter["id"] = count + 1;
+
+      setRequestParametersSoap((prevParameters) => [
+        ...prevParameters,
+        parameter,
+      ]);
+    } else {
+      let tobeAdded = [...requestParametersSoap];
+      tobeAdded = tobeAdded.map((res) => {
+        if (res.id == parameter.id) return { ...parameter };
+      });
+      console.log(tobeAdded);
+      setRequestParametersSoap((prevParameters) => [...tobeAdded]);
+    }
     setShowAddParameterSoap(false);
   };
 
-  const handleResponseParameterRest = (parameter) => {
-    setResponseParametersSoap((prevParameters) => [
-      ...prevParameters,
-      parameter,
-    ]);
+  const handleResponseParameterSoap = (parameter) => {
+    debugger;
+    const count = responseParametersSoap.length;
+    if (parameter["id"] == 0) {
+      parameter["id"] = count + 1;
+
+      setResponseParametersSoap((prevParameters) => [
+        ...prevParameters,
+        parameter,
+      ]);
+    } else {
+      let tobeAdded = [...responseParametersSoap];
+      tobeAdded = tobeAdded.map((res) => {
+        if (res.id == parameter.id) return { ...parameter };
+      });
+      console.log(tobeAdded);
+      setResponseParametersSoap((prevParameters) => [...tobeAdded]);
+    }
     setShowAddParameterSoap(false);
+  };
+
+  const setForEdit = (editData) => {
+    debugger;
+
+    setEditData(() => editData);
+    setParameterTypeSoap(() =>
+      showRequestContentSoap ? "request" : "response"
+    );
+    setShowAddParameterSoap(() => true);
   };
 
   return (
@@ -238,7 +319,8 @@ const WebServicesSoap = (props) => {
                     )
                   }
                 >
-                  Add Parameter
+                  {showRequestContentSoap ? "Request" : "Response"} Add
+                  Parameter
                 </button>
 
                 {showAddParameterSoap && (
@@ -248,11 +330,13 @@ const WebServicesSoap = (props) => {
                         <RequestParameterSoap
                           toClose={closeHandlerParameter}
                           onAdd={handleRequestParameterRest}
+                          requestParametersSoap={editData}
                         />
                       ) : (
                         <ResponseParameterSoap
                           toClose={closeHandlerParameter}
-                          onAdd={handleResponseParameterRest}
+                          onAdd={handleResponseParameterSoap}
+                          responseParametersSoap={editData}
                         />
                       )}
                     </div>
@@ -261,71 +345,77 @@ const WebServicesSoap = (props) => {
               </>
             )}
 
-            <div>
-              <button
-                className="showRequestButton"
-                onClick={handleShowRequestTableClick}
-              >
-                Show Saved Request
-              </button>
-              {!showResponseTableSoap && showRequestTableSoap && (
-                <div className="savedRequestRestParameters">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th className="requestRestHeading1">Name</th>
-                        <th className="requestRestHeading2">Type</th>
-                      </tr>
-                    </thead>
-                    <tr className="parameterDataRequest">
-                      {requestParametersSoap.map((service, index) => (
-                        <tr key={index}>
-                          <td className="requestRestData1">
-                            {service.parameterName}
-                          </td>
-                          <td className="requestRestData2">
-                            {service.parameterType}
-                          </td>
-                        </tr>
-                      ))}
+            {showRequestTableSoap && (
+              <div className="savedRequestRestParameters">
+                <table>
+                  <thead>
+                    <tr>
+                      <th className="requestRestHeading1">Name</th>
+                      <th className="requestRestHeading2">Type</th>
                     </tr>
-                  </table>
-                </div>
-              )}
-            </div>
+                  </thead>
+                  <tbody className="parameterDataRequest">
+                    {requestParametersSoap.map((service, index) => (
+                      <tr key={index}>
+                        <td className="requestRestData1">
+                          {service.parameterName}
+                        </td>
+                        <td className="requestRestData2">
+                          {service.parameterType}
+                        </td>
+                        <td>
+                          <button
+                            className="editRequestParameter"
+                            onClick={() => {
+                              setForEdit(service);
+                            }}
+                          >
+                            Edit
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
 
-            <div>
-              <button
-                className="showResponseButton"
-                onClick={handleShowResponseTableClick}
-              >
-                Show Saved Response
-              </button>
-              {!showRequestTableSoap && showResponseTableSoap && (
-                <div className="savedResponseRestParameters">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th className="responseRestHeading1">Name</th>
-                        <th className="responseRestHeading2">Type</th>
-                      </tr>
-                    </thead>
-                    <tr className="parameterDataResponse">
-                      {responseParametersSoap.map((service, index) => (
-                        <tr key={index}>
-                          <td className="responseRestData1">
-                            {service.responseParameterName}
-                          </td>
-                          <td className="responseRestData2">
-                            {service.responseParameterType}
-                          </td>
-                        </tr>
-                      ))}
+          <div>
+            {showResponseTableSoap && (
+              <div className="savedResponseRestParameters">
+                <table>
+                  <thead>
+                    <tr>
+                      <th className="responseRestHeading1">Name</th>
+                      <th className="responseRestHeading2">Type</th>
                     </tr>
-                  </table>
-                </div>
-              )}
-            </div>
+                  </thead>
+                  <tr className="parameterDataResponse">
+                    {responseParametersSoap.map((service, index) => (
+                      <tr key={index}>
+                        <td className="responseRestData1">
+                          {service.responseParameterName}
+                        </td>
+                        <td className="responseRestData2">
+                          {service.responseParameterType}
+                        </td>
+                        <td>
+                          <button
+                            className="editRequestParameter"
+                            onClick={() => {
+                              setForEdit(service);
+                            }}
+                          >
+                            Edit
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tr>
+                </table>
+              </div>
+            )}
 
             {showPopupSoap && (
               <div className="popup">

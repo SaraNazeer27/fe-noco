@@ -134,6 +134,8 @@ const SoapApi = (props) => {
   };
 
   const handleAddWebService = (parameter) => {
+    let count = webServices.length;
+    parameter["id"] = count + 1;
     setWebServices((prevParameters) => [...prevParameters, parameter]);
     setShowWebServiceConfigurationSoap(false);
   };
@@ -181,6 +183,10 @@ const SoapApi = (props) => {
   const setForEdit = (editData) => {
     setEditData(() => editData);
     setShowWebServiceConfigurationSoap(() => true);
+  };
+
+  const closeWebService = () => {
+    setShowWebServiceConfigurationSoap(() => false);
   };
 
   return (
@@ -317,12 +323,15 @@ const SoapApi = (props) => {
                     <td className="webServiceRestHeading">
                       {service.selectedOptionSoapType}
                     </td>
-                    <td
-                      onClick={() => {
-                        setForEdit(service);
-                      }}
-                    >
-                      Edit
+                    <td>
+                      <button
+                        className="editRequestParameterSoap"
+                        onClick={() => {
+                          setForEdit(service);
+                        }}
+                      >
+                        Edit
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -342,6 +351,7 @@ const SoapApi = (props) => {
         <WebServicesSoap
           onHandleAddWebService={handleAddWebService}
           webService={editData}
+          onClose={closeWebService}
         />
       )}
     </div>

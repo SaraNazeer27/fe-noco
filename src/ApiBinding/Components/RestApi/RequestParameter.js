@@ -3,16 +3,27 @@ import "./RequestParameter.css";
 import WebServices from "./WebServices";
 
 const RequestParameter = (props) => {
+  console.log(props.requestParametersRest);
+  const [id, setId] = useState(
+    props.requestParametersRest && props.requestParametersRest.id
+      ? props.requestParametersRest.id
+      : 0
+  );
   const [parameterName, setParameterName] = useState(
-    props.requestParameterRest ? props.requestParameterRest.parameterName : ""
+    props.requestParametersRest && props.requestParametersRest.parameterName
+      ? props.requestParametersRest.parameterName
+      : ""
   );
   const [parameterType, setParameterType] = useState(
-    "Method Address Parameter"
+    props.requestParametersRest && props.requestParametersRest.parameterType
+      ? props.requestParametersRest.parameterType
+      : "Method Address Parameter"
   );
 
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [inputRequestArr, setInputRequestArr] = useState({});
   const formDataRequestRest = {
+    id,
     parameterName,
     parameterType,
   };

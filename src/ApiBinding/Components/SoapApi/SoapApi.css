@@ -148,3 +148,11 @@
   top: 370px;
   left: 20px;
 }
+
+.editRequestParameterSoap {
+  position: fixed;
+  left: 350px;
+  top: 423px;
+  height: 18px;
+  font-size: 12px;
+}
