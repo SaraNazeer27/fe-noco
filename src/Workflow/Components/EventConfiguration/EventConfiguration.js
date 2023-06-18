@@ -51,6 +51,7 @@ const EventConfiguration = (props) => {
 
   function handleSelect(selectedOption) {
     setSelectedOptionEvent(selectedOption);
+    setSelectedOptionMultiSelect(selectedOptionMultiSelect);
   }
 
   function handleMultiSelect(event) {
@@ -103,7 +104,7 @@ const EventConfiguration = (props) => {
         <label htmlFor="eventColor">Event Color:</label>
         <select
           id="eventColor"
-          value={selectedOptionEvent}
+          value={selectedOptionEvent ? selectedOptionEvent.value : ""}
           onChange={handleSelect}
         >
           <option value=""></option>
@@ -118,9 +119,9 @@ const EventConfiguration = (props) => {
       <div>
         <label htmlFor="onlyWhen">Only when:</label>
         <Select
-          id="eventColor"
+          id="onlyWhen"
           options={optionListS}
-          placeholder="Select color"
+          placeholder="Only When"
           value={selectedOptionEvent}
           onChange={handleSelect}
           isSearchable={true}

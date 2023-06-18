@@ -76,10 +76,9 @@ const ApiHome = () => {
         {isOpen && (
           <ul className="dropdown-menu">
             {menuItems.map((item) => (
-              <li>
+              <li key={item.value}>
                 <Link
                   className="link-menu"
-                  key={item.value}
                   to={`/ApiBinding/create/${item.value}`}
                 >
                   <span className="option-label">{item.label}</span>
@@ -94,15 +93,14 @@ const ApiHome = () => {
       {showApiServiceTable && (
         <div className="savedApiservice">
           <div className="grid-container">
-            {savedApi.map((service, index) => (
+            {savedApi.map((service) => (
               <div
                 className="grid-item"
-                key={index}
+                key={service._id}
                 onClick={() => handleServiceClick(service)}
               >
                 <div className="savedApi">
                   <h2>{service.fname}</h2>
-
                   <h5>{service.type}</h5>
                 </div>
                 <div className="detail">

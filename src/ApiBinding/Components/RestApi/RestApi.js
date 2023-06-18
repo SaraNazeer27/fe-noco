@@ -170,11 +170,15 @@ const RestApi = (props) => {
   };
 
   const handleAddWebServiceRest = (parameter) => {
+    let count = webServices.length;
+    parameter["id"] = count + 1;
     setWebServices((prevParameters) => [...prevParameters, parameter]);
     setShowWebServiceConfiguration(false);
   };
 
   const handleAuthenticationRest = (parameter) => {
+    let count = requestParametersRest.length;
+    parameter["id"] = count + 1;
     setBasicAuthentication((prevParameters) => [...prevParameters, parameter]);
     setShowAuthentication(false);
   };
@@ -187,7 +191,10 @@ const RestApi = (props) => {
     setEditData(() => editData);
     setShowWebServiceConfiguration(() => true);
   };
-
+  const closeWebService = () => {
+    setShowWebServiceConfiguration(() => false);
+  };
+  //alert(editData);
   return (
     <div>
       <div className="container_0">
@@ -348,6 +355,7 @@ const RestApi = (props) => {
         <WebServices
           onHandleAddWebService={handleAddWebServiceRest}
           webService={editData}
+          onClose={closeWebService}
         />
       )}
     </div>

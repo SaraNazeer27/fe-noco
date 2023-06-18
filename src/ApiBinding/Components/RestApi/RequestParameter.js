@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import "./RequestParameter.css";
 import WebServices from "./WebServices";
-import { useNavigate, useParams } from "react-router-dom";
 
 const RequestParameter = (props) => {
-  const params = useParams();
   const [parameterName, setParameterName] = useState(
     props.requestParameterRest ? props.requestParameterRest.parameterName : ""
   );

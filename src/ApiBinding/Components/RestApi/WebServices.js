@@ -27,8 +27,16 @@ const WebServices = (props) => {
   const [showPopupRest, setShowPopupRest] = useState(false);
   const [showRequestModalRest, setShowRequestModalRest] = useState(false);
   const [parameterTypeRest, setParameterTypeRest] = useState("");
-  const [requestParametersRest, setRequestParametersRest] = useState([]);
-  const [responseParametersRest, setResponseParametersRest] = useState([]);
+  const [requestParametersRest, setRequestParametersRest] = useState(
+    props.webService && props.webService.requestParametersRest
+      ? props.webService.requestParametersRest
+      : []
+  );
+  const [responseParametersRest, setResponseParametersRest] = useState(
+    props.webService && props.webService.responseParametersRest
+      ? props.webService.responseParametersRest
+      : []
+  );
   const [showRequestTable, setShowRequestTable] = useState(false);
   const [showResponseTable, setShowResponseTable] = useState(false);
   const [testRequestResult, setTestRequestResult] = useState("");
@@ -116,8 +124,8 @@ const WebServices = (props) => {
       });
 
       if (response.ok) {
-        alert("Data saved successfully");
-        handleCloseClickRest();
+        // alert("Data saved successfully");
+        // handleCloseClickRest();
       } else {
         console.error("Failed to save data");
       }
@@ -138,12 +146,13 @@ const WebServices = (props) => {
   };
 
   const handleAddRestParameter = (parameterType) => {
-    setParameterTypeRest(parameterType);
+    setParameterTypeRest(() => parameterType);
     setShowAddParameterRest(true);
   };
 
   const handleCloseClick = () => {
-    setShowModalRest(false);
+    setShowModalRest(() => false);
+    props.onClose();
   };
 
   const handleTestRequestClick = () => {
@@ -163,14 +172,19 @@ const WebServices = (props) => {
   };
 
   const handleRequestParameterRest = (parameter) => {
+    let count = requestParametersRest.length;
+    parameter["id"] = count + 1;
     setRequestParametersRest((prevParameters) => [
       ...prevParameters,
       parameter,
     ]);
+    console.log(requestParametersRest);
     setShowAddParameterRest(false);
   };
 
   const handleResponseParameterRest = (parameter) => {
+    let count = responseParametersRest.length;
+    parameter["id"] = count + 1;
     setResponseParametersRest((prevParameters) => [
       ...prevParameters,
       parameter,
