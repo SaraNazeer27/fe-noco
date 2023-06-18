@@ -345,12 +345,15 @@ const WebServices = (props) => {
                           <td className="requestRestData2">
                             {service.parameterType}
                           </td>
-                          <td
-                            onClick={() => {
-                              setForEdit(service);
-                            }}
-                          >
-                            Edit
+                          <td>
+                            <button
+                              className="editRequestParameter"
+                              onClick={() => {
+                                setForEdit(service);
+                              }}
+                            >
+                              Edit
+                            </button>
                           </td>
                         </tr>
                       ))}

@@ -66,36 +66,6 @@ const EventConfiguration = (props) => {
     setSelectedOptionMultiSelect(selectedValues);
   }
 
-  function handleSubmit() {
-    // // Prepare the data to be saved
-    // const eventData = {
-    //   eventColor: selectedOption,
-    //   onlyWhen: selectedOptionMultiSelect,
-    //   disableWorkflow: false, // Assuming this value comes from an input or state
-    // };
-
-    // Send the data to the server
-    fetch("/api/eventconfigure", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(eventData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Handle the server response if needed
-          console.log("Event data saved successfully!");
-        } else {
-          throw new Error("Failed to save event data");
-        }
-      })
-      .catch((error) => {
-        // Handle any errors that occurred during the request
-        console.error("Error saving event data:", error);
-      });
-  }
-
   return (
     <div className="eventConfigurationContainer">
       <button className="closeButton" onClick={handleClose}>
@@ -162,8 +132,6 @@ const EventConfiguration = (props) => {
         <label>Disable workflow:</label> &nbsp;&nbsp;&nbsp;
         <input type="checkbox" className="breakB" />
       </div>
-
-      <button onClick={handleSubmit}>OK</button>
     </div>
   );
 };

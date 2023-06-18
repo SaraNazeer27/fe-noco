@@ -307,3 +307,11 @@ hr {
   position: fixed;
   left: 120px;
 }
+
+.editRequestParameter {
+  position: fixed;
+  left: 500px;
+  top: 493px;
+  height: 18px;
+  font-size: 12px;
+}

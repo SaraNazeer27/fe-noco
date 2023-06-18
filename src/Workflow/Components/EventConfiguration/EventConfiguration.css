@@ -15,3 +15,8 @@
 .closeButton {
   float: right;
 }
+
+.ok-btn {
+  position: fixed;
+  top: 8px;
+}
