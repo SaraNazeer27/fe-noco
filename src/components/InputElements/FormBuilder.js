@@ -29,7 +29,8 @@ const InputElements = () => {
     };
     setCanvasComponents([...canvasComponents, componentWithPosition]);
   };
-
+   
+  
   const getComponentByType = (type) => {
     switch (type) {
       case "textEditor":
@@ -49,6 +50,10 @@ const InputElements = () => {
     event.dataTransfer.setData("componentType", componentType);
   };
 
+//   const prevForm = () => {
+//     const fields = this.state.orders.filter((data) => data !== null && data !== undefined);
+//     this.props.onPreview(fields);
+// }
   return (
     <>
       <Navbar />
@@ -83,7 +88,7 @@ const InputElements = () => {
             draggable="true"
             onDragStart={(event) => handleDragStart(event, "fileUpload")}
           >
-            File Upload
+            Image upload
           </div>
         </div>
         <div className="main-content">
@@ -102,6 +107,12 @@ const InputElements = () => {
                   draggable="true"
                 >
                   {component.component}
+
+                  {/* <button className="submit-button"  onClick={() => this.prevForm()}>
+                   Close
+                  </button> */}
+
+
                 </div>
               ))}
             </div>

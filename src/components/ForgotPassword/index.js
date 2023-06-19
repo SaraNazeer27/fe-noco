@@ -33,6 +33,7 @@ const ForgotPassword = () => {
         const response = await axios.post(url, { email });
         localStorage.setItem("email", email);
         setSuccessMessage(response.data.message);
+        alert(response.data.message)
       } catch (error) {
         if (
           error.response &&
@@ -66,7 +67,7 @@ const ForgotPassword = () => {
             />
 
             {error && <div className={styles.error_msg}>{error}</div>}
-            {successMessage && <div className={styles.success_msg}>{successMessage}</div>}
+            
             <button type="submit" className={styles.green_btn}>
               Submit
             </button>

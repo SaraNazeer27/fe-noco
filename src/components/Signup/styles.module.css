@@ -10,7 +10,7 @@
 
 .signup_form_container {
 	width: 500px;
-	height: 450px;
+	height: 480px;
 	display: flex;
 	
 	
@@ -57,12 +57,12 @@
 
 .error_msg {
 	width: 370px;
-	padding: 15px;
-	margin: 5px 0;
-	font-size: 14px;
+	padding: 12px;
+	margin: 6px 0;
+	font-size: 13px;
 	background-color: #f34646;
 	color: white;
-	border-radius: 5px;
+	border-radius: 6px;
 	text-align: center;
 }
 

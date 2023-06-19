@@ -54,6 +54,7 @@ const Signup = () => {
 
   const handleChange = ({ target }) => {
     setData({ ...data, [target.name]: target.value });
+    setErrors("");
   };
 
   const handleSubmit = async (e) => {

@@ -9,6 +9,7 @@ const SearchingField = () => {
   const [searchFieldSize, setSearchFieldSize] = useState(16);
   const [searchFieldColor, setSearchFieldColor] = useState("#000000");
   const [searchFieldBorderSize, setSearchFieldBorderSize] = useState(1);
+  const [searchFieldborderColor, setSearchFieldborderColor] = useState("#000000");
 
   const handleSearchFieldClick = () => {
     setShowPropertyWindow(true);
@@ -48,6 +49,10 @@ const SearchingField = () => {
     setSearchFieldColor(e.target.value);
   };
 
+  const handleborderColorChange = (e) => {
+    setSearchFieldborderColor(e.target.value);
+  }; 
+
   const handleBorderSizeChange = (e) => {
     setSearchFieldBorderSize(Number(e.target.value));
   };
@@ -61,6 +66,7 @@ const SearchingField = () => {
     fontSize: `${searchFieldSize}px`,
     color: searchFieldColor,
     borderWidth: `${searchFieldBorderSize}px`,
+    borderColor:searchFieldborderColor
   };
 
   return (
@@ -72,6 +78,7 @@ const SearchingField = () => {
           onClick={handleSearchFieldClick}
           onChange={handleInputChange}
           style={searchFieldStyle}
+          
         />
       </div>
       {showPropertyWindow && (
@@ -105,6 +112,15 @@ const SearchingField = () => {
             type="color"
             value={searchFieldColor}
             onChange={handleColorChange}
+            style={{ marginLeft: "10px" }}
+          />
+           <br />
+          <label htmlFor="colorInput">Border Color:</label>
+          <input
+            id="colorInput"
+            type="color"
+            value={searchFieldborderColor}
+            onChange={handleborderColorChange}
             style={{ marginLeft: "10px" }}
           />
           <br />

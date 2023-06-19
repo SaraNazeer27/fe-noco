@@ -13,13 +13,10 @@ const Dashboard = () => {
         <div className="template">
           <div className="content">
             <div className="content-card">
-            <i class="bi bi-plus-circle"><Link to="/TextBox"> + </Link></i>
+            <i class="bi bi-plus-circle"><Link to="/FormBuilder"> + </Link></i>
                 
             </div>
-            <div className="content-card">template1</div>
-            <div className="content-card">template 2</div>
-            <div className="content-card">template 3</div>
-            <div className="content-card">template 4</div>
+            
           </div>
         </div>
         <div className="recent">

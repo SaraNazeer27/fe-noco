@@ -51,12 +51,13 @@ const Login = () => {
         }
       }
     } else {
-      setError("Please fix the validation errors");
+      setError(validationErrors.email || validationErrors.password);
     }
   };
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
+    setError("");
   };
 
   return (
@@ -74,12 +75,12 @@ const Login = () => {
               required
               className={styles.input}
             />
-            {error && !data.email.trim() && (
+            {/* {error && !data.email.trim() && (
               <div className={styles.error_msg}>{error}</div>
             )}
             {error && data.email.trim() && (
               <div className={styles.error_msg}>{error}</div>
-            )}
+            )} */}
 
             <input
               type="password"
@@ -91,6 +92,9 @@ const Login = () => {
               className={styles.input}
             />
             {error && !data.password.trim() && (
+              <div className={styles.error_msg}>{error}</div>
+            )}
+            {error && data.password.trim() && (
               <div className={styles.error_msg}>{error}</div>
             )}
 

@@ -41,7 +41,7 @@ const ImageUpload = () => {
 
   const handleSubmit = () => {
     if (!selectedImage) {
-      setMessage('Please select an image.');
+      alert('Please select an image.');
       return;
     }
 
@@ -86,7 +86,7 @@ const ImageUpload = () => {
           }}
         >
           
-          {!selectedImage && <p>Click here to upload an File</p>}
+          {!selectedImage && <p>Click here to upload an Image</p>}
           {selectedImage && (
             <img
               src={URL.createObjectURL(selectedImage)}

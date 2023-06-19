@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/signup" exact element={<Signup />} />
         <Route path="/login" exact element={<Login />} />
-        <Route path="/" element={<Navigate replace to="/login" />} />
+        <Route path="/" element={<Navigate replace to="/signup" />} />
         <Route path="/ForgotPassword" exact element={<ForgotPassword />} />
         <Route path="/" element={<Navigate replace to="/ForgotPassword" />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />

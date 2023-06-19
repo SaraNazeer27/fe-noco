@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styles from "./styles.module.css";
+import { Link,useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -30,10 +32,12 @@ const ResetPassword = () => {
 
   const handleChangePassword = (event) => {
     setPassword(event.target.value);
+    setError("");
   };
 
   const handleChangeConfirmPassword = (event) => {
     setConfirmPassword(event.target.value);
+    setError("");
   };
 
   const handleSubmit = async (event) => {
@@ -62,6 +66,8 @@ const ResetPassword = () => {
       });
 
       console.log(response.data);
+      alert(response.data.message);
+      //navigate("/login")
 
       // Handle success
       // Redirect to success page or show success message
@@ -105,7 +111,9 @@ const ResetPassword = () => {
               required
               className={styles.input}
             />
-
+            <p>
+              click here to login? <Link to="/login">Login</Link>
+            </p>
             {error && <div className={styles.error_msg}>{error}</div>}
             <button type="submit" className={styles.green_btn}>
               Reset Password
