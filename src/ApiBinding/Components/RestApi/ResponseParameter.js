@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./ResponseParameter.css";
 
 function ResponseParameter(props) {
-  console.log(props.responseParametersRest);
   const [responseParameterName, setResponseParameterName] = useState(
     props.responseParametersRest
       ? props.responseParametersRest.responseParameterName
@@ -29,6 +28,13 @@ function ResponseParameter(props) {
     responseParameterType,
     responseElementPath,
     dataTypeResponse,
+  };
+
+  const setData = (data) => {
+    setResponseParameterName(data.responseParameterName);
+    setResponseParameterType(data.responseParameterType);
+    setResponseElementPath(data.responseElementPath);
+    setDataTypeResponse(data.dataTypeResponse);
   };
 
   const resetState = () => {

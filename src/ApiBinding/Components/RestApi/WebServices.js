@@ -5,7 +5,6 @@ import ResponseParameter from "../RestApi/ResponseParameter";
 import { useNavigate, useParams } from "react-router-dom";
 
 const WebServices = (props) => {
-  debugger;
   const navigate = useNavigate();
   const params = useParams();
   const [selectedOptionRestType, setSelectedOptionRestType] = useState("GET");
@@ -130,8 +129,6 @@ const WebServices = (props) => {
       });
 
       if (response.ok) {
-        // alert("Data saved successfully");
-        // handleCloseClickRest();
       } else {
         console.error("Failed to save data");
       }
@@ -179,7 +176,6 @@ const WebServices = (props) => {
   };
 
   const handleRequestParameterRest = (parameter) => {
-    debugger;
     const count = requestParametersRest.length;
     if (parameter["id"] == 0) {
       parameter["id"] = count + 1;
@@ -222,8 +218,6 @@ const WebServices = (props) => {
   };
 
   const setForEdit = (editData) => {
-    debugger;
-
     setEditData(() => editData);
     setParameterTypeRest(() =>
       showRequestContentRest ? "request" : "response"
@@ -371,7 +365,7 @@ const WebServices = (props) => {
 
             <div>
               {showRequestContentRest && (
-                <div className="savedRequestRestParameters">
+                <div>
                   <table>
                     <thead>
                       <tr>

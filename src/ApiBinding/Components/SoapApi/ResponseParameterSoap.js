@@ -38,6 +38,13 @@ function ResponseParameterSoap(props) {
     setShowResponseModalSoap(true);
   };
 
+  const setData = (data) => {
+    setResponseParameterName(data.responseParameterName);
+    setResponseParameterType(data.responseParameterType);
+    setResponseElementPath(data.responseElementPath);
+    setDataTypeResponse(data.dataTypeResponse);
+  };
+
   const handleChange = (event) => {
     setResponseParameterType(event.target.value);
   };

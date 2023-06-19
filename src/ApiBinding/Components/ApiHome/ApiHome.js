@@ -7,11 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 const ApiHome = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [savedApi, setSavedApi] = useState([]);
   const menuItems = [
     { label: "Rest Service", value: "REST" },
     { label: "Soap Service", value: "SOAP" },
   ];
-  const [savedApi, setSavedApi] = useState([]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -78,7 +78,7 @@ const ApiHome = () => {
                 onClick={() => handleServiceClick(service)}
               >
                 <div className="savedApi">
-                  <h2>{service.fname}</h2>
+                  <h3>{service.fname}</h3>
                   <h5>{service.type}</h5>
                 </div>
                 <div className="detail">

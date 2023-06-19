@@ -3,7 +3,6 @@ import "./RequestParameter.css";
 import WebServices from "./WebServices";
 
 const RequestParameter = (props) => {
-  console.log(props.requestParametersRest);
   const [id, setId] = useState(
     props.requestParametersRest && props.requestParametersRest.id
       ? props.requestParametersRest.id
@@ -26,6 +25,11 @@ const RequestParameter = (props) => {
     id,
     parameterName,
     parameterType,
+  };
+
+  const setData = (data) => {
+    setParameterName(data.parameterName);
+    setParameterType(data.parameterType);
   };
 
   const resetState = () => {

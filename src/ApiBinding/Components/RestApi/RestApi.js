@@ -170,7 +170,6 @@ const RestApi = (props) => {
   };
 
   const handleAddWebServiceRest = (parameter) => {
-    debugger;
     const count = webServices.length;
     if (parameter["id"] == 0) {
       parameter["id"] = count + 1;
@@ -189,8 +188,6 @@ const RestApi = (props) => {
   };
 
   const handleAuthenticationRest = (parameter) => {
-    // let count = requestParametersRest.length;
-    // parameter["id"] = count + 1;
     setBasicAuthentication((prevParameters) => [...prevParameters, parameter]);
     setShowAuthentication(false);
   };
@@ -207,7 +204,7 @@ const RestApi = (props) => {
     setEditData(() => {});
     setShowWebServiceConfiguration(() => false);
   };
-  //alert(editData);
+
   return (
     <div>
       <div className="container_0">

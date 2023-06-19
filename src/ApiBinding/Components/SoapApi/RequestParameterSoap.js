@@ -30,6 +30,13 @@ function RequestParameterSoap(props) {
     id,
   };
 
+  const setData = (data) => {
+    setParameterName(data.parameterName);
+    setParameterType(data.parameterType);
+    setElementPath(data.elementPath);
+    setDataType(data.dataType);
+  };
+
   const resetState = () => {
     setParameterName("");
     setDataType("");

@@ -150,6 +150,7 @@ const WebServicesSoap = (props) => {
   };
 
   const handleAddRestParameter = (parameterType) => {
+    setEditData(() => null);
     setParameterTypeSoap(() => parameterType);
     setShowAddParameterSoap(true);
   };
@@ -382,7 +383,7 @@ const WebServicesSoap = (props) => {
 
           <div>
             {showResponseContentSoap && (
-              <div>
+              <div className="savedRequestRestParameters">
                 <table>
                   <thead>
                     <tr>
@@ -391,7 +392,7 @@ const WebServicesSoap = (props) => {
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tr>
+                  <tbody>
                     {responseParametersSoap.map((service, index) => (
                       <tr key={service.id}>
                         <td>{service.responseParameterName}</td>
@@ -407,7 +408,7 @@ const WebServicesSoap = (props) => {
                         </td>
                       </tr>
                     ))}
-                  </tr>
+                  </tbody>
                 </table>
               </div>
             )}
